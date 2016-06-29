@@ -1,0 +1,5 @@
+Many formats
+https://github.com/zxing/zxing
+
+Flexible file
+http://zbar.sourceforge.net
