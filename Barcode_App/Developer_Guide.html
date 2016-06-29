@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<head>
+<title>.NET Barcode Reader Guide & Tutorial</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Language" content="en-us">
+<link href="files/main3.css" rel="stylesheet" type="text/css">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+
+<script>
+startList = function() {
+// Required update: if the page has no primary nav, don't do anything, don't give an error.
+if (document.all&&document.getElementById) {
+navRoot = document.getElementById("primarynav");
+if (navRoot) {
+for (i=0; i<navRoot.childNodes.length; i++) {
+node = navRoot.childNodes[i];
+if (node.nodeName=="LI") {
+node.onmouseover=function() {
+this.className+=" over";
+}
+node.onmouseout=function() {
+this.className=this.className.replace(" over", "");
+}
+} } } } }
+</script>
+
+</head>
+<body>
+
+<div class="pHeaderWrap" id="pagetop">
+<div class="pHeaderInnerWrap">
+<div class="pHeaderLWrap">
+<a href="http://www.onbarcode.com/" title="Barcode Generator & Reader SDK - OnBarcode">
+<img title="Barcode Generator & Reader SDK - OnBarcode" alt="Barcode Generator & Reader SDK - OnBarcode" src="files/logo2.jpg" width=424 height=63 border="0">
+</a>
+</div>
+</div>
+</div>
+
+
+<div  class="pHMenuWrap" id="primary-nav">
+<div class="pHMenuInnerWrap">
+<ul id="primarynav" class=l1>
+<li style="width: 220px;"><a href="http://www.onbarcode.com/" rel="nofollow">OnBarcode Home</a></li>
+<li style="width: 250px;"><a href="http://www.onbarcode.com/products/net_barcode_reader/">About .NET Barcode Reader</a></li>
+<li style="width: 230px;"><a href="http://www.onbarcode.com/purchase/purchase-net-barcode-reader.html" title="Purchase .NET Barcode Reader License" rel="nofollow">Purchase</a></li>
+<li style="width: 230px;"><a href="http://www.onbarcode.com/company/" title="OnBarcode" rel="nofollow">Company</a></li>
+</ul>
+</div>
+</div>
+
+
+
+<div class=pBodyWrap>
+<div class=pBodyInnerWrap>
+<div style="height:213px;padding-left:8px;">
+<div class="banner_left"><img src="files/banner.gif"></div>
+<div class="banner_right">
+
+<a href="http://www.onbarcode.com/purchase/purchase-net-barcode-reader.html" title="Purchase .NET Barcode Reader License Online" rel="nofollow"><img class="hBtn" src="files/btn_purchase.gif" border="0"></a>
+<a href="http://www.onbarcode.com/support/" title="Sales & technical supports from OnBarcode" rel="nofollow"><img class="hBtn" src="files/btn_support.gif" border="0"></a>
+</div>
+</div>
+<div style="height:13px;padding-left:8px;"><img src="files/banner_shadow.png"></div>
+
+
+<div class="ob_dp_arttitle">
+	.NET Barcode Reader Guide & Tutorial
+</div> 
+<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;This document explains how to use <a href="http://www.onbarcode.com/products/net_barcode_reader/" title=".NET Barcode Reader">.NET Barcode Reader</a> to scan and read barcodes in image files. 
+<br/><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;With an easy-to-use design purpose, our software doesn't need any activation code or registrion code. And ONBARCODE grants to you to use this evaluation package,<br/>&nbsp;&nbsp;&nbsp;&nbsp; on one computer, for Evaluation purposes only within 30 days. <font style="color:red; font-size:13px;">For trial version only, we will randomly print <b>the First character</b> in the output barcode data</font>. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;Once you ordered any license of the product, we will email you <b>OnBarcode.BarcodeReader.Dotnet.zip</b> production version as soon as possible.
+
+
+
+<div class="ob_dp_quickjump">
+	<div class="ob_dp_quickjump_btn">
+		<div class="ob_quickjump_install"></div><a href="#s1">Installation</a>
+	</div>
+	<div class="ob_dp_quickjump_btn">
+		<div class="ob_quickjump_start"></div><a href="#s2">How to Start</a>
+	</div>
+	<div class="ob_dp_quickjump_btn">
+		<div class="ob_quickjump_property"></div><a href="#s3">Supported Barcodes</a>
+	</div>
+	<div class="ob_quickjump_shadow"></div>
+</div>
+
+
+<div class="ob_dp_subTitleCon" id="s1">
+Installation
+<a href="#pagetop"><div class="ob_top"><img src="top.jpg" width="8" height="6" border="0" alt="">Top</div></a>
+</div>
+        	
+	<ol class="prodlist" style="padding-left:4px;">
+					<li>Firstly, please make sure you have installed <a href="http://www.microsoft.com/net/">Microsoft .NET Framework</a> Version 2.0 or later version.<br/>
+					
+					<li>Add <b>OnBarcode.Barcode.BarcodeScanner.dll</b> into your .NET project reference.<br/><br/></li>
+	</ol>
+
+<div class="ob_dp_subTitleCon" id="s1">
+Run Demo Application
+<a href="#pagetop"><div class="ob_top"><img src="top.jpg" width="8" height="6" border="0" alt="">Top</div></a>
+</div>
+        	
+	<ol class="prodlist" style="padding-left:4px;">
+					<li>Click <b>BarcodeLabelsScanner.exe</b> to run .NET Barcode Reader demo application. Application BarcodeLabelsScanner.exe is based on .NET Barcode Reader.<br/>
+					You can try it to scan a barcode image to evaluate our .NET Barcode Reader SDK.<br/><br/></li>
+	</ol>	
+
+<div class="ob_dp_subTitleCon" id="s2">
+How to Scan and Read Barcode Images in your .NET Project?
+<a href="#pagetop"><div class="ob_top"><img src="top.jpg" width="8" height="6" border="0" alt="">Top</div></a>
+</div>
+
+
+<h3 class="subTitle" style="padding-left:20px;">1. Scan barcodes from the image documents</h3>
+
+<p class="subTC" style="padding-left:33px;">
+Read barcodes from image is a simple task with barcode reader for .net control. Here is the sample demo code in C# and VB.NET to scan barcodes from image files.
+</p>
+<p class="subTC" style="padding-left:56px;">C# Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">String</span>[] barcodes = BarcodeScanner.Scan(<span class="str">"code39image.gif"</span>, BarcodeType.Code39);
+</pre>
+<p class="subTC" style="padding-left:56px;">VB.NET Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">Dim</span> barcodes() As string = BarcodeScanner.Scan(<span class="str">"code39image.gif"</span>, BarcodeType.Code39)
+</pre>
+<p class="subTC" style="padding-left:33px;">
+Pass your barcode image file, and barcode type to BarcodeScanner.Scan method, and it will scan the image and return all barcodes found.<br/><br/>
+</p>
+
+<h3 class="subTitle" style="padding-left:20px;">2. Scan barcodes from .NET image object</h3>
+
+<p class="subTC" style="padding-left:33px;">
+To scan barcodes from System.Drawing.Bitmap object (C#) or Dim bmp As System.Drawing.Bitmap (VB.NET).
+</p>
+<p class="subTC" style="padding-left:56px;">C# Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	System.Drawing.Bitmap objImage = ...
+	<span class="kwrd">String</span>[] barcodes = BarcodeScanner.Scan(objImage, BarcodeType.Code39);
+</pre>
+<p class="subTC" style="padding-left:56px;">VB.NET Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">Dim</span> bmp As System.Drawing.Bitmap = ...
+	<span class="kwrd">Dim</span> barcodes() As string = BarcodeScanner.Scan(bmp, BarcodeType.Code39)
+</pre><br/>
+<h3 class="subTitle" style="padding-left:20px;">3. Scan barcodes from the defined area within the image</h3>
+
+<p class="subTC" style="padding-left:33px;">
+To scan barcodes from defined area in the image document. The following C# and VB.NET demo codes will scan
+user defined area (left top point is [0, 0], right bottom <br/>point is [200, 300]) from the image document.
+</p>
+<p class="subTC" style="padding-left:56px;">C# Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	List&lt;SRegion&gt; areas = <span class="kwrd">new</span> List&lt;SRegion&gt;();
+	SRegion area = <span class="kwrd">new</span> SRegion(0, 0, 50, 60);
+	areas.Add(area);
+	<span class="kwrd">String</span>[] barcodes = BarcodeScanner.ScanRegions(<span class="str">"code39image.gif"</span>, BarcodeType.Code39, areas);
+</pre>		
+<p class="subTC" style="padding-left:56px;">VB.NET Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">Dim</span> areas <span class="kwrd">As New</span> List(<span class="kwrd">Of</span> SRegion)()
+	<span class="kwrd">Dim</span> area <span class="kwrd">As New</span> SRegion(0, 0, 200, 300)
+	areas.Add(area) 
+	<span class="kwrd">Dim</span> barcodes As [String]() = BarcodeScanner.ScanRegions(<span class="str">"code39image.gif"</span>, BarcodeType.Code39, areas);
+</pre><br/>
+
+<h3 class="subTitle" style="padding-left:20px;">4. Scan maximum 1 barcode from the image</h3>
+
+<p class="subTC" style="padding-left:33px;">
+If there is maximum one barcode in the image file, to improve the reading speed, you can use the following method to scan the barcode.
+</p>
+<p class="subTC" style="padding-left:56px;">C# Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">String</span>[] barcodes = BarcodeScanner.ScanSingleBarcode(<span class="str">"code39image.gif"</span>, BarcodeType.Code39);
+</pre>
+<p class="subTC" style="padding-left:56px;">VB.NET Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">Dim</span> barcodes As [String]() = BarcodeScanner.ScanSingleBarcode(<span class="str">"code39image.gif"</span>, BarcodeType.Code39)
+</pre><br/>
+
+<h3 class="subTitle" style="padding-left:20px;">5. Scan and get more information about the barcode</h3>
+
+<p class="subTC" style="padding-left:33px;">
+Besides barcode data, if you also need barcode location and barcode rotation information, you can call "ScanInDetails" method.
+</p>
+<p class="subTC" style="padding-left:56px;">C# Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	BarcodeDetail[] barcodeDetails = BarcodeScanner.ScanInDetails(<span class="str">"code39image.gif"</span>, BarcodeType.Code39);
+</pre>
+<p class="subTC" style="padding-left:56px;">VB.NET Demo Code:</p>
+<pre class="csharpcode" style="padding-left:30px;">
+	<span class="kwrd">Dim</span> barcodeDetails As BarcodeDetail() = BarcodeScanner.ScanInDetails(<span class="str">"code39image.gif"</span>, BarcodeType.Code39)<br/>
+</pre>
+
+
+<div class="ob_dp_subTitleCon" id="s3">
+Barcode Types Supported By .NET Barcode Reader
+<a href="#pagetop"><div class="ob_top"><img src="top.jpg" width="8" height="6" border="0" alt="">Top</div></a>
+</div>
+<pre class="csharpcode" style="padding-left:33px;">
+<span class="kwrd">public</span> <span class="kwrd">enum</span> BarcodeType
+{
+    AustraliaPost = 0,                 EAN8 = 7,                          ITF14 = 14,                    RM4SCC = 21,    
+    Codabar = 1,                       EAN13 = 8,                         Leitcode = 15,                 UPCA = 22,   
+    Code39 = 2,                        Identcode = 9,                     PatchCode = 16,                UPCE = 23,    
+    Code39Extension = 3,               IntelligentMail = 10,              PDF417 = 17,                   All = 999   
+    Code93 = 4,                        Interleaved2of5 = 11,              Planet = 18,                   
+    Code128 = 5,                       ISBN = 12,                         Postnet = 19,
+    DataMatrix = 6,                    ISSN = 13,                         QRCode = 20,
+                                                   
+}</pre>
+
+<br/><br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+<div class="pFooterWrap siteDirBottom" style="height:310px;">
+<div class=pFooterInnerWrap>
+<div class=pFooterContWrap id="siteDirCont">
+<div class=siteDir style="width:250px;">
+<ul>
+<li>Barcode SDK Guide
+<li><a href="http://www.onbarcode.com/tutorial/net-barcode-generation.html" title="Generate barcodes in .NET">Generate barcode in .NET</a></li>
+<li><a href="http://www.onbarcode.com/tutorial/asp-net-barcode-generation.html" title="Generate barcode in ASP.NET">Generate barcode in ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/tutorial/csharp-barcode-generation.html" title="Generate barcode in C#.NET">Generate barcode in C#</a></li>
+<li><a href="http://www.onbarcode.com/tutorial/java-barcode-generation.html" title="Generate barcode in Java">Generate barcode in Java</a></li>
+<li><a href="http://www.onbarcode.com/tutorial/vb-net-barcode-generation.html" title="Generate barcode in VB.NET">Generate barcode in VB.NET</a></li>
+<br/><br/>
+<li>Barcode Data Matrix
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/data_matrix.html" title="Generate Data Matrix .NET">Data Matrix for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/data-matrix-generator.html" title="Generate Data Matrix ASP.NET">Data Matrix for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/data-matrix-generator.html" title="Generate Data Matrix C#">Data Matrix for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/data_matrix.html" title="Generate Data Matrix Excel">Data Matrix for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/data_matrix.html" title="Generate Data Matrix Java">Data Matrix for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/data-matrix-generator.html" title="Generate Data Matrix VB.NET">Data Matrix for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/data_matrix.html" title="Generate Data Matrix Word">Data Matrix for Word</a></li>
+</ul>
+</div>
+<div class=siteDir style="width:200px;">
+<ul>
+<li>Barcode QR-Code
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/qrcode.html" title="Generate QR Code .NET">QR Code for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/qr-code-generator.html" title="Generate QR Code ASP.NET">QR Code for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/qr-code-generator.html" title="Generate QR Code C#">QR Code for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/qrcode.html" title="Generate QR Code Excel">QR Code for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/qrcode.html" title="Generate QR Code Java">QR Code for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/qr-code-generator.html" title="Generate QR Code VB.NET">QR Code for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/qrcode.html" title="Generate QR Code Word">QR Code for Word</a></li>
+<br/><br/>
+<li>Barcode PDF-417
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/pdf417.html" title="Generate PDF-417 .NET">PDF-417 for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/pdf-417-generator.html" title="Generate PDF-417 ASP.NET">PDF-417 for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/pdf-417-generator.html" title="Generate PDF-417 C#">PDF-417 for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/pdf417.html" title="Generate PDF-417 Excel">PDF-417 for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/pdf417.html" title="Generate PDF-417 Java">PDF-417 for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/pdf-417-generator.html" title="Generate PDF-417 VB.NET">PDF-417 for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/pdf417.html" title="Generate PDF-417 Word">PDF-417 for Word</a></li>
+</ul>
+</div>
+<div class=siteDir style="width:200px;">
+<ul>
+<li>Barcode Code 128
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/code_128.html" title="Generate Code 128 .NET">Code 128 for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/code-128-generator.html" title="Generate Code 128 ASP.NET">Code 128 for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/code-128-generator.html" title="Generate Code 128 C#">Code 128 for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/code_128.html" title="Generate Code 128 Excel">Code 128 for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/code_128.html" title="Generate Code 128 Java">Code 128 for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/code-128-generator.html" title="Generate Code 128 VB.NET">Code 128 for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/code_128.html" title="Generate Code 128 Word">Code 128 for Word</a></li>
+<br/><br/>
+<li>Barcode Code 39
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/code_39.html" title="Generate Code 39 .NET">Code 39 for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/code-39-generator.html" title="Generate Code 39 ASP.NET">Code 39 for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/code-39-generator.html" title="Generate Code 39 C#">Code 39 for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/code_39.html" title="Generate Code 39 Excel">Code 39 for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/code_39.html" title="Generate Code 39 Java">Code 39 for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/code-39-generator.html" title="Generate Code 39 VB.NET">Code 39 for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/code_39.html" title="Generate Code 39 Word">Code 39 for Word</a></li>
+</ul>
+</div>
+<div class=siteDir style="width:200px;">
+<ul>
+<li>Barcode EAN
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/ean13.html" title="Generate EAN .NET">EAN for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/ean-13-generator.html" title="Generate EAN ASP.NET">EAN for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/ean-13-generator.html" title="Generate EAN C#">EAN for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/ean13.html" title="Generate EAN Excel">EAN for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/ean13.html" title="Generate EAN Java">EAN for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/ean-13-generator.html" title="Generate EAN VB.NET">EAN for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/ean13.html" title="Generate EAN Word">EAN for Word</a></li>
+<br/><br/>
+<li>Barcode UPC
+<li><a href="http://www.onbarcode.com/products/net_barcode/barcodes/upca.html" title="Generate UPC .NET">UPC for .NET</a></li>
+<li><a href="http://www.onbarcode.com/asp_net/upc-a-generator.html" title="Generate UPC ASP.NET">UPC for ASP.NET</a></li>
+<li><a href="http://www.onbarcode.com/csharp/upc-a-generator.html" title="Generate UPC C#">UPC for C#</a></li>
+<li><a href="http://www.onbarcode.com/excel_barcode/upca.html" title="Generate UPC Excel">UPC for Excel</a></li>
+<li><a href="http://www.onbarcode.com/products/java_barcode/barcodes/upca.html" title="Generate UPC Java">UPC for Java</a></li>
+<li><a href="http://www.onbarcode.com/vb_net/upc-a-generator.html" title="Generate UPC VB.NET">UPC for VB.NET</a></li>
+<li><a href="http://www.onbarcode.com/word_barcode/upca.html" title="Generate UPC Word">UPC for Word</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="pFooterWrap corpInfo">
+<div class=pFooterInnerWrap>
+<div class=pFooterContWrap>
+OnBarcode is a market-leading provider of barcode generator, reader controls and components for ASP.NET, Windows Forms, WPF,
+as well Java, Android, iOS (iPhone, iPad) across all major enterprise development platforms.
+We provides high quality tutorials and guides for various linear, 2d barcode information, such as
+C# Barcode,
+QR Code C#,
+QR Code VB.NET,
+QR Code ASP.NET,
+QR Code .NET.
+Combined with its major
+<a href="http://www.onbarcode.com/info/datamatrix-create-imaging-doc.html">reporting barcode tools</a> as well as its Microsoft Office (Excel & Word) barcode add-on, barcode fonts,
+OnBarcode offers comprehensive
+<a href="http://www.onbarcode.com/info/qrcode-print-imaging-doc.html">barcode solution</a> for building business applications.
+OnBarcode products help thousands of companies be more productive and deliver
+<a href="http://www.onbarcode.com/info/barcode-generate-imaging-quality.html">high quality bar code automation products</a> under budget and on time.
+</div>
+</div>
+</div>
+<div class="pFooterWrap companyTerm">
+<div class=pFooterInnerWrap>
+<div class=pFooterContWrap>
+<a href="http://www.onbarcode.com/terms/terms-of-use.html" rel="nofollow">Terms of Use</a> |
+<a href="http://www.onbarcode.com/terms/privacy-policy.html" rel="nofollow">Privacy Policy</a>
+<br/>
+Copyright &copy; OnBarcode.com  <script type="text/javascript">
+document.write(new Date().getFullYear());
+</script>. All rights reserved.
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
