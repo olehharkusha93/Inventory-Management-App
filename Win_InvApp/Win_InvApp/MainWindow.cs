@@ -13,6 +13,7 @@ namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
+        
         List<Item> incItems;
         List<Item> dbsItems;
         DataTable incDT;
@@ -33,6 +34,7 @@ namespace Win_InvApp
                 incDT.Columns.Add(s, typeof(String));
                 dbsDT.Columns.Add(s, typeof(String));
             }
+            incDT.Columns.Add("_incAddRmv", typeof(String));
 
 
             incItems = new List<Item>();
@@ -86,6 +88,11 @@ namespace Win_InvApp
 
         private void btnRemoveNew_Click(object sender, EventArgs e)
         {
+            IncRemove();
+        }
+
+        private void IncRemove()
+        {
             List<int> delete = GetIncChecked();
             for (int i = delete.Count - 1; i >= 0; i--)
             {
@@ -115,6 +122,7 @@ namespace Win_InvApp
             foreach(int i in move)
                 dbsItems.Add(incItems[i]);
 
+            IncRemove();
             PopulateTable();
 
         }
