@@ -37,6 +37,7 @@ namespace Win_InvApp
             Added = DateTime.Now;
         }
 
+#pragma warning disable 0162
         public String this[int index]
         {
             get
@@ -61,6 +62,11 @@ namespace Win_InvApp
                 }
             }
         }
+#pragma warning restore 0162
 
+        public string GetCSV()
+        {
+            return ID + ',' + Name + ',' + Type + ',' + Added.ToString("MMMM-dd-yyyy H:mm:ss0");
+        }
     }
 }
