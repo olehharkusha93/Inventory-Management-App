@@ -222,6 +222,7 @@
             this.btnRemoveNew.TabIndex = 1;
             this.btnRemoveNew.Text = "<- Remove";
             this.btnRemoveNew.UseVisualStyleBackColor = true;
+            this.btnRemoveNew.Click += new System.EventHandler(this.btnRemoveNew_Click);
             // 
             // btnAddDatabase
             // 
@@ -251,7 +252,6 @@
             this.dgvIncomming.ShowRowErrors = false;
             this.dgvIncomming.Size = new System.Drawing.Size(451, 889);
             this.dgvIncomming.TabIndex = 1;
-            this.dgvIncomming.DataSourceChanged += new System.EventHandler(this.dgvIncomming_DataSourceChanged);
             // 
             // _queuechecked
             // 

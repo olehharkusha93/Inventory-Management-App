@@ -79,9 +79,23 @@ namespace Win_InvApp
             AddItem();
         }
 
-        private void dgvIncomming_DataSourceChanged(object sender, EventArgs e)
+        private void btnRemoveNew_Click(object sender, EventArgs e)
         {
+            List<int> delete = new List<int>();
+            foreach (DataGridViewRow r in dgvIncomming.Rows)
+            {
+                if (true == (bool)r.Cells[0].FormattedValue)
+                {
+                    delete.Add(r.Index);
+                }
+            }
 
+            for(int i = delete.Count - 1; i >= 0; i--)
+            {
+                items.RemoveAt(delete[i]);
+                incDT.Rows[delete[i]].Delete();
+                incDT.AcceptChanges();
+            }
         }
     }
 }
