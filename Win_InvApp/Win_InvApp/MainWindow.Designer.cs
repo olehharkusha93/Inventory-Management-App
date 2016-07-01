@@ -32,31 +32,32 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dgvDatabase = new System.Windows.Forms.DataGridView();
+            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.dgvIncomming = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnAddDatabase = new System.Windows.Forms.Button();
-            this.btnRemoveNew = new System.Windows.Forms.Button();
-            this.btnAddNew = new System.Windows.Forms.Button();
             this.btnRemoveDatabase = new System.Windows.Forms.Button();
-            this._checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._added = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAddNew = new System.Windows.Forms.Button();
+            this.btnRemoveNew = new System.Windows.Forms.Button();
+            this.btnAddDatabase = new System.Windows.Forms.Button();
+            this.dgvIncomming = new System.Windows.Forms.DataGridView();
+            this._queuechecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._queueid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -90,7 +91,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 233F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dgvDatabase, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.dgvIncomming, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,6 +101,49 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1147, 895);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // dgvDatabase
+            // 
+            this.dgvDatabase.CausesValidation = false;
+            this.dgvDatabase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDatabase.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._dbchecked,
+            this._dbid,
+            this._dbname,
+            this._dbtype,
+            this._dbadded});
+            this.dgvDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDatabase.GridColor = System.Drawing.SystemColors.Control;
+            this.dgvDatabase.Location = new System.Drawing.Point(693, 3);
+            this.dgvDatabase.Name = "dgvDatabase";
+            this.dgvDatabase.Size = new System.Drawing.Size(451, 889);
+            this.dgvDatabase.TabIndex = 2;
+            // 
+            // _dbchecked
+            // 
+            this._dbchecked.HeaderText = "Ready";
+            this._dbchecked.Name = "_dbchecked";
+            // 
+            // _dbid
+            // 
+            this._dbid.HeaderText = "ID";
+            this._dbid.Name = "_dbid";
+            this._dbid.Width = 50;
+            // 
+            // _dbname
+            // 
+            this._dbname.HeaderText = "Name";
+            this._dbname.Name = "_dbname";
+            // 
+            // _dbtype
+            // 
+            this._dbtype.HeaderText = "Type";
+            this._dbtype.Name = "_dbtype";
+            // 
+            // _dbadded
+            // 
+            this._dbadded.HeaderText = "Date Added";
+            this._dbadded.Name = "_dbadded";
             // 
             // tableLayoutPanel2
             // 
@@ -139,63 +183,6 @@
             this.lblSearch.TabIndex = 1;
             this.lblSearch.Text = "Search";
             // 
-            // dgvIncomming
-            // 
-            this.dgvIncomming.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvIncomming.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._checked,
-            this._id,
-            this._name,
-            this._type,
-            this._added});
-            this.dgvIncomming.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvIncomming.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvIncomming.Location = new System.Drawing.Point(3, 3);
-            this.dgvIncomming.Name = "dgvIncomming";
-            this.dgvIncomming.ShowCellErrors = false;
-            this.dgvIncomming.ShowCellToolTips = false;
-            this.dgvIncomming.ShowEditingIcon = false;
-            this.dgvIncomming.ShowRowErrors = false;
-            this.dgvIncomming.Size = new System.Drawing.Size(451, 889);
-            this.dgvIncomming.TabIndex = 1;
-            this.dgvIncomming.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvIncomming_CellValueNeeded);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(693, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(451, 889);
-            this.dataGridView1.TabIndex = 2;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Date Added";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.btnRemoveDatabase);
@@ -208,23 +195,14 @@
             this.panel1.Size = new System.Drawing.Size(221, 418);
             this.panel1.TabIndex = 2;
             // 
-            // btnAddDatabase
+            // btnRemoveDatabase
             // 
-            this.btnAddDatabase.Location = new System.Drawing.Point(69, 16);
-            this.btnAddDatabase.Name = "btnAddDatabase";
-            this.btnAddDatabase.Size = new System.Drawing.Size(81, 23);
-            this.btnAddDatabase.TabIndex = 0;
-            this.btnAddDatabase.Text = "Add ->";
-            this.btnAddDatabase.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveNew
-            // 
-            this.btnRemoveNew.Location = new System.Drawing.Point(69, 103);
-            this.btnRemoveNew.Name = "btnRemoveNew";
-            this.btnRemoveNew.Size = new System.Drawing.Size(81, 23);
-            this.btnRemoveNew.TabIndex = 1;
-            this.btnRemoveNew.Text = "<- Remove";
-            this.btnRemoveNew.UseVisualStyleBackColor = true;
+            this.btnRemoveDatabase.Location = new System.Drawing.Point(69, 45);
+            this.btnRemoveDatabase.Name = "btnRemoveDatabase";
+            this.btnRemoveDatabase.Size = new System.Drawing.Size(81, 23);
+            this.btnRemoveDatabase.TabIndex = 3;
+            this.btnRemoveDatabase.Text = "Remove ->";
+            this.btnRemoveDatabase.UseVisualStyleBackColor = true;
             // 
             // btnAddNew
             // 
@@ -236,42 +214,76 @@
             this.btnAddNew.UseVisualStyleBackColor = true;
             this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
-            // btnRemoveDatabase
+            // btnRemoveNew
             // 
-            this.btnRemoveDatabase.Location = new System.Drawing.Point(69, 45);
-            this.btnRemoveDatabase.Name = "btnRemoveDatabase";
-            this.btnRemoveDatabase.Size = new System.Drawing.Size(81, 23);
-            this.btnRemoveDatabase.TabIndex = 3;
-            this.btnRemoveDatabase.Text = "Remove ->";
-            this.btnRemoveDatabase.UseVisualStyleBackColor = true;
+            this.btnRemoveNew.Location = new System.Drawing.Point(69, 103);
+            this.btnRemoveNew.Name = "btnRemoveNew";
+            this.btnRemoveNew.Size = new System.Drawing.Size(81, 23);
+            this.btnRemoveNew.TabIndex = 1;
+            this.btnRemoveNew.Text = "<- Remove";
+            this.btnRemoveNew.UseVisualStyleBackColor = true;
             // 
-            // _checked
+            // btnAddDatabase
             // 
-            this._checked.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this._checked.HeaderText = "Ready";
-            this._checked.Name = "_checked";
-            this._checked.Width = 44;
+            this.btnAddDatabase.Location = new System.Drawing.Point(69, 16);
+            this.btnAddDatabase.Name = "btnAddDatabase";
+            this.btnAddDatabase.Size = new System.Drawing.Size(81, 23);
+            this.btnAddDatabase.TabIndex = 0;
+            this.btnAddDatabase.Text = "Add ->";
+            this.btnAddDatabase.UseVisualStyleBackColor = true;
             // 
-            // _id
+            // dgvIncomming
             // 
-            this._id.HeaderText = "ID";
-            this._id.Name = "_id";
-            this._id.Width = 50;
+            this.dgvIncomming.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIncomming.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._queuechecked,
+            this._queueid,
+            this._queuename,
+            this._queuetype,
+            this._queueadded});
+            this.dgvIncomming.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvIncomming.GridColor = System.Drawing.SystemColors.Control;
+            this.dgvIncomming.Location = new System.Drawing.Point(3, 3);
+            this.dgvIncomming.Name = "dgvIncomming";
+            this.dgvIncomming.ShowCellErrors = false;
+            this.dgvIncomming.ShowCellToolTips = false;
+            this.dgvIncomming.ShowEditingIcon = false;
+            this.dgvIncomming.ShowRowErrors = false;
+            this.dgvIncomming.Size = new System.Drawing.Size(451, 889);
+            this.dgvIncomming.TabIndex = 1;
+            this.dgvIncomming.DataSourceChanged += new System.EventHandler(this.dgvIncomming_DataSourceChanged);
             // 
-            // _name
+            // _queuechecked
             // 
-            this._name.HeaderText = "Name";
-            this._name.Name = "_name";
+            this._queuechecked.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this._queuechecked.HeaderText = "Ready";
+            this._queuechecked.Name = "_queuechecked";
+            this._queuechecked.Width = 44;
             // 
-            // _type
+            // _queueid
             // 
-            this._type.HeaderText = "Type";
-            this._type.Name = "_type";
+            this._queueid.DataPropertyName = "_incId";
+            this._queueid.HeaderText = "ID";
+            this._queueid.Name = "_queueid";
+            this._queueid.Width = 50;
             // 
-            // _added
+            // _queuename
             // 
-            this._added.HeaderText = "Date Added";
-            this._added.Name = "_added";
+            this._queuename.DataPropertyName = "_incName";
+            this._queuename.HeaderText = "Name";
+            this._queuename.Name = "_queuename";
+            // 
+            // _queuetype
+            // 
+            this._queuetype.DataPropertyName = "_incType";
+            this._queuetype.HeaderText = "Type";
+            this._queuetype.Name = "_queuetype";
+            // 
+            // _queueadded
+            // 
+            this._queueadded.DataPropertyName = "_incAdded";
+            this._queueadded.HeaderText = "Date Added";
+            this._queueadded.Name = "_queueadded";
             // 
             // MainWindow
             // 
@@ -286,11 +298,11 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -306,21 +318,22 @@
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.DataGridView dgvIncomming;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridView dgvDatabase;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnRemoveDatabase;
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.Button btnRemoveNew;
         private System.Windows.Forms.Button btnAddDatabase;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _checked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _added;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queueid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
     }
 }
 
