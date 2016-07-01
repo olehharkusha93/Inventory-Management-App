@@ -57,7 +57,8 @@ namespace Win_InvApp
                     string[] splitter = txtfile.Split(',');
                     for (int i = 0; i < splitter.Length; i++)
                     {
-                        rtnList[i].ID = splitter[]
+                        //Fix
+                        rtnList[i].ID = splitter[i];
                     }
                     return rtnList;
                 }
