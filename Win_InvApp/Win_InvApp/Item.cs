@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace Win_InvApp
 {
@@ -35,6 +36,7 @@ namespace Win_InvApp
             ID = _id;
             Added = DateTime.Now;
         }
+
         public String this[int index]
         {
             get

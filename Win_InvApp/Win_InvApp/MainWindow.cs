@@ -14,12 +14,33 @@ namespace Win_InvApp
     {
         List<Item> items;
         DataTable incDT;
+        DataTable dbsDT;
+
+        /// <summary>
+        /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incId
+        /// </summary>
+        static String[] TableColumns = {"_incId", "_incName", "_incType", "_incAdded" };
+
         public MainWindow()
         {
             incDT = new DataTable();
+            dbsDT = new DataTable();
+
+            incDT.Columns.Add(TableColumns[0], typeof(String));
+            incDT.Columns.Add(TableColumns[1], typeof(String));
+            incDT.Columns.Add(TableColumns[2], typeof(String));
+            incDT.Columns.Add(TableColumns[3], typeof(String));
+
+            dbsDT.Columns.Add(TableColumns[0], typeof(String));
+            dbsDT.Columns.Add(TableColumns[1], typeof(String));
+            dbsDT.Columns.Add(TableColumns[2], typeof(String));
+            dbsDT.Columns.Add(TableColumns[3], typeof(String));
+
+
             items = new List<Item>();
             InitializeComponent();
-            dgvIncomming.VirtualMode = true;
+
+            dgvIncomming.DataSource = incDT;
         }
 
         private void AddItem()
@@ -31,6 +52,21 @@ namespace Win_InvApp
                 i.ID = 0;
 
             items.Add(i);
+            PopulateTable();
+        }
+
+        private void PopulateTable()
+        {
+            incDT.Clear();
+            foreach (Item item in items)
+            {
+                DataRow r = incDT.NewRow();
+                for (int i = 0; i < TableColumns.Length; i++)
+                {
+                    r[i] = item[i];
+                }
+                incDT.Rows.Add(r);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,27 +74,14 @@ namespace Win_InvApp
             Application.Exit();
         }
 
-
-        private void dgvIncomming_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
-        {
-            if (e.RowIndex >= items.Count)
-                return;
-
-            //DataGridViewRow row = this.dgvIncomming.Rows[e.RowIndex];
-            //row.Cells[1].Value = items[e.RowIndex].ID;
-            //row.Cells[2].Value = items[e.RowIndex].Name;
-            //row.Cells[3].Value = items[e.RowIndex].Type;
-            //row.Cells[4].Value = items[e.RowIndex].Added;
-            //DataGridViewTextBoxCell tbs = new DataGridViewTextBoxCell();
-
-
-        }
-
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             AddItem();
-            dgvIncomming.RowCount++;
-            dgvIncomming.Invalidate();
+        }
+
+        private void dgvIncomming_DataSourceChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
