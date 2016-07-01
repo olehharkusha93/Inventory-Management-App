@@ -3,3 +3,9 @@ https://github.com/zxing/zxing
 
 Flexible file
 http://zbar.sourceforge.net
+
+/////////////////////////////////////////////////////////
+INSTRUCTIONS for applying the Barcode into VS
+/////////////////////////////////////////////////////////
+
+http://www.onbarcode.com/tutorial/net-barcode-reader.html#how-to

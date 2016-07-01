@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Win_InvApp
 {
@@ -82,6 +83,23 @@ namespace Win_InvApp
         private void dgvIncomming_DataSourceChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //StreamWriter output;
+            //SaveFileDialog dlg = new SaveFileDialog();
+            //dlg.Filter = "All Files|*.*|CSV Files|*.csv";
+            //dlg.FilterIndex = 2; dlg.DefaultExt = "csv";
+
+            //if (DialogResult.OK == dlg.ShowDialog())
+            //{
+            //    output = new StreamWriter(dlg.FileName);
+            //    for (int i = 0; i < TableColumns.Length; i++)
+            //    {
+
+            //    }
+            //}
         }
     }
 }

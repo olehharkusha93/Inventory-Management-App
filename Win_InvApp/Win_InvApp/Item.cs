@@ -61,6 +61,10 @@ namespace Win_InvApp
                 }
             }
         }
+        public string GetCSV()
+        {
+            return ID + ',' + Name + ',' + Type + ',' + Added.ToString("MMMM-dd-yyyy H:mm:ss0");
+        }
 
     }
 }
