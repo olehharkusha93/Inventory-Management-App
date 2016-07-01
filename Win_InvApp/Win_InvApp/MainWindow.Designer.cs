@@ -52,7 +52,8 @@
             this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1.SuspendLayout();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -73,7 +74,9 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.openToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -99,7 +102,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1147, 895);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1147, 721);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // dgvDatabase
@@ -260,6 +263,20 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
+
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "&Open";
+            // 
             // _dbchecked
             // 
             this._dbchecked.HeaderText = "Ready";
@@ -289,12 +306,11 @@
             this._dbadded.DataPropertyName = "_incAdded";
             this._dbadded.HeaderText = "Date Added";
             this._dbadded.Name = "_dbadded";
-            // 
-            // MainWindow
+            //             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 919);
+            this.ClientSize = new System.Drawing.Size(1147, 745);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -339,6 +355,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
 
