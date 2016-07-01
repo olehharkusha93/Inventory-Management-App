@@ -31,6 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
             this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -52,8 +54,7 @@
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -75,9 +76,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -88,6 +90,19 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "&Open";
             // 
             // tableLayoutPanel1
             // 
@@ -130,22 +145,26 @@
             // 
             // _dbid
             // 
+            this._dbid.DataPropertyName = "_incId";
             this._dbid.HeaderText = "ID";
             this._dbid.Name = "_dbid";
             this._dbid.Width = 50;
             // 
             // _dbname
             // 
+            this._dbname.DataPropertyName = "_incName";
             this._dbname.HeaderText = "Name";
             this._dbname.Name = "_dbname";
             // 
             // _dbtype
             // 
+            this._dbtype.DataPropertyName = "_incType";
             this._dbtype.HeaderText = "Type";
             this._dbtype.Name = "_dbtype";
             // 
             // _dbadded
             // 
+            this._dbadded.DataPropertyName = "_incAdded";
             this._dbadded.HeaderText = "Date Added";
             this._dbadded.Name = "_dbadded";
             // 
@@ -226,6 +245,7 @@
             this.btnRemoveNew.TabIndex = 1;
             this.btnRemoveNew.Text = "<- Remove";
             this.btnRemoveNew.UseVisualStyleBackColor = true;
+            this.btnRemoveNew.Click += new System.EventHandler(this.btnRemoveNew_Click);
             // 
             // btnAddDatabase
             // 
@@ -235,6 +255,7 @@
             this.btnAddDatabase.TabIndex = 0;
             this.btnAddDatabase.Text = "Add ->";
             this.btnAddDatabase.UseVisualStyleBackColor = true;
+            this.btnAddDatabase.Click += new System.EventHandler(this.btnAddDatabase_Click);
             // 
             // dgvIncomming
             // 
@@ -255,7 +276,6 @@
             this.dgvIncomming.ShowRowErrors = false;
             this.dgvIncomming.Size = new System.Drawing.Size(451, 889);
             this.dgvIncomming.TabIndex = 1;
-            this.dgvIncomming.DataSourceChanged += new System.EventHandler(this.dgvIncomming_DataSourceChanged);
             // 
             // _queuechecked
             // 
@@ -289,18 +309,10 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
-            // saveToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "&Open";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // MainWindow
             // 
@@ -341,18 +353,19 @@
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.Button btnRemoveNew;
         private System.Windows.Forms.Button btnAddDatabase;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
         private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queueid;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

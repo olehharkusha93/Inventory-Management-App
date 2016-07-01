@@ -13,53 +13,43 @@ namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
-        List<Item> items;
+        
+        List<Item> incItems;
+        List<Item> dbsItems;
         DataTable incDT;
         DataTable dbsDT;
 
         /// <summary>
         /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incId
         /// </summary>
-        static String[] TableColumns = {"_incId", "_incName", "_incType", "_incAdded" };
+        static String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
 
         public MainWindow()
         {
             incDT = new DataTable();
             dbsDT = new DataTable();
 
-            incDT.Columns.Add(TableColumns[0], typeof(String));
-            incDT.Columns.Add(TableColumns[1], typeof(String));
-            incDT.Columns.Add(TableColumns[2], typeof(String));
-            incDT.Columns.Add(TableColumns[3], typeof(String));
-
-            dbsDT.Columns.Add(TableColumns[0], typeof(String));
-            dbsDT.Columns.Add(TableColumns[1], typeof(String));
-            dbsDT.Columns.Add(TableColumns[2], typeof(String));
-            dbsDT.Columns.Add(TableColumns[3], typeof(String));
+            foreach (string s in TableColumns)
+            {
+                incDT.Columns.Add(s, typeof(String));
+                dbsDT.Columns.Add(s, typeof(String));
+            }
+            incDT.Columns.Add("_incAddRmv", typeof(String));
 
 
-            items = new List<Item>();
+            incItems = new List<Item>();
+            dbsItems = new List<Item>();
             InitializeComponent();
 
             dgvIncomming.DataSource = incDT;
-        }
-
-        private void AddItem()
-        {
-            Item i = new Item("Test Item 1", "Test Item");
-            if (items.Count != 0)
-                i.ID = items[items.Count - 1].ID + 1;
-            else
-                i.ID = 0;
-
-            items.Add(i);
-            PopulateTable();
+            dgvDatabase.DataSource = dbsDT;
         }
 
         private void PopulateTable()
         {
             incDT.Clear();
-            foreach (Item item in items)
+            dbsDT.Clear();
+            foreach (Item item in incItems)
             {
                 DataRow r = incDT.NewRow();
                 for (int i = 0; i < TableColumns.Length; i++)
@@ -67,6 +57,15 @@ namespace Win_InvApp
                     r[i] = item[i];
                 }
                 incDT.Rows.Add(r);
+            }
+            foreach (Item item in dbsItems)
+            {
+                DataRow r = dbsDT.NewRow();
+                for (int i = 0; i < TableColumns.Length; i++)
+                {
+                    r[i] = item[i];
+                }
+                dbsDT.Rows.Add(r);
             }
         }
 
@@ -77,11 +76,54 @@ namespace Win_InvApp
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            AddItem();
+            Item i = new Item("Test Item 1", "Test Item");
+            if (incItems.Count != 0)
+                i.ID = incItems[incItems.Count - 1].ID + 1;
+            else
+                i.ID = 0;
+
+            incItems.Add(i);
+            PopulateTable();
         }
 
-        private void dgvIncomming_DataSourceChanged(object sender, EventArgs e)
+        private void btnRemoveNew_Click(object sender, EventArgs e)
         {
+            IncRemove();
+        }
+
+        private void IncRemove()
+        {
+            List<int> delete = GetIncChecked();
+            for (int i = delete.Count - 1; i >= 0; i--)
+            {
+                incItems.RemoveAt(delete[i]);
+                incDT.Rows[delete[i]].Delete();
+                incDT.AcceptChanges();
+            }
+        }
+
+        private List<int> GetIncChecked()
+        {
+            List<int> tmp = new List<int>();
+            foreach (DataGridViewRow r in dgvIncomming.Rows)
+            {
+                if (true == (bool)r.Cells[0].FormattedValue)
+                {
+                    tmp.Add(r.Index);
+                }
+            }
+
+            return tmp;
+        }
+
+        private void btnAddDatabase_Click(object sender, EventArgs e)
+        {
+            List<int> move = GetIncChecked();
+            foreach(int i in move)
+                dbsItems.Add(incItems[i]);
+
+            IncRemove();
+            PopulateTable();
 
         }
 
