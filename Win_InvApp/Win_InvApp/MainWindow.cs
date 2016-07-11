@@ -1,5 +1,4 @@
-﻿#define DEBUG
-//#undef DEBUG
+﻿#undef DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,8 @@ namespace Win_InvApp
         DataTable incDT;
         DataTable dbsDT;
 
-        uint lastId = 0;
+        static uint lastId = 0;
+        static public uint LastID { get { return lastId; } set { lastId = value; } }
 
         /// <summary>
         /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incAdded
@@ -91,6 +91,11 @@ namespace Win_InvApp
 #else
             AddDialog d = new AddDialog();
             d.ShowDialog();
+            if(d.DialogResult == DialogResult.OK)
+            {
+                incItems.Add(d.newItem);
+                PopulateTable();
+            }
 #endif
         }
 
