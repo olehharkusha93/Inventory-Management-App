@@ -137,7 +137,14 @@ namespace Win_InvApp
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            FileStream save = new FileStream();
+            save.Save(dbsItems);
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileStream open = new FileStream();
+            open.Open();
         }
     }
 }
