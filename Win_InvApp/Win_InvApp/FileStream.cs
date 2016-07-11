@@ -13,18 +13,17 @@ namespace Win_InvApp
     {
         StreamWriter output;
         StreamReader input;
-        List<Item> item;
+        List<Item> items;
 
-        public FileStream(List<Item> _items)
+        public FileStream()
         {
-            for (int i = 0; i < _items.Count; i++)
-            {
-                item[i] = _items[i];
-            }
         }
 
-        public void Save()
+        public void Save(List<Item> _items)
         {
+            //Can delete this after testing and use _items wherever items appear throughout the code
+            items = new List<Item>(_items);
+
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|CSV Files|*.csv";
             dlg.FilterIndex = 2; dlg.DefaultExt = "csv";
@@ -32,10 +31,10 @@ namespace Win_InvApp
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 output = new StreamWriter(dlg.FileName);
-                for (int i = 0; i < item.Count; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
                     string txtFile = String.Empty;
-                    txtFile = item[i].GetCSV();
+                    txtFile = items[i].GetCSV();
                     output.Write(txtFile);
                 }
                 output.Close();
@@ -44,7 +43,7 @@ namespace Win_InvApp
 
         public List<Item> Open()
         {
-            List<Item> rtnList;
+            List<Item> rtnList = new List<Item>();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "All Files|*.*|CSV Files|*.csv";
             dlg.FilterIndex = 2;
@@ -55,14 +54,27 @@ namespace Win_InvApp
                 {
                     string txtfile = input.ReadLine();
                     string[] splitter = txtfile.Split(',');
-                    for (int i = 0; i < splitter.Length; i++)
+
+                    Item tmp = new Item();
+                    for (int i = 0; i < splitter.Length; i+=4)
                     {
-                        //Fix
-                        rtnList[i].ID = splitter[i];
+                        tmp.ID = Convert.ToUInt16(splitter[i]);
+                        tmp.Name = splitter[i+1];
+                        tmp.Type = splitter[i+2];
+                        tmp.Added = Convert.ToDateTime(splitter[i+3]);
+
+                        rtnList.Add(tmp);
                     }
-                    return rtnList;
                 }
                 input.Close();
+                return rtnList;
+            }
+
+            else
+            {
+                MessageBox.Show("File did not Open",
+               "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                return rtnList;
             }
         }
     }
