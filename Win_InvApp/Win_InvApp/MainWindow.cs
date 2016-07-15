@@ -1,6 +1,4 @@
-﻿#undef DEBUG
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -92,13 +90,6 @@ namespace Win_InvApp
                 PopulateTable();
                 return;
             }
-#if DEBUG
-            Item i = new Item("Test Item 1", "Test Item");
-            i.ID = lastId++;
-
-            incItems.Add(i);
-            PopulateTable();
-#else
             AddDialog d = new AddDialog();
             d.ShowDialog();
             if(d.DialogResult == DialogResult.OK)
@@ -106,7 +97,6 @@ namespace Win_InvApp
                 incItems.Add(d.newItem);
                 PopulateTable();
             }
-#endif
         }
 
         private void btnRemoveNew_Click(object sender, EventArgs e)
