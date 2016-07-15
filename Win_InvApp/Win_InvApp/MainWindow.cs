@@ -64,6 +64,7 @@ namespace Win_InvApp
                 }
                 incDT.Rows.Add(r);
             }
+
             foreach (Item item in dbsItems)
             {
                 DataRow r = dbsDT.NewRow();
@@ -82,6 +83,15 @@ namespace Win_InvApp
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
+            if(Form.ModifierKeys == Keys.Control)
+            {
+                Item i = new Item("Test Item 1", "Test Item");
+                i.ID = lastId++;
+
+                incItems.Add(i);
+                PopulateTable();
+                return;
+            }
 #if DEBUG
             Item i = new Item("Test Item 1", "Test Item");
             i.ID = lastId++;
@@ -101,26 +111,26 @@ namespace Win_InvApp
 
         private void btnRemoveNew_Click(object sender, EventArgs e)
         {
-            IncRemove();
+            Remove(incDT, incItems, GetChecked(dgvIncomming));
+            PopulateTable();
         }
 
-        private void IncRemove()
+        private void Remove(DataTable grid, List<Item> items, List<int> delete)
         {
-            List<int> delete = GetIncChecked();
             for (int i = delete.Count - 1; i >= 0; i--)
             {
-                incItems.RemoveAt(delete[i]);
-                incDT.Rows[delete[i]].Delete();
-                incDT.AcceptChanges();
+                items.RemoveAt(delete[i]);
+                grid.Rows[delete[i]].Delete();
+                grid.AcceptChanges();
             }
         }
 
-        private List<int> GetIncChecked()
+        private List<int> GetChecked(DataGridView grid)
         {
             List<int> tmp = new List<int>();
-            foreach (DataGridViewRow r in dgvIncomming.Rows)
+            foreach (DataGridViewRow r in grid.Rows)
             {
-                if (true == (bool)r.Cells[0].FormattedValue)
+                if (true == (bool)r.Cells[0].EditedFormattedValue)
                 {
                     tmp.Add(r.Index);
                 }
@@ -131,11 +141,11 @@ namespace Win_InvApp
 
         private void btnAddDatabase_Click(object sender, EventArgs e)
         {
-            List<int> move = GetIncChecked();
+            List<int> move = GetChecked(dgvIncomming);
             foreach(int i in move)
                 dbsItems.Add(incItems[i]);
 
-            IncRemove();
+            Remove(incDT, incItems, move);
             PopulateTable();
 
         }
@@ -150,6 +160,26 @@ namespace Win_InvApp
         {
             FileStream open = new FileStream();
             open.Open();
+        }
+
+        private void btnRemoveDatabase_Click(object sender, EventArgs e)
+        {
+            List<int> move = GetChecked(dgvDatabase);
+
+            if (move.Count == 0)
+                return;
+
+            DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", "", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.Yes)
+            {
+                Remove(dbsDT, dbsItems, move);
+                PopulateTable();
+            }
+            else if(result == DialogResult.No)
+            {
+
+            }
+        
         }
     }
 }
