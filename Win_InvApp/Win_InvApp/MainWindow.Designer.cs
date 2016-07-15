@@ -101,18 +101,6 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
@@ -245,6 +233,7 @@
             this.btnRemoveDatabase.TabIndex = 3;
             this.btnRemoveDatabase.Text = "Remove ->";
             this.btnRemoveDatabase.UseVisualStyleBackColor = true;
+            this.btnRemoveDatabase.Click += new System.EventHandler(this.btnRemoveDatabase_Click);
             // 
             // btnAddNew
             // 

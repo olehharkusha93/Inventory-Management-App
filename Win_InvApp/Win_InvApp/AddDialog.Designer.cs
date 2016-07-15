@@ -31,13 +31,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.tbID = new System.Windows.Forms.TextBox();
+            this.tbType = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnDefault = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -67,73 +66,72 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Type";
             // 
-            // label4
+            // tbID
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 126);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Quantity";
+            this.tbID.Location = new System.Drawing.Point(64, 6);
+            this.tbID.Name = "tbID";
+            this.tbID.Size = new System.Drawing.Size(156, 20);
+            this.tbID.TabIndex = 1;
+            this.tbID.TextChanged += new System.EventHandler(this.input_TextChanged);
             // 
-            // textBox1
+            // tbType
             // 
-            this.textBox1.Location = new System.Drawing.Point(64, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 20);
-            this.textBox1.TabIndex = 4;
+            this.tbType.Location = new System.Drawing.Point(64, 84);
+            this.tbType.Name = "tbType";
+            this.tbType.Size = new System.Drawing.Size(156, 20);
+            this.tbType.TabIndex = 3;
+            this.tbType.TextChanged += new System.EventHandler(this.input_TextChanged);
             // 
-            // textBox2
+            // tbName
             // 
-            this.textBox2.Location = new System.Drawing.Point(64, 123);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(156, 20);
-            this.textBox2.TabIndex = 5;
+            this.tbName.Location = new System.Drawing.Point(64, 45);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(156, 20);
+            this.tbName.TabIndex = 2;
+            this.tbName.TextChanged += new System.EventHandler(this.input_TextChanged);
             // 
-            // textBox3
+            // btnOk
             // 
-            this.textBox3.Location = new System.Drawing.Point(64, 84);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(156, 20);
-            this.textBox3.TabIndex = 6;
+            this.btnOk.Enabled = false;
+            this.btnOk.Location = new System.Drawing.Point(10, 165);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 98;
+            this.btnOk.Text = "OK";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox4
+            // btnCancel
             // 
-            this.textBox4.Location = new System.Drawing.Point(64, 45);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(156, 20);
-            this.textBox4.TabIndex = 7;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(91, 165);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 99;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnDefault
             // 
-            this.button1.Location = new System.Drawing.Point(25, 165);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(134, 165);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnDefault.Location = new System.Drawing.Point(172, 165);
+            this.btnDefault.Name = "btnDefault";
+            this.btnDefault.Size = new System.Drawing.Size(75, 23);
+            this.btnDefault.TabIndex = 100;
+            this.btnDefault.Text = "Default...";
+            this.btnDefault.UseVisualStyleBackColor = true;
+            this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
             // AddDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 447);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label4);
+            this.ClientSize = new System.Drawing.Size(258, 215);
+            this.Controls.Add(this.btnDefault);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.tbType);
+            this.Controls.Add(this.tbID);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -152,12 +150,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox tbID;
+        private System.Windows.Forms.TextBox tbType;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnDefault;
     }
 }
