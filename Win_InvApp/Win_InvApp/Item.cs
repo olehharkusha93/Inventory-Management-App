@@ -54,7 +54,8 @@ namespace Win_InvApp
                         return Type;
                         break;
                     case 3:
-                        return Added.ToString("MMMM-dd-yyyy H:mm:ss0");
+                        return Added.ToString("MM/dd/yyyy H:mm");
+                        //return Added.ToString("MMMM-dd-yyyy H:mm:ss0");
                         break;
                     default:
                         return Name;
@@ -66,7 +67,8 @@ namespace Win_InvApp
 
         public string GetCSV()
         {
-            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MMMM-dd-yyyy H:mm:ss0") + ',';
+            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',';
+            //return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MMMM-dd-yyyy H:mm:ss0") + ',';
         }
     }
 }

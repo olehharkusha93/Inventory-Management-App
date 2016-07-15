@@ -55,14 +55,14 @@ namespace Win_InvApp
                     string txtfile = input.ReadLine();
                     string[] splitter = txtfile.Split(',');
 
-                    Item tmp = new Item();
-                    for (int i = 0; i < splitter.Length; i+=4)
+                    for (int i = 0; i < splitter.Length-1; i+=4)
                     {
+                        Item tmp = new Item();
                         tmp.ID = Convert.ToUInt16(splitter[i]);
                         tmp.Name = splitter[i+1];
                         tmp.Type = splitter[i+2];
-                        tmp.Added = Convert.ToDateTime(splitter[i+3]);
-
+                        tmp.Added = DateTime.Parse(splitter[i+3]);
+                        //Convert.ToDateTime(splitter[i+3])
                         rtnList.Add(tmp);
                     }
                 }

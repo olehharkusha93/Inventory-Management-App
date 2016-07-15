@@ -144,7 +144,8 @@ namespace Win_InvApp
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream open = new FileStream();
-            open.Open();
+            dbsItems = open.Open();
+            PopulateTable();
         }
     }
 }
