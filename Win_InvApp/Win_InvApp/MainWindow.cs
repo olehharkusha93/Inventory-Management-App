@@ -160,7 +160,7 @@ namespace Win_InvApp
             if (move.Count == 0)
                 return;
 
-            DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", "", MessageBoxButtons.YesNoCancel);
+            DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", String.Empty, MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
                 Remove(dbsDT, dbsItems, move);
@@ -168,7 +168,7 @@ namespace Win_InvApp
             }
             else if(result == DialogResult.No)
             {
-
+                PopulateTable();
             }
         
         }
