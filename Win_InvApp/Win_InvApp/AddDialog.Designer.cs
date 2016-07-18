@@ -73,6 +73,7 @@
             this.tbID.Size = new System.Drawing.Size(156, 20);
             this.tbID.TabIndex = 1;
             this.tbID.TextChanged += new System.EventHandler(this.input_TextChanged);
+            this.tbID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbID_KeyDown);
             // 
             // tbType
             // 
@@ -81,6 +82,7 @@
             this.tbType.Size = new System.Drawing.Size(156, 20);
             this.tbType.TabIndex = 3;
             this.tbType.TextChanged += new System.EventHandler(this.input_TextChanged);
+            this.tbType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbID_KeyDown);
             // 
             // tbName
             // 
@@ -89,6 +91,7 @@
             this.tbName.Size = new System.Drawing.Size(156, 20);
             this.tbName.TabIndex = 2;
             this.tbName.TextChanged += new System.EventHandler(this.input_TextChanged);
+            this.tbName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbID_KeyDown);
             // 
             // btnOk
             // 
@@ -100,6 +103,7 @@
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.button1_Click);
+            this.btnOk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbID_KeyDown);
             // 
             // btnCancel
             // 
@@ -110,6 +114,7 @@
             this.btnCancel.TabIndex = 99;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCancel_KeyDown);
             // 
             // btnDefault
             // 
@@ -120,6 +125,7 @@
             this.btnDefault.Text = "Default...";
             this.btnDefault.UseVisualStyleBackColor = true;
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
+            this.btnDefault.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnDefault_KeyDown);
             // 
             // AddDialog
             // 

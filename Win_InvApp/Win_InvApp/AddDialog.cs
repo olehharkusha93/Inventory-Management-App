@@ -60,5 +60,22 @@ namespace Win_InvApp
             btnOk.Enabled = true;
 
         }
+
+        private void tbID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return && btnOk.Enabled)
+                button1_Click(sender, e);
+        }
+
+        private void btnCancel_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void btnDefault_KeyDown(object sender, KeyEventArgs e)
+        {
+            btnDefault_Click(sender, e);
+        }
     }
 }

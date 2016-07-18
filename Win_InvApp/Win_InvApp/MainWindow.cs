@@ -26,7 +26,11 @@ namespace Win_InvApp
         /// <summary>
         /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incAdded
         /// </summary>
-        static String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
+        String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
+
+        String[] ComboBoxItems = { "ID", "Name", "Type", "Date Added" };
+        int SearchIndex = 2;
+
 
         public MainWindow()
         {
@@ -38,12 +42,16 @@ namespace Win_InvApp
                 incDT.Columns.Add(s, typeof(String));
                 dbsDT.Columns.Add(s, typeof(String));
             }
-            incDT.Columns.Add("_incAddRmv", typeof(String));
 
 
             incItems = new List<Item>();
             dbsItems = new List<Item>();
             InitializeComponent();
+
+            foreach (string s in ComboBoxItems)
+                cbSearchType.Items.Add(s);
+
+            cbSearchType.SelectedIndex = 1;
 
             dgvIncomming.DataSource = incDT;
             dgvDatabase.DataSource = dbsDT;
@@ -96,6 +104,7 @@ namespace Win_InvApp
             {
                 incItems.Add(d.newItem);
                 PopulateTable();
+                tbSearch.Text = string.Empty;
             }
         }
 
@@ -160,7 +169,7 @@ namespace Win_InvApp
             if (move.Count == 0)
                 return;
 
-            DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", "", MessageBoxButtons.YesNoCancel);
+            DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", String.Empty, MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
                 Remove(dbsDT, dbsItems, move);
@@ -168,9 +177,60 @@ namespace Win_InvApp
             }
             else if(result == DialogResult.No)
             {
-
+                PopulateTable();
             }
         
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            try
+            {
+                if (tb.Text == string.Empty)
+                {
+                    PopulateTable();
+                    return;
+                }
+                CurrencyManager cm = (CurrencyManager)BindingContext[dgvIncomming.DataSource];
+                cm.SuspendBinding();
+                foreach (DataGridViewRow r in dgvIncomming.Rows)
+                {
+                    string s = (string)r.Cells[SearchIndex].EditedFormattedValue;
+                    if ( s.ToLower().Contains(tb.Text.ToLower()))
+                        r.Visible = true;
+                    else
+                        r.Visible = false;
+                }
+                cm.ResumeBinding();
+
+
+                CurrencyManager cm2 = (CurrencyManager)BindingContext[dgvDatabase.DataSource];
+                cm2.SuspendBinding();
+                foreach (DataGridViewRow r in dgvDatabase.Rows)
+                {
+                    string s = (string)r.Cells[SearchIndex].EditedFormattedValue;
+                    if (s.ToLower().Contains(tb.Text.ToLower()))
+                        r.Visible = true;
+                    else
+                        r.Visible = false;
+                }
+                cm2.ResumeBinding();
+            }
+            catch { }
+        }
+
+        private void cbSearchType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            SearchIndex = cb.SelectedIndex + 1;
+            tbSearch_TextChanged(tbSearch, new EventArgs());
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            tbSearch.Clear();
+            tbSearch_TextChanged(tbSearch, new EventArgs());
         }
     }
 }
