@@ -42,13 +42,16 @@
             this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tbSearch = new System.Windows.Forms.TextBox();
-            this.lblSearch = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRemoveDatabase = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnRemoveNew = new System.Windows.Forms.Button();
             this.btnAddDatabase = new System.Windows.Forms.Button();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnClearSearch = new System.Windows.Forms.Button();
+            this.cbSearchType = new System.Windows.Forms.ComboBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.dgvIncomming = new System.Windows.Forms.DataGridView();
             this._queuechecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this._queueid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,39 +183,21 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.tbSearch, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lblSearch, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblSearch, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(460, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.349206F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.761905F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.73016F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.650519F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.09804F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(227, 889);
             this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.Location = new System.Drawing.Point(3, 58);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(221, 20);
-            this.tbSearch.TabIndex = 0;
-            // 
-            // lblSearch
-            // 
-            this.lblSearch.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSearch.Location = new System.Drawing.Point(73, 15);
-            this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(80, 25);
-            this.lblSearch.TabIndex = 1;
-            this.lblSearch.Text = "Search";
             // 
             // panel1
             // 
@@ -220,9 +206,9 @@
             this.panel1.Controls.Add(this.btnRemoveNew);
             this.panel1.Controls.Add(this.btnAddDatabase);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 99);
+            this.panel1.Location = new System.Drawing.Point(3, 133);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(221, 418);
+            this.panel1.Size = new System.Drawing.Size(221, 385);
             this.panel1.TabIndex = 2;
             // 
             // btnRemoveDatabase
@@ -264,6 +250,55 @@
             this.btnAddDatabase.Text = "Add ->";
             this.btnAddDatabase.UseVisualStyleBackColor = true;
             this.btnAddDatabase.Click += new System.EventHandler(this.btnAddDatabase_Click);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearch.Location = new System.Drawing.Point(73, 15);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(80, 25);
+            this.lblSearch.TabIndex = 1;
+            this.lblSearch.Text = "Search";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnClearSearch);
+            this.panel2.Controls.Add(this.cbSearchType);
+            this.panel2.Controls.Add(this.tbSearch);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 58);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(221, 69);
+            this.panel2.TabIndex = 3;
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.Location = new System.Drawing.Point(121, 28);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnClearSearch.TabIndex = 2;
+            this.btnClearSearch.Text = "Clear";
+            this.btnClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
+            // 
+            // cbSearchType
+            // 
+            this.cbSearchType.FormattingEnabled = true;
+            this.cbSearchType.Location = new System.Drawing.Point(23, 29);
+            this.cbSearchType.Name = "cbSearchType";
+            this.cbSearchType.Size = new System.Drawing.Size(92, 21);
+            this.cbSearchType.TabIndex = 1;
+            this.cbSearchType.SelectedIndexChanged += new System.EventHandler(this.cbSearchType_SelectedIndexChanged);
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(0, 3);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(221, 20);
+            this.tbSearch.TabIndex = 0;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // dgvIncomming
             // 
@@ -335,6 +370,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -370,6 +407,9 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnClearSearch;
+        private System.Windows.Forms.ComboBox cbSearchType;
     }
 }
 
