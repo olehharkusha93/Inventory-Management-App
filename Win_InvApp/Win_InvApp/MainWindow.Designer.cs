@@ -62,6 +62,9 @@
             this.scanButton = new System.Windows.Forms.Button();
             this.testBox_scan = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -87,6 +90,9 @@
             this.saveToolStripMenuItem,
             this.openToolStripMenuItem,
             this.toolStripSeparator1,
+            this.uploadToolStripMenuItem,
+            this.downloadToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -95,26 +101,26 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -157,6 +163,7 @@
             // 
             this._dbchecked.HeaderText = "Ready";
             this._dbchecked.Name = "_dbchecked";
+            this._dbchecked.Width = 50;
             // 
             // _dbid
             // 
@@ -398,6 +405,25 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "testing";
             // 
+            // uploadToolStripMenuItem
+            // 
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
+            // 
+            // downloadToolStripMenuItem
+            // 
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downloadToolStripMenuItem.Text = "Download";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -445,11 +471,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -460,6 +481,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox testBox_scan;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
+        private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
