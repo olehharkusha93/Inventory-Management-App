@@ -62,7 +62,6 @@ namespace Win_InvApp
                         tmp.Name = splitter[i+1];
                         tmp.Type = splitter[i+2];
                         tmp.Added = DateTime.Parse(splitter[i+3]);
-                        //Convert.ToDateTime(splitter[i+3])
                         rtnList.Add(tmp);
                     }
                 }

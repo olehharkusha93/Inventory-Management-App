@@ -58,6 +58,10 @@
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.scanButton = new System.Windows.Forms.Button();
+            this.testBox_scan = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -201,6 +205,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.testBox_scan);
+            this.panel1.Controls.Add(this.scanButton);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnRemoveDatabase);
             this.panel1.Controls.Add(this.btnAddNew);
             this.panel1.Controls.Add(this.btnRemoveNew);
@@ -353,6 +361,43 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(80, 174);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Scan";
+            // 
+            // scanButton
+            // 
+            this.scanButton.Location = new System.Drawing.Point(69, 212);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(81, 24);
+            this.scanButton.TabIndex = 6;
+            this.scanButton.Text = "Scan";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
+            // 
+            // testBox_scan
+            // 
+            this.testBox_scan.Location = new System.Drawing.Point(53, 352);
+            this.testBox_scan.Name = "testBox_scan";
+            this.testBox_scan.Size = new System.Drawing.Size(165, 20);
+            this.testBox_scan.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 355);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "testing";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -370,6 +415,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).EndInit();
@@ -410,6 +456,10 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnClearSearch;
         private System.Windows.Forms.ComboBox cbSearchType;
+        private System.Windows.Forms.Button scanButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox testBox_scan;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using OnBarcode.Barcode.BarcodeScanner;
 
 
 namespace Win_InvApp
@@ -106,6 +107,7 @@ namespace Win_InvApp
                 PopulateTable();
                 tbSearch.Text = string.Empty;
             }
+           
         }
 
         private void btnRemoveNew_Click(object sender, EventArgs e)
@@ -231,6 +233,12 @@ namespace Win_InvApp
         {
             tbSearch.Clear();
             tbSearch_TextChanged(tbSearch, new EventArgs());
+        }
+
+        private void scanButton_Click(object sender, EventArgs e)
+        {
+            Barcode barcode = new Barcode();
+            testBox_scan.Lines = barcode.Scan();
         }
     }
 }
