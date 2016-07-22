@@ -13,6 +13,8 @@ namespace Win_InvApp
         public String Type { get; set; }
         public UInt32 ID { get; set; }
         public DateTime Added { get; set; }
+        public String CloudID { get; set; }
+        public bool OnServer { get; set; }
 
         public Item()
         {
@@ -55,7 +57,9 @@ namespace Win_InvApp
                         break;
                     case 3:
                         return Added.ToString("MM/dd/yyyy H:mm");
-                        //return Added.ToString("MMMM-dd-yyyy H:mm:ss0");
+                        break;
+                    case 4:
+                        return CloudID;
                         break;
                     default:
                         return Name;
@@ -68,7 +72,6 @@ namespace Win_InvApp
         public string GetCSV()
         {
             return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',';
-            //return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MMMM-dd-yyyy H:mm:ss0") + ',';
         }
     }
 }

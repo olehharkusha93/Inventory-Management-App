@@ -5,18 +5,23 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
+using System.Collections;
+using CB;
 
 
 namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
-        
-        List<Item> incItems;
-        List<Item> dbsItems;
+        Dictionary<String, Item> incItems;
+        Dictionary<String, Item> dbsItems;
+        //List<Item> incItems;
+        //List<Item> dbsItems;
         DataTable incDT;
         DataTable dbsDT;
 
@@ -26,7 +31,7 @@ namespace Win_InvApp
         /// <summary>
         /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incAdded
         /// </summary>
-        String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
+        public static String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
 
         String[] ComboBoxItems = { "ID", "Name", "Type", "Date Added" };
         int SearchIndex = 2;
@@ -44,8 +49,10 @@ namespace Win_InvApp
             }
 
 
-            incItems = new List<Item>();
-            dbsItems = new List<Item>();
+            //incItems = new List<Item>();
+            incItems = new Dictionary<string, Item>();
+            //dbsItems = new List<Item>();
+            dbsItems = new Dictionary<string, Item>();
             InitializeComponent();
 
             foreach (string s in ComboBoxItems)
@@ -57,11 +64,12 @@ namespace Win_InvApp
             dgvDatabase.DataSource = dbsDT;
         }
 
+
         private void PopulateTable()
         {
             incDT.Clear();
             dbsDT.Clear();
-            foreach (Item item in incItems)
+            foreach (Item item in incItems.Values)
             {
                 DataRow r = incDT.NewRow();
                 for (int i = 0; i < TableColumns.Length; i++)
@@ -71,7 +79,7 @@ namespace Win_InvApp
                 incDT.Rows.Add(r);
             }
 
-            foreach (Item item in dbsItems)
+            foreach (Item item in dbsItems.Values)
             {
                 DataRow r = dbsDT.NewRow();
                 for (int i = 0; i < TableColumns.Length; i++)
@@ -93,8 +101,10 @@ namespace Win_InvApp
             {
                 Item i = new Item("Test Item 1", "Test Item");
                 i.ID = lastId++;
+                i.CloudID = "TestItem" + i.ID;
+                i.OnServer = false;
 
-                incItems.Add(i);
+                incItems.Add(i.CloudID, i);
                 PopulateTable();
                 return;
             }
@@ -102,7 +112,9 @@ namespace Win_InvApp
             d.ShowDialog();
             if(d.DialogResult == DialogResult.OK)
             {
-                incItems.Add(d.newItem);
+                d.newItem.OnServer = false;
+                d.newItem.CloudID = "Item" + d.newItem.ID;
+                incItems.Add(d.newItem.CloudID, d.newItem);
                 PopulateTable();
                 tbSearch.Text = string.Empty;
             }
@@ -114,11 +126,11 @@ namespace Win_InvApp
             PopulateTable();
         }
 
-        private void Remove(DataTable grid, List<Item> items, List<int> delete)
+        private void Remove(DataTable grid, Dictionary<String, Item> items, List<int> delete)
         {
             for (int i = delete.Count - 1; i >= 0; i--)
             {
-                items.RemoveAt(delete[i]);
+                items.Remove(items.ToList()[delete[i]].Key);
                 grid.Rows[delete[i]].Delete();
                 grid.AcceptChanges();
             }
@@ -142,7 +154,7 @@ namespace Win_InvApp
         {
             List<int> move = GetChecked(dgvIncomming);
             foreach(int i in move)
-                dbsItems.Add(incItems[i]);
+                dbsItems.Add(incItems.ToList()[i].Value.CloudID, incItems.ToList()[i].Value);
 
             Remove(incDT, incItems, move);
             PopulateTable();
@@ -152,13 +164,13 @@ namespace Win_InvApp
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream save = new FileStream();
-            save.Save(dbsItems);
+            save.Save(dbsItems.Values.ToList());
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream open = new FileStream();
-            dbsItems = open.Open();
+            //TODO (cris) dbsItems = open.Open();
             PopulateTable();
         }
 
@@ -172,7 +184,7 @@ namespace Win_InvApp
             DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", String.Empty, MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
-                Remove(dbsDT, dbsItems, move);
+                //TODO (cris) Remove(dbsDT, dbsItems, move);
                 PopulateTable();
             }
             else if(result == DialogResult.No)
@@ -231,6 +243,42 @@ namespace Win_InvApp
         {
             tbSearch.Clear();
             tbSearch_TextChanged(tbSearch, new EventArgs());
+        }
+
+        private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerUpDown.Save(dbsItems);
+        }
+
+        public delegate void AsyncMethodCaller(out ArrayList list);
+
+        private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ArrayList res;
+
+            AsyncMethodCaller caller = new AsyncMethodCaller(ServerUpDown.Load);
+            IAsyncResult result = caller.BeginInvoke(out res, null, null);
+            Thread.Sleep(0);
+            Debug.WriteLine("Thread #{0} is calling Load...", Thread.CurrentThread.ManagedThreadId);
+            caller.EndInvoke(out res, result);
+            Debug.WriteLine("Load has finished...");
+
+            foreach (CloudObject item in res)
+            {
+                Debug.WriteLine("Loaded Item ID: " + item.ID);
+                if (!dbsItems.ContainsKey(item.ID))
+                {
+                    Debug.WriteLine("Added Item ID: " + item.ID);
+                    Item temp = new Item((string)item.Get("Name"), (string)item.Get("Type"));
+                    temp.CloudID = item.ID;
+                    temp.OnServer = true;
+                    dbsItems.Add(temp.CloudID, temp);
+                }
+                else
+                    Debug.WriteLine("Skipped Item ID: " + item.ID);
+            }
+
+            PopulateTable();
         }
     }
 }

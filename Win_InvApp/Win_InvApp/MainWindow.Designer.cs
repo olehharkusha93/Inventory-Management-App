@@ -36,6 +36,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
+            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRemoveDatabase = new System.Windows.Forms.Button();
@@ -53,11 +58,9 @@
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -83,6 +86,9 @@
             this.saveToolStripMenuItem,
             this.openToolStripMenuItem,
             this.toolStripSeparator1,
+            this.uploadToolStripMenuItem,
+            this.downloadToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -148,6 +154,37 @@
             this.dgvDatabase.Name = "dgvDatabase";
             this.dgvDatabase.Size = new System.Drawing.Size(451, 889);
             this.dgvDatabase.TabIndex = 2;
+            // 
+            // _dbchecked
+            // 
+            this._dbchecked.HeaderText = "Ready";
+            this._dbchecked.Name = "_dbchecked";
+            this._dbchecked.Width = 50;
+            // 
+            // _dbid
+            // 
+            this._dbid.DataPropertyName = "_incId";
+            this._dbid.HeaderText = "ID";
+            this._dbid.Name = "_dbid";
+            this._dbid.Width = 50;
+            // 
+            // _dbname
+            // 
+            this._dbname.DataPropertyName = "_incName";
+            this._dbname.HeaderText = "Name";
+            this._dbname.Name = "_dbname";
+            // 
+            // _dbtype
+            // 
+            this._dbtype.DataPropertyName = "_incType";
+            this._dbtype.HeaderText = "Type";
+            this._dbtype.Name = "_dbtype";
+            // 
+            // _dbadded
+            // 
+            this._dbadded.DataPropertyName = "_incAdded";
+            this._dbadded.HeaderText = "Date Added";
+            this._dbadded.Name = "_dbadded";
             // 
             // tableLayoutPanel2
             // 
@@ -323,36 +360,24 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
-            // _dbchecked
+            // uploadToolStripMenuItem
             // 
-            this._dbchecked.HeaderText = "Ready";
-            this._dbchecked.Name = "_dbchecked";
-            this._dbchecked.Width = 50;
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
             // 
-            // _dbid
+            // downloadToolStripMenuItem
             // 
-            this._dbid.DataPropertyName = "_incId";
-            this._dbid.HeaderText = "ID";
-            this._dbid.Name = "_dbid";
-            this._dbid.Width = 50;
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downloadToolStripMenuItem.Text = "Download";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
             // 
-            // _dbname
+            // toolStripSeparator2
             // 
-            this._dbname.DataPropertyName = "_incName";
-            this._dbname.HeaderText = "Name";
-            this._dbname.Name = "_dbname";
-            // 
-            // _dbtype
-            // 
-            this._dbtype.DataPropertyName = "_incType";
-            this._dbtype.HeaderText = "Type";
-            this._dbtype.Name = "_dbtype";
-            // 
-            // _dbadded
-            // 
-            this._dbadded.DataPropertyName = "_incAdded";
-            this._dbadded.HeaderText = "Date Added";
-            this._dbadded.Name = "_dbadded";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // MainWindow
             // 
@@ -411,6 +436,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
+        private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
