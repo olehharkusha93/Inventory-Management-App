@@ -16,13 +16,13 @@ namespace Win_InvApp
         {
 
         }
-
+   
         public String[] Scan()
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "All Files|*.*|jpg Files|*.png";
+            dlg.Filter = "All Files|*.*|PNG Files|*.png";
             dlg.FilterIndex = 2;
-            string[] barcodes = { "DEFAULT" };
+            string[] barcodes = {"DEFAULT"};
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 barcodes = BarcodeScanner.Scan(dlg.FileName, BarcodeType.Code128);
@@ -33,6 +33,6 @@ namespace Win_InvApp
                 return barcodes;
             }
         }
-        
+
     }
 }
