@@ -33,6 +33,9 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
@@ -43,6 +46,10 @@
             this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.testBox_scan = new System.Windows.Forms.TextBox();
+            this.scanButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnRemoveDatabase = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnRemoveNew = new System.Windows.Forms.Button();
@@ -55,16 +62,10 @@
             this.dgvIncomming = new System.Windows.Forms.DataGridView();
             this._queuechecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this._queueid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._queueQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.scanButton = new System.Windows.Forms.Button();
-            this.testBox_scan = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -101,26 +102,45 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(125, 6);
+            // 
+            // uploadToolStripMenuItem
+            // 
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
+            // 
+            // downloadToolStripMenuItem
+            // 
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.downloadToolStripMenuItem.Text = "Download";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(125, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -226,6 +246,43 @@
             this.panel1.Size = new System.Drawing.Size(221, 385);
             this.panel1.TabIndex = 2;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 355);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "testing";
+            // 
+            // testBox_scan
+            // 
+            this.testBox_scan.Location = new System.Drawing.Point(53, 352);
+            this.testBox_scan.Name = "testBox_scan";
+            this.testBox_scan.Size = new System.Drawing.Size(165, 20);
+            this.testBox_scan.TabIndex = 7;
+            // 
+            // scanButton
+            // 
+            this.scanButton.Location = new System.Drawing.Point(69, 212);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(81, 24);
+            this.scanButton.TabIndex = 6;
+            this.scanButton.Text = "Scan";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(80, 174);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Scan";
+            // 
             // btnRemoveDatabase
             // 
             this.btnRemoveDatabase.Location = new System.Drawing.Point(69, 45);
@@ -322,6 +379,7 @@
             this.dgvIncomming.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._queuechecked,
             this._queueid,
+            this._queueQuantity,
             this._queuename,
             this._queuetype,
             this._queueadded});
@@ -350,6 +408,12 @@
             this._queueid.Name = "_queueid";
             this._queueid.Width = 50;
             // 
+            // _queueQuantity
+            // 
+            this._queueQuantity.DataPropertyName = "_incQuant";
+            this._queueQuantity.HeaderText = "Quantity";
+            this._queueQuantity.Name = "_queueQuantity";
+            // 
             // _queuename
             // 
             this._queuename.DataPropertyName = "_incName";
@@ -367,62 +431,6 @@
             this._queueadded.DataPropertyName = "_incAdded";
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(80, 174);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Scan";
-            // 
-            // scanButton
-            // 
-            this.scanButton.Location = new System.Drawing.Point(69, 212);
-            this.scanButton.Name = "scanButton";
-            this.scanButton.Size = new System.Drawing.Size(81, 24);
-            this.scanButton.TabIndex = 6;
-            this.scanButton.Text = "Scan";
-            this.scanButton.UseVisualStyleBackColor = true;
-            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
-            // 
-            // testBox_scan
-            // 
-            this.testBox_scan.Location = new System.Drawing.Point(53, 352);
-            this.testBox_scan.Name = "testBox_scan";
-            this.testBox_scan.Size = new System.Drawing.Size(165, 20);
-            this.testBox_scan.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 355);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "testing";
-            // 
-            // uploadToolStripMenuItem
-            // 
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
-            // 
-            // downloadToolStripMenuItem
-            // 
-            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
-            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.downloadToolStripMenuItem.Text = "Download";
-            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // MainWindow
             // 
@@ -466,11 +474,6 @@
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.Button btnRemoveNew;
         private System.Windows.Forms.Button btnAddDatabase;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queueid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -489,6 +492,12 @@
         private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queueid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queueQuantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
     }
 }
 

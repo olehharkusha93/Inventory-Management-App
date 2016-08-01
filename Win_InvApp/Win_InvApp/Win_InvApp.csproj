@@ -117,28 +117,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDialog.cs">
+    <Compile Include="View\AddDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDialog.Designer.cs">
+    <Compile Include="View\AddDialog.Designer.cs">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Barcode.cs" />
     <Compile Include="FileStream.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="View\LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="View\LogIn.Designer.cs">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerUpDown.cs" />
-    <EmbeddedResource Include="AddDialog.resx">
+    <EmbeddedResource Include="View\AddDialog.resx">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="View\LogIn.resx">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -156,7 +165,7 @@
     <None Include="bin\Release\Win_InvApp.exe.config" />
     <None Include="bin\Release\Win_InvApp.vshost.exe.config" />
     <None Include="bin\Release\Win_InvApp.vshost.exe.manifest" />
-    <None Include="packages.config" />
+    <None Include="Resources\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,7 +177,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Resources\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\CloudBoost.dll" />
@@ -191,7 +200,7 @@
     <Content Include="bin\Release\Win_InvApp.exe" />
     <Content Include="bin\Release\Win_InvApp.pdb" />
     <Content Include="bin\Release\Win_InvApp.vshost.exe" />
-    <Content Include="nuget.exe" />
+    <Content Include="Resources\nuget.exe" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -205,6 +214,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

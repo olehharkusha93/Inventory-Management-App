@@ -24,6 +24,7 @@ namespace Win_InvApp
                     obj.ID = pair.Key;
                     obj.Set("Name", pair.Value.Name);
                     obj.Set("Type", pair.Value.Type);
+                    obj.Set("Quantity", pair.Value.Quantity);
                     CloudObject savedObj = await obj.SaveAsync();
                     pair.Value.OnServer = true;
                 }

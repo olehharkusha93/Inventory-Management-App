@@ -43,6 +43,7 @@ namespace Win_InvApp
         private void button1_Click(object sender, EventArgs e)
         {
             nItem = new Item(tbName.Text, tbType.Text, id);
+            nItem.Quantity = (uint)nudQuantity.Value;
 
             if (fromDefault)
                 MainWindow.LastID++;
@@ -56,6 +57,7 @@ namespace Win_InvApp
             tbID.Text = MainWindow.LastID.ToString();
             tbType.Text = "Type Name";
             tbName.Text = "Name";
+            nudQuantity.Value = 1;
             fromDefault = true;
             btnOk.Enabled = true;
 
