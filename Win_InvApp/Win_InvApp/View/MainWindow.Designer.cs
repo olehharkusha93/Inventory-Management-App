@@ -377,13 +377,14 @@
             this._queueid.DataPropertyName = "_incId";
             this._queueid.HeaderText = "ID";
             this._queueid.Name = "_queueid";
-            this._queueid.Width = 50;
+            this._queueid.Width = 45;
             // 
             // _queueQuantity
             // 
             this._queueQuantity.DataPropertyName = "_incQuant";
             this._queueQuantity.HeaderText = "Quantity";
             this._queueQuantity.Name = "_queueQuantity";
+            this._queueQuantity.Width = 60;
             // 
             // _queuename
             // 
@@ -396,6 +397,7 @@
             this._queuetype.DataPropertyName = "_incType";
             this._queuetype.HeaderText = "Type";
             this._queuetype.Name = "_queuetype";
+            this._queuetype.Width = 90;
             // 
             // _queueadded
             // 
@@ -409,18 +411,18 @@
             this._dbchecked.Name = "_dbchecked";
             this._dbchecked.Width = 50;
             // 
-            // dbs_Quantity
-            // 
-            this.dbs_Quantity.DataPropertyName = "_incQuant";
-            this.dbs_Quantity.HeaderText = "Quantity";
-            this.dbs_Quantity.Name = "dbs_Quantity";
-            // 
             // _dbid
             // 
             this._dbid.DataPropertyName = "_incId";
             this._dbid.HeaderText = "ID";
             this._dbid.Name = "_dbid";
-            this._dbid.Width = 50;
+            // 
+            // dbs_Quantity
+            // 
+            this.dbs_Quantity.DataPropertyName = "_incQuant";
+            this.dbs_Quantity.HeaderText = "Quantity";
+            this.dbs_Quantity.Name = "dbs_Quantity";
+            this._dbid.Width = 45;
             // 
             // _dbname
             // 
@@ -433,6 +435,7 @@
             this._dbtype.DataPropertyName = "_incType";
             this._dbtype.HeaderText = "Type";
             this._dbtype.Name = "_dbtype";
+            this._dbtype.Width = 90;
             // 
             // _dbadded
             // 
@@ -449,7 +452,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "Inventory Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

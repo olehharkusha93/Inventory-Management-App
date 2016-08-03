@@ -29,5 +29,13 @@ namespace Win_InvApp
             mWin.FormClosed += (s, args) => this.Close();
             mWin.Show();
         }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin_Click(this, new EventArgs());
+            }
+        }
     }
 }
