@@ -164,9 +164,13 @@ namespace Win_InvApp
         private void btnAddDatabase_Click(object sender, EventArgs e)
         {
             List<int> move = GetChecked(dgvIncomming);
-            foreach(int i in move)
-                dbsItems.Add(incItems.ToList()[i].Value.CloudID, incItems.ToList()[i].Value);
-
+            foreach (int i in move)
+            {
+                if (dbsItems.ContainsKey(incItems.ToList()[i].Value.CloudID))
+                    dbsItems[incItems.ToList()[i].Value.CloudID].Quantity += incItems.ToList()[i].Value.Quantity;
+                else
+                    dbsItems.Add(incItems.ToList()[i].Value.CloudID, incItems.ToList()[i].Value);
+            }
             Remove(incDT, incItems, move);
             PopulateTable();
 
@@ -202,7 +206,7 @@ namespace Win_InvApp
             DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", String.Empty, MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
-                //TODO (cris) Remove(dbsDT, dbsItems, move);
+                Remove(dbsDT, dbsItems, move);
                 PopulateTable();
             }
             else if(result == DialogResult.No)
