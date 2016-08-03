@@ -19,6 +19,7 @@ namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
+
         Dictionary<String, Item> incItems;
         Dictionary<String, Item> dbsItems;
         DataTable incDT;
@@ -59,6 +60,7 @@ namespace Win_InvApp
 
             dgvIncomming.DataSource = incDT;
             dgvDatabase.DataSource = dbsDT;
+
         }
 
 
