@@ -39,11 +39,6 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
-            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -66,6 +61,12 @@
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dbs_Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -168,6 +169,7 @@
             this.dgvDatabase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatabase.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._dbchecked,
+            this.dbs_Quantity,
             this._dbid,
             this._dbname,
             this._dbtype,
@@ -178,37 +180,6 @@
             this.dgvDatabase.Name = "dgvDatabase";
             this.dgvDatabase.Size = new System.Drawing.Size(451, 889);
             this.dgvDatabase.TabIndex = 2;
-            // 
-            // _dbchecked
-            // 
-            this._dbchecked.HeaderText = "Ready";
-            this._dbchecked.Name = "_dbchecked";
-            this._dbchecked.Width = 50;
-            // 
-            // _dbid
-            // 
-            this._dbid.DataPropertyName = "_incId";
-            this._dbid.HeaderText = "ID";
-            this._dbid.Name = "_dbid";
-            this._dbid.Width = 50;
-            // 
-            // _dbname
-            // 
-            this._dbname.DataPropertyName = "_incName";
-            this._dbname.HeaderText = "Name";
-            this._dbname.Name = "_dbname";
-            // 
-            // _dbtype
-            // 
-            this._dbtype.DataPropertyName = "_incType";
-            this._dbtype.HeaderText = "Type";
-            this._dbtype.Name = "_dbtype";
-            // 
-            // _dbadded
-            // 
-            this._dbadded.DataPropertyName = "_incAdded";
-            this._dbadded.HeaderText = "Date Added";
-            this._dbadded.Name = "_dbadded";
             // 
             // tableLayoutPanel2
             // 
@@ -432,6 +403,43 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
+            // _dbchecked
+            // 
+            this._dbchecked.HeaderText = "Ready";
+            this._dbchecked.Name = "_dbchecked";
+            this._dbchecked.Width = 50;
+            // 
+            // dbs_Quantity
+            // 
+            this.dbs_Quantity.DataPropertyName = "_incQuant";
+            this.dbs_Quantity.HeaderText = "Quantity";
+            this.dbs_Quantity.Name = "dbs_Quantity";
+            // 
+            // _dbid
+            // 
+            this._dbid.DataPropertyName = "_incId";
+            this._dbid.HeaderText = "ID";
+            this._dbid.Name = "_dbid";
+            this._dbid.Width = 50;
+            // 
+            // _dbname
+            // 
+            this._dbname.DataPropertyName = "_incName";
+            this._dbname.HeaderText = "Name";
+            this._dbname.Name = "_dbname";
+            // 
+            // _dbtype
+            // 
+            this._dbtype.DataPropertyName = "_incType";
+            this._dbtype.HeaderText = "Type";
+            this._dbtype.Name = "_dbtype";
+            // 
+            // _dbadded
+            // 
+            this._dbadded.DataPropertyName = "_incAdded";
+            this._dbadded.HeaderText = "Date Added";
+            this._dbadded.Name = "_dbadded";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -484,11 +492,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox testBox_scan;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
         private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -498,6 +501,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dbs_Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
     }
 }
 
