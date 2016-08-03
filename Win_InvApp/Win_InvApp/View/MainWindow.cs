@@ -137,11 +137,21 @@ namespace Win_InvApp
             PopulateTable();
         }
 
-        private void Remove(DataTable grid, Dictionary<String, Item> items, List<int> delete)
+        private void Remove(DataTable grid, Dictionary<String, Item> items, List<int> delete, bool fromServer = false)
         {
-            for (int i = delete.Count - 1; i >= 0; i--)
+            List<string> remKey = new List<string>();
+
+            foreach (var i in delete)
             {
-                items.Remove(items.ToList()[delete[i]].Key);
+                remKey.Add(items.ToList()[i].Key);
+            }
+
+            if(fromServer)
+                ServerUpDown.Remove(remKey);
+
+            for(int i = 0; i < remKey.Count; i++)
+            {
+                items.Remove(remKey[i]);
                 grid.Rows[delete[i]].Delete();
                 grid.AcceptChanges();
             }
@@ -206,7 +216,7 @@ namespace Win_InvApp
             DialogResult result = MessageBox.Show("Are you sure you would like to remove from the database?", String.Empty, MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
-                Remove(dbsDT, dbsItems, move);
+                Remove(dbsDT, dbsItems, move, true);
                 PopulateTable();
             }
             else if(result == DialogResult.No)

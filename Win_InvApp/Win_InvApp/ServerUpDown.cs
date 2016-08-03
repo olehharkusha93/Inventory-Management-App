@@ -39,6 +39,16 @@ namespace Win_InvApp
             var list1 = query.FindAsync();
             list = list1.Result;
         }
+
+        static public async void Remove(List<string> items)
+        {
+            CloudQuery query = new CloudQuery("Inventory");
+            foreach(string s in items)
+            {
+                var obj = await query.GetAsync<CloudObject>(s);
+                await obj.DeleteAsync();
+            }
+        }
     }
 
 
