@@ -19,10 +19,9 @@ namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
+
         Dictionary<String, Item> incItems;
         Dictionary<String, Item> dbsItems;
-        //List<Item> incItems;
-        //List<Item> dbsItems;
         DataTable incDT;
         DataTable dbsDT;
 
@@ -30,11 +29,11 @@ namespace Win_InvApp
         static public uint LastID { get { return lastId; } set { lastId = value; } }
 
         /// <summary>
-        /// Index: 0 = _incId, 1 = _incName, 2 = _incType, 3 = _incAdded
+        /// Index: 0 = _incId, 1 = _incQuant, 2 = _incName, 3 = _incType, 4 = _incAdded
         /// </summary>
-        public static String[] TableColumns = { "_incId", "_incName", "_incType", "_incAdded" };
+        public static String[] TableColumns = { "_incId", "_incQuant", "_incName", "_incType", "_incAdded" };
 
-        String[] ComboBoxItems = { "ID", "Name", "Type", "Date Added" };
+        String[] ComboBoxItems = { "ID", "Quantity", "Name", "Type", "Date Added" };
         int SearchIndex = 2;
 
 
@@ -49,10 +48,8 @@ namespace Win_InvApp
                 dbsDT.Columns.Add(s, typeof(String));
             }
 
-
-            //incItems = new List<Item>();
+            
             incItems = new Dictionary<string, Item>();
-            //dbsItems = new List<Item>();
             dbsItems = new Dictionary<string, Item>();
             InitializeComponent();
 
@@ -63,6 +60,7 @@ namespace Win_InvApp
 
             dgvIncomming.DataSource = incDT;
             dgvDatabase.DataSource = dbsDT;
+
         }
 
 
@@ -70,6 +68,7 @@ namespace Win_InvApp
         {
             incDT.Clear();
             dbsDT.Clear();
+            tbSearch.Clear();
             foreach (Item item in incItems.Values)
             {
                 DataRow r = incDT.NewRow();
@@ -104,22 +103,32 @@ namespace Win_InvApp
                 i.ID = lastId++;
                 i.CloudID = "TestItem" + i.ID;
                 i.OnServer = false;
+                i.Quantity = 1;
 
                 incItems.Add(i.CloudID, i);
-                PopulateTable();
-                return;
             }
-            AddDialog d = new AddDialog();
-            d.ShowDialog();
-            if(d.DialogResult == DialogResult.OK)
+            else
             {
-                d.newItem.OnServer = false;
-                d.newItem.CloudID = "Item" + d.newItem.ID;
-                incItems.Add(d.newItem.CloudID, d.newItem);
-                PopulateTable();
-                tbSearch.Text = string.Empty;
+                AddDialog d = new AddDialog();
+                d.ShowDialog();
+                if (d.DialogResult == DialogResult.OK)
+                {
+                    d.newItem.OnServer = false;
+                    d.newItem.CloudID = "Item" + d.newItem.ID;
+
+                    if (incItems.ContainsKey(d.newItem.CloudID))
+                    {
+                        incItems[d.newItem.CloudID].Quantity += d.newItem.Quantity;
+                        PopulateTable();
+                        return;
+                    }
+
+                    incItems.Add(d.newItem.CloudID, d.newItem);
+                }
             }
-           
+            
+            PopulateTable();
+
         }
 
         private void btnRemoveNew_Click(object sender, EventArgs e)
@@ -201,12 +210,13 @@ namespace Win_InvApp
             TextBox tb = (TextBox)sender;
             try
             {
+                CurrencyManager cm = (CurrencyManager)BindingContext[dgvIncomming.DataSource];
+                CurrencyManager cm2 = (CurrencyManager)BindingContext[dgvDatabase.DataSource];
                 if (tb.Text == string.Empty)
                 {
                     PopulateTable();
                     return;
                 }
-                CurrencyManager cm = (CurrencyManager)BindingContext[dgvIncomming.DataSource];
                 cm.SuspendBinding();
                 foreach (DataGridViewRow r in dgvIncomming.Rows)
                 {
@@ -219,7 +229,6 @@ namespace Win_InvApp
                 cm.ResumeBinding();
 
 
-                CurrencyManager cm2 = (CurrencyManager)BindingContext[dgvDatabase.DataSource];
                 cm2.SuspendBinding();
                 foreach (DataGridViewRow r in dgvDatabase.Rows)
                 {
@@ -279,6 +288,8 @@ namespace Win_InvApp
                     Debug.WriteLine("Added Item ID: " + item.ID);
                     Item temp = new Item((string)item.Get("Name"), (string)item.Get("Type"));
                     temp.CloudID = item.ID;
+                    if(item.Get("Quantity") != null)
+                        temp.Quantity = Convert.ToUInt32(item.Get("Quantity"));
                     temp.OnServer = true;
                     dbsItems.Add(temp.CloudID, temp);
                 }

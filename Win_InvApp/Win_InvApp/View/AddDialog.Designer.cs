@@ -37,6 +37,9 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDefault = new System.Windows.Forms.Button();
+            this.nudQuantity = new System.Windows.Forms.NumericUpDown();
+            this.lblQuantity = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -127,11 +130,29 @@
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             this.btnDefault.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnDefault_KeyDown);
             // 
+            // nudQuantity
+            // 
+            this.nudQuantity.Location = new System.Drawing.Point(64, 123);
+            this.nudQuantity.Name = "nudQuantity";
+            this.nudQuantity.Size = new System.Drawing.Size(80, 20);
+            this.nudQuantity.TabIndex = 101;
+            // 
+            // lblQuantity
+            // 
+            this.lblQuantity.AutoSize = true;
+            this.lblQuantity.Location = new System.Drawing.Point(12, 125);
+            this.lblQuantity.Name = "lblQuantity";
+            this.lblQuantity.Size = new System.Drawing.Size(46, 13);
+            this.lblQuantity.TabIndex = 102;
+            this.lblQuantity.Text = "Quantity";
+            // 
             // AddDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(258, 215);
+            this.Controls.Add(this.lblQuantity);
+            this.Controls.Add(this.nudQuantity);
             this.Controls.Add(this.btnDefault);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -146,6 +167,7 @@
             this.Name = "AddDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "AddDialog";
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +184,7 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDefault;
+        private System.Windows.Forms.NumericUpDown nudQuantity;
+        private System.Windows.Forms.Label lblQuantity;
     }
 }

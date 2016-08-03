@@ -15,6 +15,7 @@ namespace Win_InvApp
         public DateTime Added { get; set; }
         public String CloudID { get; set; }
         public bool OnServer { get; set; }
+        public uint Quantity { get; set; }
 
         public Item()
         {
@@ -50,15 +51,18 @@ namespace Win_InvApp
                         return ID.ToString();
                         break;
                     case 1:
-                        return Name;
+                        return Quantity.ToString();
                         break;
                     case 2:
-                        return Type;
+                        return Name;
                         break;
                     case 3:
-                        return Added.ToString("MM/dd/yyyy H:mm");
+                        return Type;
                         break;
                     case 4:
+                        return Added.ToString("MM/dd/yyyy H:mm");
+                        break;
+                    case 5:
                         return CloudID;
                         break;
                     default:
