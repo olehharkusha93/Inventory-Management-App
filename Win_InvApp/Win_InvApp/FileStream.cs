@@ -41,9 +41,9 @@ namespace Win_InvApp
             }
         }
 
-        public List<Item> Open()
+        public Dictionary<string, Item> Open()
         {
-            List<Item> rtnList = new List<Item>();
+            Dictionary<string, Item> rtnList = new Dictionary<string, Item>();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "All Files|*.*|CSV Files|*.csv";
             dlg.FilterIndex = 2;
@@ -55,14 +55,17 @@ namespace Win_InvApp
                     string txtfile = input.ReadLine();
                     string[] splitter = txtfile.Split(',');
 
-                    for (int i = 0; i < splitter.Length-1; i+=4)
+                    for (int i = 0; i < splitter.Length - 1;)
                     {
                         Item tmp = new Item();
-                        tmp.ID = Convert.ToUInt16(splitter[i]);
-                        tmp.Name = splitter[i+1];
-                        tmp.Type = splitter[i+2];
-                        tmp.Added = DateTime.Parse(splitter[i+3]);
-                        rtnList.Add(tmp);
+                        tmp.ID = Convert.ToUInt16(splitter[i++]);
+                        tmp.Name = splitter[i++];
+                        tmp.Type = splitter[i++];
+                        tmp.Added = DateTime.Parse(splitter[i++]);
+
+                        tmp.Quantity = Convert.ToUInt32(splitter[i++]);
+                        tmp.CloudID = splitter[i++];
+                        rtnList.Add(tmp.CloudID, tmp);
                     }
                 }
                 input.Close();
@@ -74,6 +77,7 @@ namespace Win_InvApp
                 MessageBox.Show("File did not Open",
                "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 return rtnList;
+
             }
         }
     }

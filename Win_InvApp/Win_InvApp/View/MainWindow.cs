@@ -175,13 +175,20 @@ namespace Win_InvApp
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream save = new FileStream();
-            save.Save(dbsItems.Values.ToList());
+            save.Save(incItems.Values.ToList());
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream open = new FileStream();
-            //TODO (cris) dbsItems = open.Open();
+            Dictionary<string, Item> tmp = open.Open();
+            foreach (var item in tmp)
+            {
+                if (incItems.ContainsKey(item.Key))
+                    incItems[item.Key].Quantity += item.Value.Quantity;
+                else
+                    incItems.Add(item.Key, item.Value);
+            }
             PopulateTable();
         }
 
