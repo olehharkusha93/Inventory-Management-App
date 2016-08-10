@@ -54,15 +54,15 @@ namespace Win_InvApp
                 {
                     string txtfile = input.ReadLine();
                     string[] splitter = txtfile.Split(',');
-
+                    
                     for (int i = 0; i < splitter.Length - 1;)
                     {
                         Item tmp = new Item();
-                        tmp.ID = Convert.ToUInt16(splitter[i++]);
+                        tmp.ID = Convert.ToUInt32(splitter[i++]);
                         tmp.Name = splitter[i++];
                         tmp.Type = splitter[i++];
                         tmp.Added = DateTime.Parse(splitter[i++]);
-
+                        
                         tmp.Quantity = Convert.ToUInt32(splitter[i++]);
                         tmp.CloudID = splitter[i++];
                         rtnList.Add(tmp.CloudID, tmp);
