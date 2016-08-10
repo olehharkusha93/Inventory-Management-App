@@ -12,10 +12,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inventory!"
-        android:id="@+id/testText"
+        android:id="@+id/inventoryLabel"
         android:textSize="32dp"
-        android:textColor="@color/abc_primary_text_disable_only_material_dark"
+        android:textColor="@color/accent_material_light"
         android:layout_above="@+id/contButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="52dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/MainLayout"
+        android:layout_marginTop="48dp">
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:layout_gravity="left|top"
+            android:background="@color/abc_color_highlight_material" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="382dp"
+            android:id="@+id/invList"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@color/abc_color_highlight_material"
+            android:clickable="true"
+            android:contextClickable="true" />
+    </FrameLayout>
+
 </RelativeLayout>
