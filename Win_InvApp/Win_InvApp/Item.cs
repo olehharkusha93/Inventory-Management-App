@@ -16,6 +16,8 @@ namespace Win_InvApp
         public String CloudID { get; set; }
         public bool OnServer { get; set; }
         public uint Quantity { get; set; }
+        public String User { get; set; }
+        public bool isNew { get; set; } = true;
 
         public Item()
         {
@@ -75,7 +77,7 @@ namespace Win_InvApp
 
         public string GetCSV()
         {
-            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',' + Quantity + ',' + CloudID + ',';
+            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',' + Quantity + ',' + CloudID + ',' + User + ',';
         }
     }
 }

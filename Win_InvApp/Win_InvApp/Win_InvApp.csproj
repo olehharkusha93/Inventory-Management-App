@@ -141,6 +141,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerUpDown.cs" />
+    <Compile Include="View\SignUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SignUp.Designer.cs">
+      <DependentUpon>SignUp.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\AddDialog.resx">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,13 +165,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\SignUp.resx">
+      <DependentUpon>SignUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="bin\Debug\Win_InvApp.exe.config" />
     <None Include="bin\Debug\Win_InvApp.vshost.exe.config" />
     <None Include="bin\Debug\Win_InvApp.vshost.exe.manifest" />
     <None Include="bin\Release\Win_InvApp.exe.config" />
     <None Include="bin\Release\Win_InvApp.vshost.exe.config" />
     <None Include="bin\Release\Win_InvApp.vshost.exe.manifest" />
-    <None Include="Resources\packages.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,9 +185,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\CloudBoost.dll" />
@@ -200,7 +207,10 @@
     <Content Include="bin\Release\Win_InvApp.exe" />
     <Content Include="bin\Release\Win_InvApp.pdb" />
     <Content Include="bin\Release\Win_InvApp.vshost.exe" />
-    <Content Include="Resources\nuget.exe" />
+    <Content Include="nuget.exe" />
+    <Content Include="Resources\Blue_Update.png" />
+    <Content Include="Resources\Green_Check.png" />
+    <Content Include="Resources\Red_X.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

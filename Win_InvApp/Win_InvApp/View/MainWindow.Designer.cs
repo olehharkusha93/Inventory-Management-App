@@ -39,6 +39,12 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
+            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dbs_Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,12 +67,7 @@
             this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dbs_Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
@@ -157,6 +158,7 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1147, 721);
@@ -176,10 +178,48 @@
             this._dbadded});
             this.dgvDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDatabase.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvDatabase.Location = new System.Drawing.Point(693, 3);
+            this.dgvDatabase.Location = new System.Drawing.Point(693, 27);
             this.dgvDatabase.Name = "dgvDatabase";
             this.dgvDatabase.Size = new System.Drawing.Size(451, 889);
             this.dgvDatabase.TabIndex = 2;
+            // 
+            // _dbchecked
+            // 
+            this._dbchecked.HeaderText = "Ready";
+            this._dbchecked.Name = "_dbchecked";
+            this._dbchecked.Width = 50;
+            // 
+            // dbs_Quantity
+            // 
+            this.dbs_Quantity.DataPropertyName = "_incQuant";
+            this.dbs_Quantity.HeaderText = "Quantity";
+            this.dbs_Quantity.Name = "dbs_Quantity";
+            // 
+            // _dbid
+            // 
+            this._dbid.DataPropertyName = "_incId";
+            this._dbid.HeaderText = "ID";
+            this._dbid.Name = "_dbid";
+            this._dbid.Width = 45;
+            // 
+            // _dbname
+            // 
+            this._dbname.DataPropertyName = "_incName";
+            this._dbname.HeaderText = "Name";
+            this._dbname.Name = "_dbname";
+            // 
+            // _dbtype
+            // 
+            this._dbtype.DataPropertyName = "_incType";
+            this._dbtype.HeaderText = "Type";
+            this._dbtype.Name = "_dbtype";
+            this._dbtype.Width = 90;
+            // 
+            // _dbadded
+            // 
+            this._dbadded.DataPropertyName = "_incAdded";
+            this._dbadded.HeaderText = "Date Added";
+            this._dbadded.Name = "_dbadded";
             // 
             // tableLayoutPanel2
             // 
@@ -189,7 +229,7 @@
             this.tableLayoutPanel2.Controls.Add(this.lblSearch, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(460, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(460, 27);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.349206F));
@@ -356,7 +396,7 @@
             this._queueadded});
             this.dgvIncomming.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvIncomming.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvIncomming.Location = new System.Drawing.Point(3, 3);
+            this.dgvIncomming.Location = new System.Drawing.Point(3, 27);
             this.dgvIncomming.Name = "dgvIncomming";
             this.dgvIncomming.ShowCellErrors = false;
             this.dgvIncomming.ShowCellToolTips = false;
@@ -405,49 +445,20 @@
             this._queueadded.HeaderText = "Date Added";
             this._queueadded.Name = "_queueadded";
             // 
-            // _dbchecked
+            // toolStrip1
             // 
-            this._dbchecked.HeaderText = "Ready";
-            this._dbchecked.Name = "_dbchecked";
-            this._dbchecked.Width = 50;
-            // 
-            // _dbid
-            // 
-            this._dbid.DataPropertyName = "_incId";
-            this._dbid.HeaderText = "ID";
-            this._dbid.Name = "_dbid";
-            // 
-            // dbs_Quantity
-            // 
-            this.dbs_Quantity.DataPropertyName = "_incQuant";
-            this.dbs_Quantity.HeaderText = "Quantity";
-            this.dbs_Quantity.Name = "dbs_Quantity";
-            this._dbid.Width = 45;
-            // 
-            // _dbname
-            // 
-            this._dbname.DataPropertyName = "_incName";
-            this._dbname.HeaderText = "Name";
-            this._dbname.Name = "_dbname";
-            // 
-            // _dbtype
-            // 
-            this._dbtype.DataPropertyName = "_incType";
-            this._dbtype.HeaderText = "Type";
-            this._dbtype.Name = "_dbtype";
-            this._dbtype.Width = 90;
-            // 
-            // _dbadded
-            // 
-            this._dbadded.DataPropertyName = "_incAdded";
-            this._dbadded.HeaderText = "Date Added";
-            this._dbadded.Name = "_dbadded";
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1147, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 745);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -510,6 +521,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }
 

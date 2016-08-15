@@ -19,28 +19,48 @@ namespace Win_InvApp
 {
     public partial class MainWindow : Form
     {
-
+        delegate void AsyncMethodCaller(out ArrayList list);
+        System.Windows.Forms.Timer time;
         Dictionary<String, Item> incItems;
         Dictionary<String, Item> dbsItems;
+        List<Item> newItems;
         DataTable incDT;
         DataTable dbsDT;
 
         static uint lastId = 0;
-        static public uint LastID { get { return lastId; } set { lastId = value; } }
-
-        /// <summary>
-        /// Index: 0 = _incId, 1 = _incQuant, 2 = _incName, 3 = _incType, 4 = _incAdded
-        /// </summary>
         public static String[] TableColumns = { "_incId", "_incQuant", "_incName", "_incType", "_incAdded" };
-
         String[] ComboBoxItems = { "ID", "Quantity", "Name", "Type", "Date Added" };
+        string CurrentUser;
         int SearchIndex = 2;
-
+        float fadeTime = 30.0f;
+        static public uint LastID { get { return lastId; } set { lastId = value; } }
 
         public MainWindow()
         {
+            CurrentUser = "DefaultUser";
+            Init();
+        }
+
+        public MainWindow(string _user)
+        {
+            CurrentUser = _user;
+            Init();
+        }
+
+        private void Time_Tick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Init()
+        {
+            time = new System.Windows.Forms.Timer();
+            time.Tick += Time_Tick;
             incDT = new DataTable();
             dbsDT = new DataTable();
+            newItems = new List<Item>();
+            incItems = new Dictionary<string, Item>();
+            dbsItems = new Dictionary<string, Item>();
 
             foreach (string s in TableColumns)
             {
@@ -48,9 +68,7 @@ namespace Win_InvApp
                 dbsDT.Columns.Add(s, typeof(String));
             }
 
-            
-            incItems = new Dictionary<string, Item>();
-            dbsItems = new Dictionary<string, Item>();
+
             InitializeComponent();
 
             foreach (string s in ComboBoxItems)
@@ -60,7 +78,6 @@ namespace Win_InvApp
 
             dgvIncomming.DataSource = incDT;
             dgvDatabase.DataSource = dbsDT;
-
         }
 
 
@@ -104,8 +121,10 @@ namespace Win_InvApp
                 i.CloudID = "TestItem" + i.ID;
                 i.OnServer = false;
                 i.Quantity = 1;
+                i.User = CurrentUser;
 
                 incItems.Add(i.CloudID, i);
+                newItems.Add(i);
             }
             else
             {
@@ -120,9 +139,10 @@ namespace Win_InvApp
                     {
                         incItems[d.newItem.CloudID].Quantity += d.newItem.Quantity;
                         PopulateTable();
+                        newItems.Add(d.newItem);
                         return;
                     }
-
+                    newItems.Add(d.newItem);
                     incItems.Add(d.newItem.CloudID, d.newItem);
                 }
             }
@@ -288,7 +308,6 @@ namespace Win_InvApp
             ServerUpDown.Save(dbsItems);
         }
 
-        public delegate void AsyncMethodCaller(out ArrayList list);
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -307,11 +326,14 @@ namespace Win_InvApp
                 if (!dbsItems.ContainsKey(item.ID))
                 {
                     Debug.WriteLine("Added Item ID: " + item.ID);
-                    Item temp = new Item((string)item.Get("Name"), (string)item.Get("Type"));
+                    Item temp = new Item(item.Get<string>("Name"), item.Get<string>("Type"));
                     temp.CloudID = item.ID;
+                    if (item.Get("User") != null)
+                        temp.User = item.Get<string>("User");
                     if(item.Get("Quantity") != null)
-                        temp.Quantity = Convert.ToUInt32(item.Get("Quantity"));
+                        temp.Quantity = item.Get<uint>("Quantity");
                     temp.OnServer = true;
+
                     dbsItems.Add(temp.CloudID, temp);
                 }
                 else

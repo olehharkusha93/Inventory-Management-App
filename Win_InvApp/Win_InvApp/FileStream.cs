@@ -65,6 +65,7 @@ namespace Win_InvApp
 
                         tmp.Quantity = Convert.ToUInt32(splitter[i++]);
                         tmp.CloudID = splitter[i++];
+                        tmp.User = splitter[i++];
                         rtnList.Add(tmp.CloudID, tmp);
                     }
                 }
