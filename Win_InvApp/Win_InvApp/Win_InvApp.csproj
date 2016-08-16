@@ -164,6 +164,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="View\SignUp.resx">
       <DependentUpon>SignUp.cs</DependentUpon>
@@ -209,7 +210,9 @@
     <Content Include="bin\Release\Win_InvApp.vshost.exe" />
     <Content Include="nuget.exe" />
     <Content Include="Resources\Blue_Update.png" />
+    <None Include="Resources\Close_X.png" />
     <Content Include="Resources\Green_Check.png" />
+    <None Include="Resources\LoginBG.png" />
     <Content Include="Resources\Red_X.png" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +227,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

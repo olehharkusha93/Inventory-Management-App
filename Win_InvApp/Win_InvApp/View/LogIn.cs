@@ -15,9 +15,17 @@ namespace Win_InvApp
 {
     public partial class LogIn : Form
     {
+        bool _dragging = false;
+        Point startPoint;
+
         public LogIn()
         {
             InitializeComponent();
+            //btnLogin.BackColor = ColorTranslator.FromHtml("#0043b2");
+            btnLogin.FlatAppearance.MouseDownBackColor = ColorTranslator.FromHtml("#1c50a7");
+            btnLogin.ForeColor = Color.Black;
+            btnLogin.FlatAppearance.BorderColor = Color.DimGray;
+            this.CenterToScreen();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -65,6 +73,31 @@ namespace Win_InvApp
         private void btnSignUp_Click(object sender, EventArgs e)
         {
             var wind = new SignUp().ShowDialog();
+        }
+
+        private void btn_OnHover(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.Hand;
+        }
+
+        private void LogIn_MouseDown(object sender, MouseEventArgs e)
+        {
+            _dragging = true;
+            startPoint = new Point(e.X, e.Y);
+        }
+
+        private void LogIn_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(_dragging)
+            {
+                Point p = PointToScreen(e.Location);
+                Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
+            }
+        }
+
+        private void LogIn_MouseUp(object sender, MouseEventArgs e)
+        {
+            _dragging = false;
         }
     }
 }
