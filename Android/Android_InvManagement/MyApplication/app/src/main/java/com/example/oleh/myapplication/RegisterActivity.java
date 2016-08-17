@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     public ProgressDialog pdialog;
     Context c;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etName = (EditText) findViewById(R.id.etName);
         final EditText etUsername = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        //final EditText etAge = (EditText) findViewById(R.id.etAge);
+        final EditText etAge = (EditText) findViewById(R.id.etAge);
+
         final Button registerButton = (Button) findViewById(R.id.registerButton);
 
         assert registerButton != null;
@@ -56,19 +58,19 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 assert etPassword != null;
                 String password = etPassword.getText().toString();
-                //Integer age = Integer.parseInt(etAge.getText().toString());
+                assert etAge != null;
+                Integer age = Integer.parseInt(etAge.getText().toString());
 
-
-                doRegister(username,password,name);
+                doRegister(username,password,name,age);
             }
         });
 
 
     }
 
-    public void doRegister(String username,String password, String name)
+    public void doRegister(String uname,String pass, String emailname,Integer uage)
     {
-        new signup().execute(username,password,name);
+        new signup().execute(uname,pass,emailname,uage.toString());
     }
 
     public class signup extends AsyncTask<String,String,String>
@@ -87,17 +89,15 @@ public class RegisterActivity extends AppCompatActivity {
             pdialog.dismiss();
         }
         @Override
-        protected String doInBackground(String... params)
+        protected String doInBackground(String...params)
         {
             CloudUser user = new CloudUser();
             user.setUserName(params[0]);
             user.setPassword(params[1]);
             user.setEmail(params[2]);
-            //CloudUser.setCurrentUser(user);
-            //RegisterRequest.CURRENT_USER = user;
-
             try
            {
+               user.set("Age", params[3]);
                user.signUp(new CloudUserCallback() {
                    @Override
                    public void done(CloudUser user, CloudException e) throws CloudException {
@@ -113,11 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
                            });
 
                            CloudUser.setCurrentUser(user);
-                           RegisterRequest.CURRENT_USER = user;
+                           App.CURRENT_USER = user;
+                           Intent i = new Intent(RegisterActivity.this, DatabaseInvetoryActivity.class);
+                           startActivity(i);
 
-
-                           //com.example.oleh.myapplication.RegisterRequest.CURRENT_USER = user;
-                          // RegisterRequest.CURRENT_USER = user;
                        }
                    }
                });

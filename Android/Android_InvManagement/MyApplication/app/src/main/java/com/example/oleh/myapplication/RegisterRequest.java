@@ -1,4 +1,4 @@
-package com.example.oleh.myapplication;
+/*package com.example.oleh.myapplication;
 
 import android.app.Application;
 import android.util.Log;
@@ -29,4 +29,4 @@ public class RegisterRequest extends Application
 
     }
 
-}
+}*/

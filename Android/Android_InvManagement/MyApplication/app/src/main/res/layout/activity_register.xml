@@ -18,7 +18,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Name" />
+        android:hint="Enter an e-mail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etName"
         android:layout_alignEnd="@+id/etName"
-        android:hint="Username/E-mail" />
+        android:hint="Name/Username" />
 
     <EditText
         android:layout_width="wrap_content"
