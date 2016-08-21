@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Sign Up");
         setContentView(R.layout.activity_register);
         pdialog=new ProgressDialog(this);
         c = this;

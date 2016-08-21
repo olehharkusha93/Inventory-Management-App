@@ -20,7 +20,7 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="92dp"
+            android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:text="Scan-Act."
             android:id="@+id/scanActivityBtn" />
@@ -28,13 +28,44 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.08">
+            android:layout_height="32dp">
 
             <SearchView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/searchView" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="    Name"
+                android:id="@+id/textView"
+                android:textColor="#000000"
+                android:layout_weight="0.38" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:id="@+id/textView2"
+                android:textColor="#000000"
+                android:layout_weight="0.39" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:id="@+id/textView3"
+                android:textColor="#000000"
+                android:layout_weight="0.17" />
         </LinearLayout>
 
         <LinearLayout
