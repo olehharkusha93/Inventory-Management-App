@@ -19,17 +19,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
-            android:text="Inventory!"
-            android:id="@+id/testText"
-            android:textSize="32dp"
-            android:textColor="@color/highlighted_text_material_light"
-            android:layout_above="@+id/contButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="42dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="Scan-Act."
+            android:id="@+id/scanActivityBtn" />
 
         <LinearLayout
             android:orientation="vertical"
