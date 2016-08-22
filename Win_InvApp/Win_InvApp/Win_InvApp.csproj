@@ -124,7 +124,6 @@
     <Compile Include="View\AddDialog.Designer.cs">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Barcode.cs" />
     <Compile Include="FileStream.cs" />
     <Compile Include="View\LogIn.cs">
       <SubType>Form</SubType>

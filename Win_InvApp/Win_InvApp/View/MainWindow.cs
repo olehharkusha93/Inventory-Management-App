@@ -32,7 +32,6 @@ namespace Win_InvApp
         String[] ComboBoxItems = { "ID", "Quantity", "Name", "Type", "Date Added" };
         string CurrentUser;
         int SearchIndex = 2;
-        float fadeTime = 30.0f;
         static public uint LastID { get { return lastId; } set { lastId = value; } }
 
         public MainWindow()
@@ -299,13 +298,7 @@ namespace Win_InvApp
             tbSearch.Clear();
             tbSearch_TextChanged(tbSearch, new EventArgs());
         }
-
-        private void scanButton_Click(object sender, EventArgs e)
-        {
-            Barcode barcode = new Barcode();
-            testBox_scan.Lines = barcode.Scan();
-        }
-
+        
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ServerUpDown.Save(dbsItems);
