@@ -77,7 +77,7 @@ namespace Win_InvApp
 
         public string GetCSV()
         {
-            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',' + Quantity + ',' + CloudID + ',' + User + ',';
+            return ID.ToString() + ',' + Name + ',' + Type + ',' + Added.ToString("MM/dd/yyyy H:mm") + ',' + Quantity + ',' + CloudID + ',' + User + ',' + '\n';
         }
     }
 }

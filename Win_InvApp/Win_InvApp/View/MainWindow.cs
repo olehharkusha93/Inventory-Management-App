@@ -172,7 +172,8 @@ namespace Win_InvApp
             for(int i = 0; i < remKey.Count; i++)
             {
                 items.Remove(remKey[i]);
-                grid.Rows[delete[i]].Delete();
+                //grid.Rows[delete[i]].Delete();
+                grid.Rows[0].Delete();
                 grid.AcceptChanges();
             }
         }
@@ -209,7 +210,9 @@ namespace Win_InvApp
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream save = new FileStream();
-            save.Save(incItems.Values.ToList());
+            //save.Save(incItems.Values.ToList());
+            save.Save(dbsItems.Values.ToList());
+
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -218,10 +221,10 @@ namespace Win_InvApp
             Dictionary<string, Item> tmp = open.Open();
             foreach (var item in tmp)
             {
-                if (incItems.ContainsKey(item.Key))
-                    incItems[item.Key].Quantity += item.Value.Quantity;
+                if (dbsItems.ContainsKey(item.Key))
+                    dbsItems[item.Key].Quantity += item.Value.Quantity;
                 else
-                    incItems.Add(item.Key, item.Value);
+                    dbsItems.Add(item.Key, item.Value);
             }
             PopulateTable();
         }
