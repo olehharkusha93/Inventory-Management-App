@@ -35,6 +35,7 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnSignUp = new System.Windows.Forms.Button();
+            this.lblCopyright = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbUserName
@@ -80,6 +81,7 @@
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -94,23 +96,26 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.BackgroundImage = global::Win_InvApp.Properties.Resources.Close_X;
-            this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Location = new System.Drawing.Point(471, -1);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(10);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(30, 23);
             this.btnExit.TabIndex = 5;
+            this.btnExit.TabStop = false;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnSignUp
             // 
             this.btnSignUp.BackColor = System.Drawing.Color.Transparent;
+            this.btnSignUp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSignUp.FlatAppearance.BorderSize = 0;
             this.btnSignUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnSignUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -126,12 +131,26 @@
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             this.btnSignUp.MouseHover += new System.EventHandler(this.btn_OnHover);
             // 
+            // lblCopyright
+            // 
+            this.lblCopyright.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblCopyright.AutoSize = true;
+            this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
+            this.lblCopyright.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCopyright.Location = new System.Drawing.Point(39, 477);
+            this.lblCopyright.Name = "lblCopyright";
+            this.lblCopyright.Size = new System.Drawing.Size(421, 14);
+            this.lblCopyright.TabIndex = 9;
+            this.lblCopyright.Text = global::Win_InvApp.Properties.Settings.Default.Copyright;
+            this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Win_InvApp.Properties.Resources.LoginBG;
             this.ClientSize = new System.Drawing.Size(500, 500);
+            this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnExit);
@@ -161,5 +180,6 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblCopyright;
     }
 }

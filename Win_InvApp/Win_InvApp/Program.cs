@@ -14,9 +14,15 @@ namespace Win_InvApp
         [STAThread]
         static void Main()
         {
+            SetStrings();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LogIn());
+        }
+
+        static void SetStrings()
+        {
+            Strings.Copyright = "Copyright © 2016 Brandon Bigelow, Cristobal Hall-Ramos, Gabriel Leo, Ole Haruksha";
         }
     }
 }

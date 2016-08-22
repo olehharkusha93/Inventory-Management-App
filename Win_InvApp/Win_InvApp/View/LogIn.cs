@@ -21,11 +21,16 @@ namespace Win_InvApp
         public LogIn()
         {
             InitializeComponent();
-            //btnLogin.BackColor = ColorTranslator.FromHtml("#0043b2");
+
             btnLogin.FlatAppearance.MouseDownBackColor = ColorTranslator.FromHtml("#1c50a7");
             btnLogin.ForeColor = Color.Black;
             btnLogin.FlatAppearance.BorderColor = Color.DimGray;
+            btnExit.ImageAlign = ContentAlignment.BottomLeft;
+            btnExit.FlatAppearance.MouseOverBackColor = ColorTranslator.FromHtml("#4979c8");
+            btnExit.FlatAppearance.MouseDownBackColor = ColorTranslator.FromHtml("#c3d9ff");
+
             this.CenterToScreen();
+            this.Text = Strings.ProgramName + " - Log In";
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -50,6 +55,7 @@ namespace Win_InvApp
         private bool Log()
         {
             return true;
+            //TODO (cris): Solve problem of unable to log in
             AsyncMethodCaller caller = new AsyncMethodCaller(ServerUpDown.LogIn);
             IAsyncResult result = caller.BeginInvoke(tbUserName.Text, tbPassword.Text, null, null);
             Thread.Sleep(0);
