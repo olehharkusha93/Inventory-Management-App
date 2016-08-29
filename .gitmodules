@@ -1,0 +1,3 @@
+[submodule "Win_InvApp/Win_InvApp/Modules"]
+	path = Win_InvApp/Win_InvApp/Modules
+	url = https://github.com/hallcristobal/.net-sdk
