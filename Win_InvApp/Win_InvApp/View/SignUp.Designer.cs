@@ -1,4 +1,4 @@
-﻿namespace Win_InvApp
+﻿namespace Win_InvApp.View
 {
     partial class SignUp
     {
@@ -36,6 +36,8 @@
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.tbRePass = new System.Windows.Forms.TextBox();
+            this.lblRePassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblUserName
@@ -50,7 +52,7 @@
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(41, 109);
+            this.lblEmail.Location = new System.Drawing.Point(41, 71);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(40, 13);
             this.lblEmail.TabIndex = 0;
@@ -59,7 +61,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(41, 76);
+            this.lblPassword.Location = new System.Drawing.Point(41, 97);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(57, 13);
             this.lblPassword.TabIndex = 0;
@@ -70,28 +72,29 @@
             this.tbUserName.Location = new System.Drawing.Point(121, 42);
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(199, 20);
-            this.tbUserName.TabIndex = 3;
+            this.tbUserName.TabIndex = 1;
             this.tbUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbUserName_KeyDown);
             // 
             // tbPassword
             // 
-            this.tbPassword.Location = new System.Drawing.Point(121, 73);
+            this.tbPassword.Location = new System.Drawing.Point(121, 94);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(199, 20);
-            this.tbPassword.TabIndex = 4;
+            this.tbPassword.TabIndex = 3;
+            this.tbPassword.UseSystemPasswordChar = true;
             this.tbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbUserName_KeyDown);
             // 
             // tbEmail
             // 
-            this.tbEmail.Location = new System.Drawing.Point(121, 106);
+            this.tbEmail.Location = new System.Drawing.Point(121, 68);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(199, 20);
-            this.tbEmail.TabIndex = 5;
+            this.tbEmail.TabIndex = 2;
             this.tbEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbUserName_KeyDown);
             // 
             // btnSignUp
             // 
-            this.btnSignUp.Location = new System.Drawing.Point(97, 148);
+            this.btnSignUp.Location = new System.Drawing.Point(97, 169);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(75, 23);
             this.btnSignUp.TabIndex = 6;
@@ -103,7 +106,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(199, 148);
+            this.btnCancel.Location = new System.Drawing.Point(199, 169);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -111,11 +114,30 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCancel_KeyDown);
             // 
+            // tbRePass
+            // 
+            this.tbRePass.Location = new System.Drawing.Point(121, 120);
+            this.tbRePass.Name = "tbRePass";
+            this.tbRePass.Size = new System.Drawing.Size(199, 20);
+            this.tbRePass.TabIndex = 4;
+            this.tbRePass.UseSystemPasswordChar = true;
+            // 
+            // lblRePassword
+            // 
+            this.lblRePassword.AutoSize = true;
+            this.lblRePassword.Location = new System.Drawing.Point(12, 123);
+            this.lblRePassword.Name = "lblRePassword";
+            this.lblRePassword.Size = new System.Drawing.Size(102, 13);
+            this.lblRePassword.TabIndex = 8;
+            this.lblRePassword.Text = "Re-Enter Password*";
+            // 
             // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 219);
+            this.Controls.Add(this.tbRePass);
+            this.Controls.Add(this.lblRePassword);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.tbEmail);
@@ -144,5 +166,7 @@
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox tbRePass;
+        private System.Windows.Forms.Label lblRePassword;
     }
 }

@@ -15,12 +15,10 @@ using System.Collections;
 using CB;
 
 
-namespace Win_InvApp
+namespace Win_InvApp.View
 {
     public partial class MainWindow : Form
     {
-        delegate void AsyncMethodCaller(out ArrayList list);
-        System.Windows.Forms.Timer time;
         Dictionary<String, Item> incItems;
         Dictionary<String, Item> dbsItems;
         List<Item> newItems;
@@ -36,32 +34,20 @@ namespace Win_InvApp
 
         public MainWindow()
         {
-            CurrentUser = "DefaultUser";
+            CurrentUser = CB.CloudUser.Current.Username;
             Init();
-        }
-
-        public MainWindow(string _user)
-        {
-            CurrentUser = _user;
-            Init();
-        }
-
-        private void Time_Tick(object sender, EventArgs e)
-        {
-            
         }
 
         private void Init()
         {
-            time = new System.Windows.Forms.Timer();
-            time.Tick += Time_Tick;
             incDT = new DataTable();
             dbsDT = new DataTable();
             newItems = new List<Item>();
             incItems = new Dictionary<string, Item>();
             dbsItems = new Dictionary<string, Item>();
+            ServerUpDown.GetColumns();
 
-            foreach (string s in TableColumns)
+            foreach (string s in ServerUpDown.Columns)
             {
                 incDT.Columns.Add(s, typeof(String));
                 dbsDT.Columns.Add(s, typeof(String));
@@ -70,13 +56,16 @@ namespace Win_InvApp
 
             InitializeComponent();
 
-            foreach (string s in ComboBoxItems)
+            foreach (string s in ServerUpDown.Columns)
                 cbSearchType.Items.Add(s);
 
-            cbSearchType.SelectedIndex = 1;
+            cbSearchType.SelectedIndex = 0;
 
             dgvIncomming.DataSource = incDT;
             dgvDatabase.DataSource = dbsDT;
+
+            dgvDatabase.AutoGenerateColumns = true;
+            
         }
 
 
@@ -209,7 +198,6 @@ namespace Win_InvApp
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileStream save = new FileStream();
-            //save.Save(incItems.Values.ToList());
             save.Save(dbsItems.Values.ToList());
 
         }
@@ -308,13 +296,16 @@ namespace Win_InvApp
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ArrayList res;
-
-            AsyncMethodCaller caller = new AsyncMethodCaller(ServerUpDown.Load);
-            IAsyncResult result = caller.BeginInvoke(out res, null, null);
-            Thread.Sleep(0);
+            
             Debug.WriteLine("Thread #{0} is calling Load...", Thread.CurrentThread.ManagedThreadId);
-            caller.EndInvoke(out res, result);
+            try
+            {
+            var task = Task.Run(async () => await ServerUpDown.Load());
+            task.Wait();
+            res = task.Result;
             Debug.WriteLine("Load has finished...");
+            }
+            catch { MessageBox.Show("An error occured when downloading from server."); return; }
 
             foreach (CloudObject item in res)
             {
@@ -337,6 +328,16 @@ namespace Win_InvApp
             }
 
             PopulateTable();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvDatabase_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

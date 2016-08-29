@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Win_InvApp
+namespace Win_InvApp.View
 {
     public partial class AddDialog : Form
     {

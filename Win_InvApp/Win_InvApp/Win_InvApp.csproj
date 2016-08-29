@@ -125,6 +125,12 @@
       <DependentUpon>AddDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="FileStream.cs" />
+    <Compile Include="View\CompanyChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CompanyChooser.Designer.cs">
+      <DependentUpon>CompanyChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +155,9 @@
     </Compile>
     <EmbeddedResource Include="View\AddDialog.resx">
       <DependentUpon>AddDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CompanyChooser.resx">
+      <DependentUpon>CompanyChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>

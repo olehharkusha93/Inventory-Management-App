@@ -13,7 +13,21 @@ namespace Win_InvApp
 {
     static public class ServerUpDown
     {
-        public static CloudUser cUser;
+        public static string Table { get; set; } = "Inventory";
+        public static List<string> Columns { get; set; }
+
+        /// <summary>
+        /// Sets the Columns property with available columns in current table
+        /// </summary>
+        public static void GetColumns()
+        {
+            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            CloudTable t = new CloudTable(Table);
+            foreach (var c in t.Columns)
+            {
+                Columns.Add(c.Name);
+            }
+        }
         static public async void Save(Dictionary<String, Item> items)
         {
             CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
@@ -21,7 +35,7 @@ namespace Win_InvApp
             {
                 if (pair.Value.OnServer == false)
                 {
-                    CloudObject obj = new CloudObject("Inventory");
+                    CloudObject obj = new CloudObject(Table);
                     obj.ID = pair.Key;
                     obj.Set("Name", pair.Value.Name);
                     obj.Set("Type", pair.Value.Type);
@@ -33,18 +47,17 @@ namespace Win_InvApp
             }
         }
 
-        static public void Load(out ArrayList list)
+        static public Task<ArrayList> Load()
         {
             Debug.WriteLine("Fetching from server...");
             CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
-            CloudQuery query = new CloudQuery("Inventory");
-            var list1 = query.FindAsync();
-            list = list1.Result;
+            CloudQuery query = new CloudQuery(Table);
+            return query.FindAsync();
         }
 
         static public async void Remove(List<string> items)
         {
-            CloudQuery query = new CloudQuery("Inventory");
+            CloudQuery query = new CloudQuery(Table);
             foreach(string s in items)
             {
                 var obj = await query.GetAsync<CloudObject>(s);
@@ -52,36 +65,24 @@ namespace Win_InvApp
             }
         }
 
-        static public async void LogIn(String uName, String uPas)
+        static public Task<CloudUser> LogIn(String uName, String uPas)
         {
             CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
             var u2 = new CloudUser();
             u2.Set("username", uName);
             u2.Set("password", uPas);
             Debug.WriteLine("Starting login");
-            var signed_in = await CloudUser.Current.LoginAsync();
-            Debug.WriteLine("Login complete");
+            return  u2.LoginAsync();
         }
 
-        static public void SignUp(String uName, String uPas, String uEmail, out CloudUser retUser)
+        static public Task<CloudUser> SignUp(String uName, String uPas, String uEmail)
         {
             CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
             var u2 = new CloudUser();
             u2.Username = uName;
             u2.Password = uPas;
             u2.Email = uEmail;
-
-            try
-            {
-                var resUser = u2.SignupAsync();
-                retUser = resUser.Result;
-            }
-            catch (Exception)
-            {
-                CloudUser eu = new CloudUser();
-                eu.Username = "Exception";
-                retUser = eu;
-            }
+            return u2.SignupAsync();
         }
     }
 

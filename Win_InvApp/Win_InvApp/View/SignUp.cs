@@ -11,14 +11,13 @@ using CB;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Win_InvApp
+namespace Win_InvApp.View
 {
     public partial class SignUp : Form
     {
         string _username;
         string _password;
         string _email;
-        private delegate void AsyncMethodCaller(String uName, String uPas, String uEmail, out CloudUser retUser);
         public SignUp()
         {
             InitializeComponent();
@@ -29,14 +28,24 @@ namespace Win_InvApp
             _username = tbUserName.Text;
             _password = tbPassword.Text;
             _email = tbEmail.Text;
+
+
+
+            if (!CheckFields())
+                return;
+
             try
             {
                 CloudUser outuser; 
-                AsyncMethodCaller caller = new AsyncMethodCaller(ServerUpDown.SignUp);
-                IAsyncResult result = caller.BeginInvoke(_username, _password, _email, out outuser, null, null);
-                Thread.Sleep(0);
                 Debug.WriteLine("Thread #{0} is calling Signup...", Thread.CurrentThread.ManagedThreadId);
-                caller.EndInvoke(out outuser, result);
+                try
+                {
+                    var task = Task.Run(async () => await ServerUpDown.SignUp(_username, _password, _email));
+                    task.Wait();
+                    outuser = task.Result;
+                }
+                catch { outuser = new CloudUser(); outuser.Username = "Exception"; }
+
                 Debug.WriteLine("Signup has finished...");
 
                 if (outuser.Username == "Exception")
@@ -53,6 +62,25 @@ namespace Win_InvApp
                 MessageBox.Show("Unknonw Error has occured.");
                 this.Close();
             }
+        }
+
+        private bool CheckFields()
+        {
+            if (String.IsNullOrEmpty(tbEmail.Text) ||
+                String.IsNullOrEmpty(tbUserName.Text) ||
+                String.IsNullOrEmpty(tbPassword.Text) ||
+                String.IsNullOrEmpty(tbRePass.Text))
+            {
+                MessageBox.Show("Please fill in all fields");
+                return false;
+            }
+            if (!tbPassword.Text.Equals(tbRePass.Text, StringComparison.Ordinal))
+            {
+                MessageBox.Show("Passwords do not match");
+                return false;
+            }
+
+            return true;
         }
 
         private void tbUserName_KeyDown(object sender, KeyEventArgs e)

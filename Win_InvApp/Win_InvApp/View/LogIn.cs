@@ -11,12 +11,13 @@ using CB;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Win_InvApp
+namespace Win_InvApp.View
 {
     public partial class LogIn : Form
     {
         bool _dragging = false;
         Point startPoint;
+        Thread th;
 
         public LogIn()
         {
@@ -42,10 +43,11 @@ namespace Win_InvApp
         {
             if (Log())
             {
-                this.Hide();
-                var mWin = new MainWindow();
-                mWin.FormClosed += (s, args) => this.Close();
-                mWin.Show();
+                this.Close();
+                th = new Thread(OpenCompany);
+                th.SetApartmentState(ApartmentState.STA);
+                th.Start();
+
             }
             else
                 MessageBox.Show("Incorrect Username or Password");
@@ -54,18 +56,28 @@ namespace Win_InvApp
 
         private bool Log()
         {
-            return true;
-            //TODO (cris): Solve problem of unable to log in
-            AsyncMethodCaller caller = new AsyncMethodCaller(ServerUpDown.LogIn);
-            IAsyncResult result = caller.BeginInvoke(tbUserName.Text, tbPassword.Text, null, null);
-            Thread.Sleep(0);
-            Debug.WriteLine("Thread #{0} is calling LogIn...", Thread.CurrentThread.ManagedThreadId);
-            caller.EndInvoke(result);
-            Debug.WriteLine("LogIn has finished...");
+            //TOTO (cris): Add company chooser
+
+
+            //return true;
+
+            var task = Task.Run(async () => await ServerUpDown.LogIn(tbUserName.Text, tbPassword.Text));
+            try
+            {
+                task.Wait();
+                var asyncfunctionresult = task.Result;
+            }
+            catch { }
+
             if (CB.CloudUser.Current != null)
                 return true;
             else
                 return false;
+
+        }
+        private void OpenCompany()
+        {
+            Application.Run(new CompanyChooser(this.Location));
         }
 
         private void tbPassword_KeyDown(object sender, KeyEventArgs e)

@@ -1,4 +1,4 @@
-﻿namespace Win_InvApp
+﻿namespace Win_InvApp.View
 {
     partial class AddDialog
     {

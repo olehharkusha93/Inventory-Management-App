@@ -1,4 +1,4 @@
-﻿namespace Win_InvApp
+﻿namespace Win_InvApp.View
 {
     partial class MainWindow
     {
@@ -38,12 +38,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDatabase = new System.Windows.Forms.DataGridView();
-            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dbs_Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._dbadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnRemoveDatabase = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnRemoveNew = new System.Windows.Forms.Button();
@@ -60,21 +54,22 @@
             this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
+            this.splitContainerLower = new System.Windows.Forms.SplitContainer();
             this.tlpCommands = new System.Windows.Forms.TableLayoutPanel();
             this.tlpSearchButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.splitContainerLower = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).BeginInit();
             this.tlpMain.SuspendLayout();
-            this.tlpCommands.SuspendLayout();
-            this.tlpSearchButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerLower)).BeginInit();
             this.splitContainerLower.Panel1.SuspendLayout();
             this.splitContainerLower.Panel2.SuspendLayout();
             this.splitContainerLower.SuspendLayout();
+            this.tlpCommands.SuspendLayout();
+            this.tlpSearchButtons.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,56 +148,14 @@
             this.dgvDatabase.CausesValidation = false;
             this.dgvDatabase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatabase.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._dbchecked,
-            this.dbs_Quantity,
-            this._dbid,
-            this._dbname,
-            this._dbtype,
-            this._dbadded});
+            this._dbchecked});
             this.dgvDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDatabase.GridColor = System.Drawing.SystemColors.Control;
             this.dgvDatabase.Location = new System.Drawing.Point(3, 3);
             this.dgvDatabase.Name = "dgvDatabase";
             this.dgvDatabase.Size = new System.Drawing.Size(1141, 342);
             this.dgvDatabase.TabIndex = 2;
-            // 
-            // _dbchecked
-            // 
-            this._dbchecked.HeaderText = "Ready";
-            this._dbchecked.Name = "_dbchecked";
-            this._dbchecked.Width = 50;
-            // 
-            // dbs_Quantity
-            // 
-            this.dbs_Quantity.DataPropertyName = "_incQuant";
-            this.dbs_Quantity.HeaderText = "Quantity";
-            this.dbs_Quantity.Name = "dbs_Quantity";
-            // 
-            // _dbid
-            // 
-            this._dbid.DataPropertyName = "_incId";
-            this._dbid.HeaderText = "ID";
-            this._dbid.Name = "_dbid";
-            this._dbid.Width = 45;
-            // 
-            // _dbname
-            // 
-            this._dbname.DataPropertyName = "_incName";
-            this._dbname.HeaderText = "Name";
-            this._dbname.Name = "_dbname";
-            // 
-            // _dbtype
-            // 
-            this._dbtype.DataPropertyName = "_incType";
-            this._dbtype.HeaderText = "Type";
-            this._dbtype.Name = "_dbtype";
-            this._dbtype.Width = 90;
-            // 
-            // _dbadded
-            // 
-            this._dbadded.DataPropertyName = "_incAdded";
-            this._dbadded.HeaderText = "Date Added";
-            this._dbadded.Name = "_dbadded";
+            this.dgvDatabase.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatabase_CellContentClick);
             // 
             // btnRemoveDatabase
             // 
@@ -363,6 +316,24 @@
             this.tlpMain.Size = new System.Drawing.Size(1147, 696);
             this.tlpMain.TabIndex = 3;
             // 
+            // splitContainerLower
+            // 
+            this.splitContainerLower.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLower.Location = new System.Drawing.Point(3, 351);
+            this.splitContainerLower.Name = "splitContainerLower";
+            // 
+            // splitContainerLower.Panel1
+            // 
+            this.splitContainerLower.Panel1.Controls.Add(this.tlpCommands);
+            this.splitContainerLower.Panel1MinSize = 225;
+            // 
+            // splitContainerLower.Panel2
+            // 
+            this.splitContainerLower.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainerLower.Size = new System.Drawing.Size(1141, 342);
+            this.splitContainerLower.SplitterDistance = 225;
+            this.splitContainerLower.TabIndex = 3;
+            // 
             // tlpCommands
             // 
             this.tlpCommands.ColumnCount = 1;
@@ -402,35 +373,6 @@
             this.tlpSearchButtons.Size = new System.Drawing.Size(219, 26);
             this.tlpSearchButtons.TabIndex = 4;
             // 
-            // splitContainerLower
-            // 
-            this.splitContainerLower.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerLower.Location = new System.Drawing.Point(3, 351);
-            this.splitContainerLower.Name = "splitContainerLower";
-            // 
-            // splitContainerLower.Panel1
-            // 
-            this.splitContainerLower.Panel1.Controls.Add(this.tlpCommands);
-            this.splitContainerLower.Panel1MinSize = 225;
-            // 
-            // splitContainerLower.Panel2
-            // 
-            this.splitContainerLower.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainerLower.Size = new System.Drawing.Size(1141, 342);
-            this.splitContainerLower.SplitterDistance = 225;
-            this.splitContainerLower.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(422, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 23);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Queue";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -446,6 +388,23 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(912, 342);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(422, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 23);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Queue";
+            // 
+            // _dbchecked
+            // 
+            this._dbchecked.HeaderText = "Ready";
+            this._dbchecked.Name = "_dbchecked";
+            this._dbchecked.Width = 50;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -457,18 +416,19 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Inventory Manager";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).EndInit();
             this.tlpMain.ResumeLayout(false);
-            this.tlpCommands.ResumeLayout(false);
-            this.tlpCommands.PerformLayout();
-            this.tlpSearchButtons.ResumeLayout(false);
             this.splitContainerLower.Panel1.ResumeLayout(false);
             this.splitContainerLower.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerLower)).EndInit();
             this.splitContainerLower.ResumeLayout(false);
+            this.tlpCommands.ResumeLayout(false);
+            this.tlpCommands.PerformLayout();
+            this.tlpSearchButtons.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -502,12 +462,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
         private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dbs_Quantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbtype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _dbadded;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.TableLayoutPanel tlpCommands;
@@ -515,6 +469,7 @@
         private System.Windows.Forms.SplitContainer splitContainerLower;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
     }
 }
 
