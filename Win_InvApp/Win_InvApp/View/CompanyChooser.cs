@@ -29,14 +29,15 @@ namespace Win_InvApp.View
             string user = (CloudUser.Current != null) ? CloudUser.Current.Username : "";
             lblWelcome.Text = "Welcome, " + user;
             var org = CloudUser.Current.Get("Organizations");
-
-            foreach(var obj in (ArrayList)org)
+            if (org != null)
             {
-                string s = obj.ToString();
-                dictOrg.Add(s, string.Join("", s.Split(' ')));
-                lbOrganizations.Items.Add(s);
+                foreach (var obj in (ArrayList)org)
+                {
+                    string s = obj.ToString();
+                    dictOrg.Add(s, string.Join("", s.Split(' ')));
+                    lbOrganizations.Items.Add(s);
+                }
             }
-
             Debug.WriteLine("loaded organizations");
 
 
@@ -44,7 +45,8 @@ namespace Win_InvApp.View
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            ServerUpDown.Table = dictOrg[lbOrganizations.SelectedItem.ToString()];
+            if(dictOrg.Count != 0)
+                ServerUpDown.Table = dictOrg[lbOrganizations.SelectedItem.ToString()];
             this.Close();
             th = new Thread(OpenMain);
             th.SetApartmentState(ApartmentState.STA);

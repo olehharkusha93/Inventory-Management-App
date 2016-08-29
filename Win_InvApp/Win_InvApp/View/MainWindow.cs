@@ -34,7 +34,7 @@ namespace Win_InvApp.View
 
         public MainWindow()
         {
-            CurrentUser = CB.CloudUser.Current.Username;
+            CurrentUser = (CB.CloudUser.Current != null) ? CloudUser.Current.Username : "null"; 
             Init();
         }
 

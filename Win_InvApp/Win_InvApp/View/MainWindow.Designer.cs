@@ -46,12 +46,6 @@
             this.cbSearchType = new System.Windows.Forms.ComboBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.dgvIncomming = new System.Windows.Forms.DataGridView();
-            this._queuechecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._queueid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._queueQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._queuename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._queuetype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._queueadded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainerLower = new System.Windows.Forms.SplitContainer();
@@ -60,6 +54,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this._dbchecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._queuechecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIncomming)).BeginInit();
@@ -236,12 +231,7 @@
             this.dgvIncomming.AllowUserToAddRows = false;
             this.dgvIncomming.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIncomming.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._queuechecked,
-            this._queueid,
-            this._queueQuantity,
-            this._queuename,
-            this._queuetype,
-            this._queueadded});
+            this._queuechecked});
             this.dgvIncomming.GridColor = System.Drawing.SystemColors.Control;
             this.dgvIncomming.Location = new System.Drawing.Point(3, 31);
             this.dgvIncomming.Name = "dgvIncomming";
@@ -251,46 +241,6 @@
             this.dgvIncomming.ShowRowErrors = false;
             this.dgvIncomming.Size = new System.Drawing.Size(906, 308);
             this.dgvIncomming.TabIndex = 1;
-            // 
-            // _queuechecked
-            // 
-            this._queuechecked.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this._queuechecked.HeaderText = "Ready";
-            this._queuechecked.Name = "_queuechecked";
-            this._queuechecked.Width = 44;
-            // 
-            // _queueid
-            // 
-            this._queueid.DataPropertyName = "_incId";
-            this._queueid.HeaderText = "ID";
-            this._queueid.Name = "_queueid";
-            this._queueid.Width = 45;
-            // 
-            // _queueQuantity
-            // 
-            this._queueQuantity.DataPropertyName = "_incQuant";
-            this._queueQuantity.HeaderText = "Quantity";
-            this._queueQuantity.Name = "_queueQuantity";
-            this._queueQuantity.Width = 60;
-            // 
-            // _queuename
-            // 
-            this._queuename.DataPropertyName = "_incName";
-            this._queuename.HeaderText = "Name";
-            this._queuename.Name = "_queuename";
-            // 
-            // _queuetype
-            // 
-            this._queuetype.DataPropertyName = "_incType";
-            this._queuetype.HeaderText = "Type";
-            this._queuetype.Name = "_queuetype";
-            this._queuetype.Width = 90;
-            // 
-            // _queueadded
-            // 
-            this._queueadded.DataPropertyName = "_incAdded";
-            this._queueadded.HeaderText = "Date Added";
-            this._queueadded.Name = "_queueadded";
             // 
             // toolStrip1
             // 
@@ -405,6 +355,13 @@
             this._dbchecked.Name = "_dbchecked";
             this._dbchecked.Width = 50;
             // 
+            // _queuechecked
+            // 
+            this._queuechecked.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this._queuechecked.HeaderText = "Ready";
+            this._queuechecked.Name = "_queuechecked";
+            this._queuechecked.Width = 44;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,12 +413,6 @@
         private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queueid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queueQuantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queuename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queuetype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _queueadded;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.TableLayoutPanel tlpCommands;
@@ -470,6 +421,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn _dbchecked;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _queuechecked;
     }
 }
 

@@ -13,7 +13,9 @@ namespace Win_InvApp
 {
     static public class ServerUpDown
     {
-        public static string Table { get; set; } = "Inventory";
+        private static string code = "qpnyskfsswrd";
+        private static string key = "6dc1a736-5705-4d40-9428-125067e68b96";
+        public static string Table { get; set; } = "inventory";
         public static List<string> Columns { get; set; }
 
         /// <summary>
@@ -21,7 +23,17 @@ namespace Win_InvApp
         /// </summary>
         public static void GetColumns()
         {
-            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            var task1 = Task.Run(async () => await LogIn("Cris", "password"));
+            task1.Wait();
+            var res1 = task1.Result;
+
+            CloudApp.Init(code, key);
+            Debug.WriteLine("TableName: " + Table);
+
+            var task = Task.Run(async () => await CloudTable.GetAsync(Table));
+            task.Wait();
+            var res = task.Result;
+
             CloudTable t = new CloudTable(Table);
             foreach (var c in t.Columns)
             {
@@ -30,7 +42,7 @@ namespace Win_InvApp
         }
         static public async void Save(Dictionary<String, Item> items)
         {
-            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            CloudApp.Init(code, key);
             foreach (KeyValuePair<String, Item> pair in items)
             {
                 if (pair.Value.OnServer == false)
@@ -50,7 +62,7 @@ namespace Win_InvApp
         static public Task<ArrayList> Load()
         {
             Debug.WriteLine("Fetching from server...");
-            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            CloudApp.Init(code, key);
             CloudQuery query = new CloudQuery(Table);
             return query.FindAsync();
         }
@@ -67,7 +79,7 @@ namespace Win_InvApp
 
         static public Task<CloudUser> LogIn(String uName, String uPas)
         {
-            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            CloudApp.Init(code, key);
             var u2 = new CloudUser();
             u2.Set("username", uName);
             u2.Set("password", uPas);
@@ -77,7 +89,7 @@ namespace Win_InvApp
 
         static public Task<CloudUser> SignUp(String uName, String uPas, String uEmail)
         {
-            CloudApp.Init("qpnyskfsswrd", "bce300d3-caed-4d6a-be3b-b1ba3d26ce03");
+            CloudApp.Init(code, key);
             var u2 = new CloudUser();
             u2.Username = uName;
             u2.Password = uPas;
