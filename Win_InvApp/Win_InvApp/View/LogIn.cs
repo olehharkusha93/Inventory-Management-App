@@ -52,7 +52,6 @@ namespace Win_InvApp.View
             else
                 MessageBox.Show("Incorrect Username or Password");
         }
-        delegate void AsyncMethodCaller(String uName, String uPas);
 
         private bool Log()
         {
@@ -62,12 +61,12 @@ namespace Win_InvApp.View
             //return true;
 
             var task = Task.Run(async () => await ServerUpDown.LogIn(tbUserName.Text, tbPassword.Text));
-            try
-            {
+            //try
+            //{
                 task.Wait();
                 var asyncfunctionresult = task.Result;
-            }
-            catch { }
+            //}
+            //catch { }
 
             if (CB.CloudUser.Current != null)
                 return true;

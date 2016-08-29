@@ -15,7 +15,7 @@ namespace Win_InvApp
     {
         private static string code = "qpnyskfsswrd";
         private static string key = "6dc1a736-5705-4d40-9428-125067e68b96";
-        public static string Table { get; set; } = "inventory";
+        public static string Table { get; set; } = "Inventory";
         public static List<string> Columns { get; set; }
 
         /// <summary>
@@ -23,21 +23,25 @@ namespace Win_InvApp
         /// </summary>
         public static void GetColumns()
         {
+            Columns = new List<string>();
             var task1 = Task.Run(async () => await LogIn("Cris", "password"));
             task1.Wait();
             var res1 = task1.Result;
 
             CloudApp.Init(code, key);
             Debug.WriteLine("TableName: " + Table);
-
-            var task = Task.Run(async () => await CloudTable.GetAsync(Table));
+            ArrayList res;
+            
+            var task = Task.Run(async () => await ServerUpDown.Load());
             task.Wait();
-            var res = task.Result;
-
-            CloudTable t = new CloudTable(Table);
-            foreach (var c in t.Columns)
+            res = task.Result;
+            if(res.Count > 0)
             {
-                Columns.Add(c.Name);
+                CloudObject j = (CloudObject)res[0];
+                foreach (var item in j.Dictionary.Keys)
+                {
+                    Columns.Add(item);
+                }
             }
         }
         static public async void Save(Dictionary<String, Item> items)

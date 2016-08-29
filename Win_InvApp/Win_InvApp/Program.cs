@@ -18,7 +18,7 @@ namespace Win_InvApp
             SetStrings();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            Application.Run(new LogIn());
         }
 
         static void SetStrings()

@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using OnBarcode.Barcode.BarcodeScanner;
 using System.Diagnostics;
 using System.Collections;
 using CB;
@@ -77,7 +76,7 @@ namespace Win_InvApp.View
             foreach (Item item in incItems.Values)
             {
                 DataRow r = incDT.NewRow();
-                for (int i = 0; i < TableColumns.Length; i++)
+                for (int i = 0; i < ServerUpDown.Columns.Count; i++)
                 {
                     r[i] = item[i];
                 }
@@ -87,7 +86,7 @@ namespace Win_InvApp.View
             foreach (Item item in dbsItems.Values)
             {
                 DataRow r = dbsDT.NewRow();
-                for (int i = 0; i < TableColumns.Length; i++)
+                for (int i = 0; i < ServerUpDown.Columns.Count; i++)
                 {
                     r[i] = item[i];
                 }
@@ -312,16 +311,21 @@ namespace Win_InvApp.View
                 Debug.WriteLine("Loaded Item ID: " + item.ID);
                 if (!dbsItems.ContainsKey(item.ID))
                 {
-                    Debug.WriteLine("Added Item ID: " + item.ID);
-                    Item temp = new Item(item.Get<string>("Name"), item.Get<string>("Type"));
-                    temp.CloudID = item.ID;
-                    if (item.Get("User") != null)
-                        temp.User = item.Get<string>("User");
-                    if(item.Get("Quantity") != null)
-                        temp.Quantity = item.Get<uint>("Quantity");
-                    temp.OnServer = true;
+                        Debug.WriteLine("Added Item ID: " + item.ID);
+                        Item temp = new Item(item.Get<string>("Name"), item.Get<string>("Type"));
+                        temp.CloudID = item.ID;
+                        if (item.Get("User") != null)
+                            temp.User = item.Get<string>("User");
+                        if(item.Get("Quantity") != null)
+                            temp.Quantity = item.Get<uint>("Quantity");
+                        temp.OnServer = true;
 
-                    dbsItems.Add(temp.CloudID, temp);
+                        dbsItems.Add(temp.CloudID, temp);
+
+                    //for (int i = 0; i < ServerUpDown.Columns.Count; i++)
+                    //{
+                    //    temp = 
+                    //}
                 }
                 else
                     Debug.WriteLine("Skipped Item ID: " + item.ID);
