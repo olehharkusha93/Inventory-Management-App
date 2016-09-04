@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
 
     ListView listView;
     List<String> listFood;
+    GridView gridView;
     ArrayAdapter<String> adapter;
     Button scan;
     public ProgressDialog pdialog;
@@ -40,10 +42,11 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
 
         pdialog=new ProgressDialog(this);
         listFood = new ArrayList<String>();
-        listView = (ListView)findViewById(R.id.listView);
+        // Change back to listView if gridView does't work out
+        /*listView*/ gridView = (GridView) findViewById(R.id.gridView);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listFood);
         new Query().execute();
-        listView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
 
         scan.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +76,13 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
                             for (int i = 0; i < x.length; ++i) {
-                                listFood.add((String) x[i].get("Name") + "\t\t\t\t\t\t\t\t\t\t\t" + (String) x[i].get("Type") + "\t\t\t\t\t\t\t\t\t\t\t" + x[i].get("Quantity").toString());
+                                listFood.add((String)x[i].get("Name"));
+                                listFood.add(x[i].get("Quantity").toString());
+
+                                // Used to be with tabs
+                                //listFood.add((String) x[i].get("Name")  + (String) x[i].get("Type") + x[i].get("Quantity").toString());
                             }
+
                             Log.d("Test", "not null");
                         } else {
                             Log.d("Test", "is null");

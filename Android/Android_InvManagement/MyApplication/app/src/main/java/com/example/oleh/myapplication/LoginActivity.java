@@ -1,5 +1,6 @@
 package com.example.oleh.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,13 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         setTitle("Login");
         setContentView(R.layout.activity_login);
 
-
-        pdialog=new ProgressDialog(this);
+        pdialog = new ProgressDialog(this);
         c = this;
-        Email = (EditText)findViewById(R.id.Email);
-        Password = (EditText)findViewById(R.id.Password);
-        loginButton = (Button)findViewById(R.id.loginButton);
-        final TextView signUp = (TextView)findViewById(R.id.tvSignUP);
+        Email = (EditText) findViewById(R.id.Email);
+        Password = (EditText) findViewById(R.id.Password);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        final TextView signUp = (TextView) findViewById(R.id.tvSignUP);
 
         if (signUp != null) {
             signUp.setOnClickListener(new View.OnClickListener() {
@@ -53,19 +53,15 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 String username = Email.getText().toString();
                 String password = Password.getText().toString();
 
-                if(username.length() == 0 || password.length() == 0)
-                {
+                if (username.length() == 0 || password.length() == 0) {
                     Toast.makeText(c, "Please fill in Email or Password", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else
-                {
-                    doLogin(username,password);
+                } else {
+                    doLogin(username, password);
                 }
                 /*if(username.contains("oleh93") && password.contains("oleh93"))
                 {
@@ -75,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void doLogin(String uname, String upass)
     {

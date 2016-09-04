@@ -1,5 +1,6 @@
 package com.example.oleh.myapplication;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
@@ -13,7 +14,7 @@ public class App extends Application {
     public static CloudUser CURRENT_USER=null;
     @Override
     public void onCreate() {
-        super.onCreate();
+            super.onCreate();
         Log.d("App", "onCreate(");
         CloudApp.init("myrrjdcqzjzz", "960f3835-dd13-47dc-828c-578ef80564b8");
     }
