@@ -44,14 +44,16 @@
             android:weightSum="1">
 
             <TextView
+                android:layout_column="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="    Name"
                 android:id="@+id/textView"
                 android:textColor="#000000"
-                android:layout_weight="0.77" />
+                android:layout_weight="0.69" />
 
             <TextView
+                android:layout_column="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantity"
@@ -71,13 +73,13 @@
 
             <GridView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="auto_fit"
+                android:layout_height="401dp"
+                android:numColumns="2"
 
-                android:horizontalSpacing="100dp"
 
                 android:id="@+id/gridView"
-                android:smoothScrollbar="true" />
+                android:smoothScrollbar="true"
+                android:horizontalSpacing="@dimen/abc_text_size_display_3_material" />
 
             <ListView
                 android:layout_width="match_parent"

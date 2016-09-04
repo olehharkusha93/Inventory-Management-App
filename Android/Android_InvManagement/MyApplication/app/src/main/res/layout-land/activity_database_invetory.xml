@@ -45,7 +45,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="    Name"
                 android:id="@+id/textView"
                 android:textColor="#000000"
@@ -70,14 +70,16 @@
 
 
             <GridView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="auto_fit"
 
-                android:horizontalSpacing="210dp"
 
                 android:id="@+id/gridView"
-                android:smoothScrollbar="true" />
+                android:horizontalSpacing="210dp"
+                android:smoothScrollbar="true"
+                android:numColumns="2" />
+
 
             <ListView
                 android:layout_width="match_parent"
