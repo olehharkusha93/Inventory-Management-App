@@ -2,7 +2,9 @@ package com.example.oleh.myapplication;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,11 +28,14 @@ import io.cloudboost.CloudQuery;
 
 public class DatabaseInvetoryActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+
     ListView listView;
     List<String> listFood;
     GridView gridView;
     ArrayAdapter<String> adapter;
     Button scan;
+    Button logout;
     public ProgressDialog pdialog;
 
 
@@ -48,6 +53,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         new Query().execute();
         gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
+        logout = (Button)findViewById(R.id.logoutButton);
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,16 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
             }
         });
 
+        pref = getSharedPreferences("login.config", Context.MODE_PRIVATE);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pref.edit().clear().commit();
+                Intent logoutIntent = new Intent(DatabaseInvetoryActivity.this, LoginActivity.class);
+                startActivity(logoutIntent);
+            }
+        });
     }
 
      public class Query extends AsyncTask<String, String, String> {

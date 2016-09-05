@@ -19,11 +19,23 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-        <Button
-            android:layout_width="116dp"
-            android:layout_height="wrap_content"
-            android:text="Scan-Act."
-            android:id="@+id/scanActivityBtn" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="37dp">
+
+            <Button
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:text="Scan-Act."
+                android:id="@+id/scanActivityBtn" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log out"
+                android:id="@+id/logoutButton" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -49,7 +61,7 @@
                 android:text="    Name"
                 android:id="@+id/textView"
                 android:textColor="#000000"
-                android:layout_weight="0.77" />
+                android:layout_weight="0.52" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,7 +69,7 @@
                 android:text="Quantity"
                 android:id="@+id/textView3"
                 android:textColor="#000000"
-                android:layout_weight="0.19" />
+                android:layout_weight="0.44" />
 
         </LinearLayout>
 
@@ -65,7 +77,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="0.99">
 
 
@@ -76,7 +88,6 @@
 
 
                 android:id="@+id/gridView"
-                android:horizontalSpacing="210dp"
                 android:smoothScrollbar="true"
                 android:numColumns="2" />
 
