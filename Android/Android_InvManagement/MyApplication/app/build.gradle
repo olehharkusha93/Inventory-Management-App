@@ -29,4 +29,5 @@ dependencies {
     //Sign in with facebook
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
