@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,6 +39,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     Button scan;
     Button logout;
     public ProgressDialog pdialog;
+    Context c;
 
 
     @Override
@@ -54,6 +57,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
         logout = (Button)findViewById(R.id.logoutButton);
+        c = this;
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +77,12 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                 startActivity(logoutIntent);
             }
         });
+
+
     }
 
      public class Query extends AsyncTask<String, String, String> {
+
          @Override
         protected void onPreExecute()
         {
@@ -91,9 +98,11 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                     @Override
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
+                            int num = 100;
                             for (int i = 0; i < x.length; ++i) {
                                 listFood.add((String)x[i].get("Name"));
-                                listFood.add(x[i].get("Quantity").toString());
+                                listFood.add(x[i].get("Quantity").toString() + " / 100");
+                                //if((Integer)x[i].get("Quantity") >= 100)
 
                                 // Used to be with tabs
                                 //listFood.add((String) x[i].get("Name")  + (String) x[i].get("Type") + x[i].get("Quantity").toString());
