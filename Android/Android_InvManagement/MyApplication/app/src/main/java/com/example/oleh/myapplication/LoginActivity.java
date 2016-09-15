@@ -59,15 +59,17 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     private static final int REQUEST_CODE = 100;
 
     // Facebook Sign In
-    /*private TextView info;
+    private TextView info;
     private LoginButton fbLoginButton;
-    private CallbackManager callbackManager;*/
+    private CallbackManager callbackManager;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Login");
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
         pdialog = new ProgressDialog(this);
@@ -92,11 +94,11 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         login.setScopes(signInOptions.getScopeArray());
 
         // Facebook Sign In
-        /*FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        setContentView(R.layout.activity_login);
+        //setContentView(R.layout.activity_login);
         fbLoginButton = (LoginButton)findViewById(R.id.FacebookLogin);
-        info = (TextView)findViewById(R.id.FacebookInfo);*/
+        info = (TextView)findViewById(R.id.FacebookInfo);
 
         //Empty Fields
         String rmUsername = pref.getString("username", "");
@@ -150,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
 
         // Login in with Facebook callback
-        /*fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 info.setText("User ID: "
@@ -170,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             public void onError(FacebookException e) {
                 info.setText("Login attempt failed");
             }
-        });*/
+        });
     }
 
 
