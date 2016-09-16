@@ -1,5 +1,6 @@
 package com.example.oleh.myapplication;
 
+import android.app.Application;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -40,7 +43,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     Button logout;
     public ProgressDialog pdialog;
     Context c;
-
+    TextView data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         scan = (Button)findViewById(R.id.scanActivityBtn);
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
+
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +85,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
 
     }
 
+
      public class Query extends AsyncTask<String, String, String> {
 
          @Override
@@ -92,18 +97,28 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         }
         @Override
         protected String doInBackground(String... args) {
-            final CloudQuery query = new CloudQuery("Test"); // Change later to Organizations
+            //Bundle bundle = getIntent().getExtras();
+            String data = getIntent().getExtras().getString("pop");
+            //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
+            final CloudQuery query = new CloudQuery(data); // Change later to Organizations
+            //loop through which table was picked in organization activity.
+            /*for (int k = 0; k < query., ++k){
+
+            }*/
             try {
                 query.find(new CloudObjectArrayCallback() {
                     @Override
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
-                            int num = 100;
+                            //int num = 100;
                             for (int i = 0; i < x.length; ++i) {
                                 listFood.add((String)x[i].get("Name"));
                                 listFood.add(x[i].get("Quantity").toString() + " / 100");
-                                //if((Integer)x[i].get("Quantity") >= 100)
 
+                                //if((Integer)x[i].get("Quantity") >= 100)
+                                //{
+                                    //gridView.setBackgroundColor(Color.parseColor("#FF0000"));
+                                //}
                                 // Used to be with tabs
                                 //listFood.add((String) x[i].get("Name")  + (String) x[i].get("Type") + x[i].get("Quantity").toString());
                             }

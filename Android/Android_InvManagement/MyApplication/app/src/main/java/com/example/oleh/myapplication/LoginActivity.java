@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             GoogleSignInAccount account = result.getSignInAccount();
 
-            Intent databaseInventoryIntent = new Intent(LoginActivity.this, DatabaseInvetoryActivity.class);
+            Intent databaseInventoryIntent = new Intent(LoginActivity.this, /*DatabaseInvetoryActivity*/OrganizationActivity.class);
             LoginActivity.this.startActivity(databaseInventoryIntent);
         }
     }
@@ -244,7 +244,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
                             }
                             App.CURRENT_USER=user;
-                            Intent databaseInventoryIntent = new Intent(LoginActivity.this, DatabaseInvetoryActivity.class);
+                            Intent databaseInventoryIntent = new Intent(LoginActivity.this, OrganizationActivity.class);//Used to go to Database
                             LoginActivity.this.startActivity(databaseInventoryIntent);
                         }
                     }
