@@ -21,18 +21,38 @@
             android:text="Organizations"
             android:id="@+id/organizationTV"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="32dp">
+
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchView"
+                android:queryHint="Search" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/activity_swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/organizationlistView"
                 android:layout_below="@+id/organizationTV" />
+            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
 
     </LinearLayout>

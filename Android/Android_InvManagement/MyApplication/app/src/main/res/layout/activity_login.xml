@@ -110,6 +110,11 @@
                     android:layout_marginTop="22dp" />
 
                 <!--Twitter Button-->
+                <!--<com.twitter.sdk.android.core.identity.TwitterLoginButton
+                    android:id="@+id/twitter_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />-->
 
 
             </RelativeLayout>
@@ -118,5 +123,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="702dp"
+        android:layout_marginStart="702dp" />
 
 </RelativeLayout>

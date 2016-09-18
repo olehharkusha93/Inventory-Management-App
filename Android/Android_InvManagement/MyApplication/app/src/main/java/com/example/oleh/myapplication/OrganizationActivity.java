@@ -4,8 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.cloudboost.CloudException;
 import io.cloudboost.CloudObject;
@@ -37,6 +42,9 @@ public class OrganizationActivity extends AppCompatActivity {
     public ProgressDialog pdialog;
     Context c;
     String value;
+    SwipeRefreshLayout SwipeRefreshLayout;
+    private Handler handler = new Handler();
+    //SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,7 @@ public class OrganizationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_organization);
         c = this;
 
+
         organization = (TextView)findViewById(R.id.organizationTV);
         pdialog = new ProgressDialog(this);
         listOrganizations = new ArrayList<String>();
@@ -52,7 +61,25 @@ public class OrganizationActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOrganizations);
         new Query().execute();
         listView.setAdapter(adapter);
+        SwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.activity_swipe_refresh_layout);
         //listView.invalidateViews();
+        //SwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.setOnRefreshListener()
+
+        /*assert searchView != null;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });*/
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,7 +87,7 @@ public class OrganizationActivity extends AppCompatActivity {
                 int itempos = position;
                 value = (String)listView.getItemAtPosition(position);
 
-                //WIP
+                //Works...=/
                 //String item = listView.getSelectedItem().toString();
                 Intent databaseInventoryIntent = new Intent(OrganizationActivity.this, DatabaseInvetoryActivity.class);
                 databaseInventoryIntent.putExtra("pop",value);
@@ -68,11 +95,10 @@ public class OrganizationActivity extends AppCompatActivity {
 
 
                 Toast.makeText(OrganizationActivity.this,""+value,Toast.LENGTH_SHORT).show();
-
             }
-
         });
     }
+
     /*class orgList implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -89,6 +115,7 @@ public class OrganizationActivity extends AppCompatActivity {
             super.onPreExecute();
             pdialog.setMessage("Searching...");
             pdialog.show();
+
         }
 
         @Override
@@ -105,7 +132,9 @@ public class OrganizationActivity extends AppCompatActivity {
                                 if(!table[j].getTableName().contains("Role") && !table[j].getTableName().contains("User") && !table[j].getTableName().contains("Device"))
                                 listOrganizations.add(table[j].getTableName());
 
+
                             }
+
                         }
                         if(e != null){
                         }
@@ -115,13 +144,13 @@ public class OrganizationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            try {
+            /*try {
                 query.find(new CloudObjectArrayCallback() {
                     @Override
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
                             for (int i = 0; i < x.length; ++i) {
-                                /*CloudTable.getAll(new CloudTableArrayCallback() {
+                                CloudTable.getAll(new CloudTableArrayCallback() {
                                     @Override
                                     public void done(CloudTable[] table, CloudException e) throws CloudException {
                                         if(table != null){
@@ -134,10 +163,10 @@ public class OrganizationActivity extends AppCompatActivity {
 
                                         }
                                     }
-                                });*/
+                                });
 
-                                //listOrganizations.add((String)x[i].get("Organizations"));
-                                //listOrganizations.add(x[i].get("Organizations").toString()); //Shows all
+                                listOrganizations.add((String)x[i].get("Organizations"));
+                                listOrganizations.add(x[i].get("Organizations").toString()); //Shows all
 
 
 
@@ -155,15 +184,28 @@ public class OrganizationActivity extends AppCompatActivity {
                 });
             } catch (CloudException e) {
                 e.printStackTrace();
-            }
+            }*/
             return null;
 
         }
+        //@Override
+        //protected void onPostExecute (String result)
+        //{
+        //    super.onPostExecute(result);
+        //    pdialog.dismiss();
+//
+        //}
         @Override
-        protected void onPostExecute (String result)
-        {
+        protected void onPostExecute(String result){
+            long delay = 500;
+            Timer timer = new Timer();
             super.onPostExecute(result);
-            pdialog.dismiss();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    pdialog.dismiss();
+                }
+            },delay);
         }
     }
 }

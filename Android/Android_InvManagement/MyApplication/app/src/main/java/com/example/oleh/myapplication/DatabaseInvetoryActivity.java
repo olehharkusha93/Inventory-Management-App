@@ -4,16 +4,20 @@ import android.app.Application;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +26,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +66,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         scan = (Button)findViewById(R.id.scanActivityBtn);
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
-
-
+        
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +87,30 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         });
 
 
+
+
     }
+    // Logout via action bar icon
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.logout,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId())
+        {
+            case R.id.action_logout:
+                pref.edit().clear().commit();
+                Intent logoutIntent = new Intent(DatabaseInvetoryActivity.this, LoginActivity.class);
+                startActivity(logoutIntent);
+                Toast.makeText(DatabaseInvetoryActivity.this, "Logged Out",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    // Logout via action bar icon end
 
 
      public class Query extends AsyncTask<String, String, String> {
@@ -97,7 +124,6 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         }
         @Override
         protected String doInBackground(String... args) {
-            //Bundle bundle = getIntent().getExtras();
             String data = getIntent().getExtras().getString("pop");
             //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
             final CloudQuery query = new CloudQuery(data); // Change later to Organizations

@@ -33,6 +33,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import io.cloudboost.CloudException;
 import io.cloudboost.CloudUser;
 import io.cloudboost.CloudUserCallback;
@@ -218,8 +221,18 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         @Override
         protected void onPostExecute(String result)
         {
+            //super.onPostExecute(result);
+            //.dismiss();
+            //Trying out delay for listView to load
+            long delay = 500;
+            Timer timer = new Timer();
             super.onPostExecute(result);
-            pdialog.dismiss();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    pdialog.dismiss();
+                }
+            },delay);
         }
         @Override
         protected String doInBackground(final String... params)
