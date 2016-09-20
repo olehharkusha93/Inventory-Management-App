@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/action_shoplist"
+        android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+        android:title="Shoping List"
+        app:showAsAction="always"/>
     <!--Logout icon-->
     <item
         android:id="@+id/action_logout"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:title="Logout"
         app:showAsAction="always"/>
+
+
 </menu>
