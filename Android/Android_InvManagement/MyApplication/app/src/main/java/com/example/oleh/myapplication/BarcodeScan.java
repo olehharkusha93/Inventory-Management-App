@@ -1,5 +1,8 @@
 package com.example.oleh.myapplication;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +13,16 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.okhttp.internal.http.HttpConnection;
 
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,7 +46,11 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Button scanBtn;
     private TextView formatTxt, contentTxt;
     private TextView itemTxt;
-    private Button testButton; //Delete later!!
+    private ImageView itemImg;
+    private Button testBtn; //Delete later!!
+    //private Bitmap bitmap;
+    private String imageURL;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -50,15 +62,23 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scan);
 
+        // Create default options which will be used for every
+        //  displayImage(...) call if no options will be passed to this method
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+        .cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        .defaultDisplayImageOptions(defaultOptions).build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
+
         scanBtn = (Button) findViewById(R.id.scanButton);
         formatTxt = (TextView) findViewById(R.id.scanFormat);
         contentTxt = (TextView) findViewById(R.id.scanInfo);
         itemTxt = (TextView) findViewById(R.id.itemInfo);
-
-        testButton = (Button) findViewById(R.id.testJson); //Delete later!!
+        itemImg = (ImageView)findViewById(R.id.itemImg);
+        testBtn = (Button)findViewById(R.id.jsonTest); //Delete later!!
 
         scanBtn.setOnClickListener(this);
-        testButton.setOnClickListener(this); //Delete later!!
+        testBtn.setOnClickListener(this); //Delete later
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -70,10 +90,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
-        if (_v.getId() == R.id.testJson) {
-
-            //String data = GetJSON("http://localhost/authmanager.php",1000);
-            //AuthMsg msg = new Gson
+        if(_v.getId() == R.id.jsonTest){
+            new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc=049000050110");
         }
 
     }
@@ -140,14 +158,13 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
 
 
-
-
     public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... _url) {
             HttpURLConnection c = null;
             BufferedReader br = null;
+            Context context;
             try {
                 URL url = new URL(_url[0]);
                 c = (HttpURLConnection) url.openConnection();
@@ -164,16 +181,21 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 JSONObject parentObj = new JSONObject(sJSON);
                 JSONArray parentArr = parentObj.getJSONArray("items"); //string prior to []
 
-                JSONObject finalObj = parentArr.getJSONObject(0);
+                JSONObject childObj = parentArr.getJSONObject(0);
 
-                String itemName = finalObj.getString("title");//Key is the "quotes" inside the arr
-                String itemBrand = finalObj.getString("brand");
+                String itemName = childObj.getString("title");//Key is the "quotes" inside the arr
+                String itemBrand = childObj.getString("brand");
 
                 //JSON image stuff
-                //String image = finalObj.getString("image");
+                JSONArray imageArr = new JSONArray(parentArr.getJSONObject(0).getString("images")); //Getting the ImgArr
+                imageURL = imageArr.getString(0); //Parsing 1st img
 
 
+                //Bitmap Working
+                    //URL test = new URL(image);
+                    //bitmap = BitmapFactory.decodeStream(test.openConnection().getInputStream());
                 return itemName + " , "+ itemBrand;
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -198,7 +220,14 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            itemTxt.setText(result);
+            itemTxt.setText(result); //Setting txt based on return
+            ImageLoader.getInstance().displayImage(imageURL, itemImg);
+            //SetImg(bitmap);
         }
     }
+    /*
+    public void SetImg(Bitmap bmp){
+        itemImg.setImageBitmap(bmp);
+    }
+    */
 }

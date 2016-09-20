@@ -39,19 +39,25 @@
             android:layout_gravity="left|center_vertical"
             android:hint="Scan Format" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="JSON"
-            android:id="@+id/testJson"
-            android:layout_gravity="left|bottom" />
-
         <TextView
-            android:layout_width="226dp"
+            android:layout_width="199dp"
             android:layout_height="191dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/itemInfo"
             android:layout_gravity="right|bottom"
             android:hint="Item Info" />
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="192dp"
+            android:id="@+id/itemImg"
+            android:layout_gravity="left|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JSON"
+            android:id="@+id/jsonTest"
+            android:layout_gravity="right|top" />
     </FrameLayout>
 </RelativeLayout>
