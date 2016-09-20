@@ -56,17 +56,68 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         setTitle("Inventory");
         setContentView(R.layout.activity_database_invetory);
 
+
         pdialog=new ProgressDialog(this);
         listFood = new ArrayList<String>();
         // Change back to listView if gridView does't work out
         /*listView*/ gridView = (GridView) findViewById(R.id.gridView);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listFood);
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listFood)
+        {
+            @Override
+            public View getView(int position,View convertView,ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                String text = textView.getText().toString();
+
+
+                String[] red = new String[50];
+                for(int r = 0; r < red.length; r++) {
+                    red[r] = String.valueOf(r);
+                }
+
+                String[] yellow = new String[99];
+                for(int y = 50; y < yellow.length; y++){
+                    yellow[y] = String.valueOf(y);
+                }
+
+                String[] green = new String[101];
+                for (int g = 100; g < green.length; g++){
+                    green[g] = String.valueOf(g);
+                }
+
+                for (int i = 0; i < listFood.size(); ++i) {
+
+                    for (int j = 100; j < green.length; ++j) {
+                        if (text.equals(green[j] + " / 100")) {
+                            textView.setTextColor(Color.parseColor("#009933")); //Green
+                        }
+                    }
+
+                    for(int k = 50; k < yellow.length; ++k){
+                        if(text.equals(yellow[k] + " / 100")){
+                            textView.setTextColor(Color.parseColor("#e6b800")); //Yellow
+                        }
+                    }
+
+                    for(int x = 0; x < red.length; ++x) {
+                        if (text.equals(red[x] + " / 100")) {
+                            textView.setTextColor(Color.parseColor("#CC0000")); //Red
+                        }
+                    }
+
+                    break;
+                }
+                return view;
+            }
+        };
+
+
         new Query().execute();
         gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
-        
+
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +157,16 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                 startActivity(logoutIntent);
                 Toast.makeText(DatabaseInvetoryActivity.this, "Logged Out",Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.action_shoplist:
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setMessage("Buy beans").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setTitle("My List").create();
+                alert.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -126,7 +187,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             String data = getIntent().getExtras().getString("pop");
             //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
-            final CloudQuery query = new CloudQuery(data); // Change later to Organizations
+            final CloudQuery query = new CloudQuery(data); // Change later to Organizations of main app
             //loop through which table was picked in organization activity.
             /*for (int k = 0; k < query., ++k){
 
@@ -136,15 +197,10 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                     @Override
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
-                            //int num = 100;
                             for (int i = 0; i < x.length; ++i) {
                                 listFood.add((String)x[i].get("Name"));
                                 listFood.add(x[i].get("Quantity").toString() + " / 100");
 
-                                //if((Integer)x[i].get("Quantity") >= 100)
-                                //{
-                                    //gridView.setBackgroundColor(Color.parseColor("#FF0000"));
-                                //}
                                 // Used to be with tabs
                                 //listFood.add((String) x[i].get("Name")  + (String) x[i].get("Type") + x[i].get("Quantity").toString());
                             }

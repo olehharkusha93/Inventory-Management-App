@@ -3,6 +3,7 @@ package com.example.oleh.myapplication;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -59,6 +60,24 @@ public class OrganizationActivity extends AppCompatActivity {
         listOrganizations = new ArrayList<String>();
         listView = (ListView) findViewById(R.id.organizationlistView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOrganizations);
+
+        // To change listView text color based on string
+        /*{
+            @Override
+            public View getView(int position,View convertView,ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+                TextView textView = (TextView)view.findViewById(android.R.id.text1);
+                String text = textView.getText().toString();
+                if(text.contains("Test")) {
+                    textView.setTextColor(Color.BLUE);
+                }
+                else if(text.contains("Organization")){
+                    textView.setTextColor(Color.RED);
+                }
+
+                return view;
+            }
+        };*/
         new Query().execute();
         listView.setAdapter(adapter);
         SwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.activity_swipe_refresh_layout);
