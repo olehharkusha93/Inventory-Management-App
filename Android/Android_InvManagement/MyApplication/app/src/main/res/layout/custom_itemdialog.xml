@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="212dp"
+        android:layout_height="359dp"
+        android:layout_weight="0.19">
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:id="@+id/ImageID"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Item Title"
+            android:id="@+id/ItemTitleID"
+            android:layout_below="@+id/ImageID"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Item Brand"
+            android:id="@+id/ItemBrandID"
+            android:layout_below="@+id/ItemTitleID"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Barcode ##"
+            android:id="@+id/ItemBarcodeID"
+            android:layout_below="@+id/ItemBrandID"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Barcode Type"
+            android:id="@+id/ItemBarcodeTypeID"
+            android:layout_below="@+id/ItemBarcodeID"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Quantity"
+            android:id="@+id/QuantityID"
+            android:textColor="@color/accent_material_light"
+            android:layout_alignBottom="@+id/AmountID"
+            android:layout_alignLeft="@+id/ImageID"
+            android:layout_alignStart="@+id/ImageID" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/AmountID"
+            android:layout_above="@+id/CancelID"
+            android:layout_toRightOf="@+id/QuantityID"
+            android:layout_alignRight="@+id/CancelID"
+            android:layout_alignEnd="@+id/CancelID" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/AddID"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/QuantityID"
+            android:layout_alignEnd="@+id/QuantityID"
+            android:layout_alignLeft="@+id/QuantityID"
+            android:layout_alignStart="@+id/QuantityID" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/CancelID"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/AddID"
+            android:layout_toEndOf="@+id/AddID" />
+    </RelativeLayout>
+</LinearLayout>
