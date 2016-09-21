@@ -153,7 +153,6 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             }
         });
 
-
         // Login in with Facebook callback
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -188,6 +187,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         checkFlag = isChecked;
     }
+
     //Google Sign In
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -202,6 +202,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             LoginActivity.this.startActivity(databaseInventoryIntent);
         }
     }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -270,7 +271,6 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
                         Toast.makeText(LoginActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
                         //Email.setText("");
                         //Password.setText("");
-
 
                     }
                 });

@@ -1,6 +1,9 @@
 package com.example.oleh.myapplication;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,9 +22,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.okhttp.internal.http.HttpConnection;
 
 import android.content.Intent;
+import android.text.InputType;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +52,16 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Button scanBtn;
     private TextView formatTxt, contentTxt;
     private TextView itemTxt;
+
     private ImageView itemImg;
     private Button testBtn; //Delete later!!
-    //private Bitmap bitmap;
     private String imageURL;
+
+    private AlertDialog.Builder dialogBuilder;
+    private int numOfItems;
+
+    private String scan_Info;
+    private String scan_Format;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -91,6 +103,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             scanIntegrator.initiateScan();
         }
         if(_v.getId() == R.id.jsonTest){
+            SetScanId("049000050110");
+            SetScanFormat("UPC_13");
             new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc=049000050110");
         }
 
@@ -100,8 +114,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         //Retrieve the scan result
         IntentResult scanResult = IntentIntegrator.parseActivityResult(_requestCode, _resultCode, _intent);
         if (scanResult != null) {
-            String scan_Info = scanResult.GetContents();
-            String scan_Format = scanResult.GetFormatName();
+            SetScanId(scanResult.GetContents());
+            SetScanFormat(scanResult.GetFormatName());
             formatTxt.setText("Format: " + scan_Format);
             contentTxt.setText("Content: " + scan_Info);
 
@@ -158,13 +172,13 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
 
 
-    public class JSONTask extends AsyncTask<String, String, String> {
+    public class JSONTask extends AsyncTask<String, String, String[]> {
 
         @Override
-        protected String doInBackground(String... _url) {
+        protected String[] doInBackground(String... _url){
             HttpURLConnection c = null;
             BufferedReader br = null;
-            Context context;
+            String[] result = new String[3];
             try {
                 URL url = new URL(_url[0]);
                 c = (HttpURLConnection) url.openConnection();
@@ -191,11 +205,14 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 imageURL = imageArr.getString(0); //Parsing 1st img
 
 
+                result[0] = itemName;
+                result[1] = itemBrand;
                 //Bitmap Working
                     //URL test = new URL(image);
                     //bitmap = BitmapFactory.decodeStream(test.openConnection().getInputStream());
-                return itemName + " , "+ itemBrand;
 
+                //return itemName + " , "+ itemBrand;
+                return result;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -218,16 +235,99 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             return null;
         }
 
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String[] result){
             super.onPostExecute(result);
-            itemTxt.setText(result); //Setting txt based on return
-            ImageLoader.getInstance().displayImage(imageURL, itemImg);
+            //itemTxt.setText(result); //Setting txt based on return
+            //Dialog Result
+            itemDialog(imageURL,result[0],result[1],GetScanId(),GetScanFormat());
+
             //SetImg(bitmap);
         }
     }
-    /*
-    public void SetImg(Bitmap bmp){
-        itemImg.setImageBitmap(bmp);
+
+    private void itemDialog(String url, String title, String brand, String barcodeNum, String barcodeType){
+
+        final Dialog dialog = new Dialog(this);
+        numOfItems = 0;
+        //Creating Dialog box behind the scenes & setting passed in values
+        dialog.setTitle("Found!");
+        dialog.setContentView(R.layout.custom_itemdialog);
+        TextView itemTitle = (TextView)dialog.findViewById(R.id.ItemTitleID);
+        TextView itemBrand = (TextView)dialog.findViewById(R.id.ItemBrandID);
+        TextView itemBarcodeNum = (TextView)dialog.findViewById(R.id.ItemBarcodeID);
+        TextView itemBarcodeType = (TextView)dialog.findViewById(R.id.ItemBarcodeTypeID);
+        ImageView imgView = (ImageView)dialog.findViewById(R.id.ImageID);
+
+        itemTitle.setText(title);
+        itemBrand.setText(brand);
+        itemBarcodeNum.setText(barcodeNum);
+        itemBarcodeType.setText(barcodeType);
+
+        ImageLoader.getInstance().displayImage(url,imgView);
+
+
+        //Input stuff
+        final EditText input = (EditText)dialog.findViewById(R.id.AmountID);
+        Button addButton = (Button)dialog.findViewById(R.id.AddID);
+        Button cancelButton = (Button)dialog.findViewById(R.id.CancelID);
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(input.length()>=1 && Integer.parseInt(input.getText().toString()) > 0)
+                {
+                    numOfItems = Integer.parseInt(input.getText().toString());
+                    dialog.cancel();
+                    Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.cancel();
+                Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
-    */
+
+    private String GetScanId(){
+        return scan_Info;
+    }
+    private void SetScanId(String info){
+        scan_Info = info;
+    }
+    private String GetScanFormat(){
+        return scan_Format;
+    }
+    private void SetScanFormat(String format){
+        scan_Format = format;
+    }
+
+     /* Notes
+                    //Error Msg
+                    dialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                    dialogBuilder.setTitle("Error!");
+                    dialogBuilder.setMessage("Please Enter an amount larger than 1");
+                    dialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            Toast.makeText(getApplicationContext(),"Ok",Toast.LENGTH_SHORT);
+                        }
+                    });
+                    dialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT);
+                        }
+                    });
+                    //Output
+                    AlertDialog dialogNumber = dialogBuilder.create();
+                    dialogNumber.show();
+                    */
 }
