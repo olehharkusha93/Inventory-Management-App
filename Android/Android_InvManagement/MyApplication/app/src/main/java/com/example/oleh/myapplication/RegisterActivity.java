@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public ProgressDialog pdialog;
+    public Button registerButton;
     Context c;
 
 
@@ -47,29 +48,37 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final EditText etAge = (EditText) findViewById(R.id.etAge);
 
-        final Button registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton = (Button) findViewById(R.id.registerButton);
 
-        assert registerButton != null;
+        //assert registerButton != null;
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assert etName != null;
+                //assert etName != null;
                 String name = etName.getText().toString();
-                assert etUsername != null;
+                //assert etUsername != null;
                 String username = etUsername.getText().toString();
-                assert etPassword != null;
+                //assert etPassword != null;
                 String password = etPassword.getText().toString();
-                assert etAge != null;
-                Integer age = Integer.parseInt(etAge.getText().toString());
+                //assert etAge != null;
+                //Integer age = Integer.parseInt(etAge.getText().toString());
+                String age = etAge.getText().toString();
 
-                doRegister(username,password,name,age);
+                if(name.length() == 0 || username.length() == 0 || password.length() == 0 || age.length() == 0) {
+                    Toast.makeText(c, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    doRegister(username, password, name, age);
+                }
+
             }
         });
 
 
     }
 
-    public void doRegister(String uname,String pass, String emailname,Integer uage)
+    public void doRegister(String uname,String pass, String emailname,String uage)
     {
         new signup().execute(uname,pass,emailname,uage.toString());
     }

@@ -28,6 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     public ProgressDialog pdialog;
     Context c;
     TextView data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +118,11 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         new Query().execute();
         gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
+
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
+
+
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +132,8 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
             }
         });
 
+        // Remember me log out
         pref = getSharedPreferences("login.config", Context.MODE_PRIVATE);
-
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,10 +143,8 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
     // Logout via action bar icon
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
