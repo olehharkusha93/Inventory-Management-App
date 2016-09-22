@@ -116,8 +116,6 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         if (scanResult != null) {
             SetScanId(scanResult.GetContents());
             SetScanFormat(scanResult.GetFormatName());
-            formatTxt.setText("Format: " + scan_Format);
-            contentTxt.setText("Content: " + scan_Info);
 
             //GetJson Here!!
             new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc="+scan_Info);
@@ -128,48 +126,6 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         }
 
     }
-
-    public String GetJSON(String _url, int _timeout) {
-        HttpURLConnection c = null;
-        try {
-            URL url = new URL(_url);
-            c = (HttpURLConnection) url.openConnection();
-            c.setRequestMethod("GET");
-            c.addRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.setReadTimeout(_timeout);
-            c.connect();
-
-            int status = c.getResponseCode();
-            switch (status) {
-                case 200:
-                case 201:
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append((line + '\n'));
-                    }
-                    br.close();
-                    return sb.toString();
-            }
-        } catch (MalformedURLException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
-        } finally {
-            if (c != null) {
-                try {
-                    c.disconnect();
-                } catch (Exception e) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
-                }
-            }
-        }
-        return null;
-    }
-
 
 
     public class JSONTask extends AsyncTask<String, String, String[]> {
@@ -207,11 +163,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
                 result[0] = itemName;
                 result[1] = itemBrand;
-                //Bitmap Working
-                    //URL test = new URL(image);
-                    //bitmap = BitmapFactory.decodeStream(test.openConnection().getInputStream());
 
-                //return itemName + " , "+ itemBrand;
                 return result;
 
             } catch (MalformedURLException e) {
