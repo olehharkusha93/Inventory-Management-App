@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +24,10 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -53,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
     public Button loginButton;
     public ProgressDialog pdialog;
+    public MediaPlayer loginSound;
+    public MediaPlayer fbLoginSound;
 
     //Google Sign In
     private SignInButton login;
@@ -85,6 +90,9 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         loginButton = (Button) findViewById(R.id.loginButton);
         final TextView signUp = (TextView) findViewById(R.id.tvSignUP);
 
+        loginSound = MediaPlayer.create(this,R.raw.popupquick);
+        fbLoginSound = MediaPlayer.create(this,R.raw.hornfanfarevicto);
+
         pref = getSharedPreferences("login.config", Context.MODE_PRIVATE);
         editor = pref.edit();
 
@@ -97,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         login.setScopes(signInOptions.getScopeArray());
 
         // Facebook Sign In
-        //FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         //setContentView(R.layout.activity_login);
         fbLoginButton = (LoginButton)findViewById(R.id.FacebookLogin);
@@ -157,11 +165,22 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText("User ID: "
-                        + loginResult.getAccessToken().getUserId()
-                        + "\n"
-                        + "Auth Token"
-                        + loginResult.getAccessToken().getToken());
+                //info.setText("User ID: "
+                //        + loginResult.getAccessToken().getUserId()
+                //        + "\n"
+                //        + "Auth Token"
+                //        + loginResult.getAccessToken().getToken());
+                Profile profile = Profile.getCurrentProfile();
+                String userId = loginResult.getAccessToken().getUserId();
+                String accessToken = loginResult.getAccessToken().getToken();
+
+                fbLoginSound.start();
+                Intent databaseInventoryIntent = new Intent(LoginActivity.this, /*DatabaseInvetoryActivity*/OrganizationActivity.class);
+                LoginActivity.this.startActivity(databaseInventoryIntent);
+
+
+                Toast.makeText(c, "Logged in with Facebook", Toast.LENGTH_SHORT).show();
+
             }
 
 
@@ -193,13 +212,26 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
+
+            //fb test
+            callbackManager.onActivityResult(requestCode,resultCode,data);
+            //Intent databaseInventoryIntent = new Intent(LoginActivity.this, /*DatabaseInvetoryActivity*/OrganizationActivity.class);
+            //LoginActivity.this.startActivity(databaseInventoryIntent);
+
+
+
         if(requestCode == REQUEST_CODE)
         {
+
+
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             GoogleSignInAccount account = result.getSignInAccount();
 
             Intent databaseInventoryIntent = new Intent(LoginActivity.this, /*DatabaseInvetoryActivity*/OrganizationActivity.class);
             LoginActivity.this.startActivity(databaseInventoryIntent);
+
+            loginSound.start();
+            Toast.makeText(c, "Logged in with google", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -208,7 +240,6 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
     }
     //Google Sign In end
-
 
     class login extends AsyncTask<String,String,String>
     {
