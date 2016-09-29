@@ -63,6 +63,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private String scan_Info;
     private String scan_Format;
 
+    private Context parrentCtx;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -127,6 +129,9 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
     }
 
+    public void JsonExecute(String url){
+        new JSONTask().execute(url);
+    }
 
     public class JSONTask extends AsyncTask<String, String, String[]> {
 
@@ -171,7 +176,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch(JSONException e) {
-                e.printStackTrace();
+                result[0]="NULL";
+                return result;
             }finally {
                 if (c != null) {
                     c.disconnect();
@@ -189,17 +195,21 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
         protected void onPostExecute(String[] result){
             super.onPostExecute(result);
-            //itemTxt.setText(result); //Setting txt based on return
+            if(result[0]=="NULL") {
+                Toast.makeText(GetParentContext(), "This Item does not appear to be web, Please manually insert item info"
+                        , Toast.LENGTH_LONG).show();
+            }
             //Dialog Result
-            itemDialog(imageURL,result[0],result[1],GetScanId(),GetScanFormat());
-
+            else {
+                itemDialog(imageURL, result[0], result[1], GetScanId(), GetScanFormat());
+            }
             //SetImg(bitmap);
         }
     }
 
     private void itemDialog(String url, String title, String brand, String barcodeNum, String barcodeType){
 
-        final Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(GetParentContext());
         numOfItems = 0;
         //Creating Dialog box behind the scenes & setting passed in values
         dialog.setTitle("Found!");
@@ -230,11 +240,11 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 {
                     numOfItems = Integer.parseInt(input.getText().toString());
                     dialog.cancel();
-                    Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GetParentContext(), "Added!", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GetParentContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -242,24 +252,26 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             @Override
             public void onClick(View v){
                 dialog.cancel();
-                Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT).show();
+                Toast.makeText(GetParentContext(),"Canceled",Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
     }
 
-    private String GetScanId(){
+    public String GetScanId(){
         return scan_Info;
     }
-    private void SetScanId(String info){
+    public void SetScanId(String info){
         scan_Info = info;
     }
-    private String GetScanFormat(){
+    public String GetScanFormat(){
         return scan_Format;
     }
-    private void SetScanFormat(String format){
+    public void SetScanFormat(String format){
         scan_Format = format;
     }
+    public Context GetParentContext(){return parrentCtx;}
+    public void SetParentContext(Context c){parrentCtx = c;}
 
      /* Notes
                     //Error Msg

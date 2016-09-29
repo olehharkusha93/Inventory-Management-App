@@ -28,6 +28,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +42,7 @@ import io.cloudboost.CloudObject;
 import io.cloudboost.CloudObjectArrayCallback;
 import io.cloudboost.CloudQuery;
 
-public class DatabaseInvetoryActivity extends AppCompatActivity {
+public class DatabaseInvetoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences pref;
 
@@ -48,6 +54,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     Button logout;
     public ProgressDialog pdialog;
     Context c;
+    BarcodeScan barcodeScan;
     TextView data;
 
     @Override
@@ -56,6 +63,12 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         setTitle("Inventory");
         setContentView(R.layout.activity_database_invetory);
 
+        //ImageLoader Stuff
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions).build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
 
         pdialog=new ProgressDialog(this);
         listFood = new ArrayList<String>();
@@ -118,13 +131,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Scan_pg = new Intent(DatabaseInvetoryActivity.this, BarcodeScan.class);
-                DatabaseInvetoryActivity.this.startActivity(Scan_pg);
-            }
-        });
+        scan.setOnClickListener(this);
 
         pref = getSharedPreferences("login.config", Context.MODE_PRIVATE);
 
@@ -141,6 +148,33 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
 
 
     }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.scanActivityBtn) {
+            barcodeScan = new BarcodeScan();
+            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+            scanIntegrator.initiateScan();
+            barcodeScan.SetParentContext(this);
+        }
+    }
+    public void onActivityResult(int _requestCode, int _resultCode, Intent _intent) {
+        //Retrieve the scan result
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(_requestCode, _resultCode, _intent);
+        if (scanResult != null) {
+            barcodeScan.SetScanId(scanResult.GetContents());
+            barcodeScan.SetScanFormat(scanResult.GetFormatName());
+
+            //GetJson Here!!
+            barcodeScan.JsonExecute("https://api.upcitemdb.com/prod/trial/lookup?upc="+barcodeScan.GetScanId());
+
+        } else {
+            Toast tst = Toast.makeText(getApplicationContext(),
+                    "No scan data revieved!", Toast.LENGTH_SHORT);
+            tst.show();
+        }
+
+    }
+
     // Logout via action bar icon
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
