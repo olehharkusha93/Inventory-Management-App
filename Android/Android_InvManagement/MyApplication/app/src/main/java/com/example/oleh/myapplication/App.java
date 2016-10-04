@@ -17,6 +17,7 @@ public class App extends Application {
             super.onCreate();
         Log.d("App", "onCreate(");
         CloudApp.init("myrrjdcqzjzz", "960f3835-dd13-47dc-828c-578ef80564b8");
+        //CloudApp.init("qpnyskfsswrd", "6dc1a736-5705-4d40-9428-125067e68b96");
     }
     public static void logout(){
         CURRENT_USER=null;

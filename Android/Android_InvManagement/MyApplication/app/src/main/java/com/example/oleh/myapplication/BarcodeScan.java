@@ -48,6 +48,10 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import io.cloudboost.CloudException;
+import io.cloudboost.CloudObject;
+import io.cloudboost.CloudObjectCallback;
+
 public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Button scanBtn;
     private TextView formatTxt, contentTxt;
@@ -62,7 +66,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
     private String scan_Info;
     private String scan_Format;
-
+    private String itemScannedName;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -135,6 +139,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             HttpURLConnection c = null;
             BufferedReader br = null;
             String[] result = new String[3];
+
             try {
                 URL url = new URL(_url[0]);
                 c = (HttpURLConnection) url.openConnection();
@@ -154,7 +159,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 JSONObject childObj = parentArr.getJSONObject(0);
 
                 String itemName = childObj.getString("title");//Key is the "quotes" inside the arr
-                String itemBrand = childObj.getString("brand");
+                final String itemBrand = childObj.getString("brand");
 
                 //JSON image stuff
                 JSONArray imageArr = new JSONArray(parentArr.getJSONObject(0).getString("images")); //Getting the ImgArr
@@ -163,6 +168,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
                 result[0] = itemName;
                 result[1] = itemBrand;
+
+                itemScannedName = itemName;
 
                 return result;
 
@@ -189,26 +196,51 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
         protected void onPostExecute(String[] result){
             super.onPostExecute(result);
-            //itemTxt.setText(result); //Setting txt based on return
+        //itemTxt.setText(result); //Setting txt based on return
             //Dialog Result
             itemDialog(imageURL,result[0],result[1],GetScanId(),GetScanFormat());
-
             //SetImg(bitmap);
         }
     }
 
-    private void itemDialog(String url, String title, String brand, String barcodeNum, String barcodeType){
+    public class addItem extends AsyncTask<String,String,String> {
+        @Override
+        protected String doInBackground(String... params) {
+            final CloudObject obj = new CloudObject("Test");
+            try {
+                obj.set("Name", GetItemName());
+                obj.set("Quantity", numOfItems);
+                obj.set("imageURL", imageURL);
+                obj.save(new CloudObjectCallback() {
+                    @Override
+                    public void done(CloudObject x, CloudException t) throws CloudException {
+                        if (t != null) {
+
+                        }
+                        if (x != null) {
+
+                        }
+                    }
+                });
+            } catch (CloudException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private void itemDialog(final String url, final String title, String brand, String barcodeNum, String barcodeType){
 
         final Dialog dialog = new Dialog(this);
         numOfItems = 0;
         //Creating Dialog box behind the scenes & setting passed in values
         dialog.setTitle("Found!");
         dialog.setContentView(R.layout.custom_itemdialog);
-        TextView itemTitle = (TextView)dialog.findViewById(R.id.ItemTitleID);
+        final TextView itemTitle = (TextView)dialog.findViewById(R.id.ItemTitleID);
         TextView itemBrand = (TextView)dialog.findViewById(R.id.ItemBrandID);
         TextView itemBarcodeNum = (TextView)dialog.findViewById(R.id.ItemBarcodeID);
         TextView itemBarcodeType = (TextView)dialog.findViewById(R.id.ItemBarcodeTypeID);
-        ImageView imgView = (ImageView)dialog.findViewById(R.id.ImageID);
+        final ImageView imgView = (ImageView)dialog.findViewById(R.id.ImageID);
 
         itemTitle.setText(title);
         itemBrand.setText(brand);
@@ -229,6 +261,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 if(input.length()>=1 && Integer.parseInt(input.getText().toString()) > 0)
                 {
                     numOfItems = Integer.parseInt(input.getText().toString());
+                    new addItem().execute(title);
                     dialog.cancel();
                     Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
                 }
@@ -248,18 +281,15 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         dialog.show();
     }
 
-    private String GetScanId(){
-        return scan_Info;
-    }
-    private void SetScanId(String info){
-        scan_Info = info;
-    }
-    private String GetScanFormat(){
+    public String GetScanId(){return scan_Info;}
+    public void SetScanId(String info){scan_Info = info;}
+    public String GetScanFormat(){
         return scan_Format;
     }
-    private void SetScanFormat(String format){
+    public void SetScanFormat(String format){
         scan_Format = format;
     }
+    public String GetItemName(){return itemScannedName; }
 
      /* Notes
                     //Error Msg

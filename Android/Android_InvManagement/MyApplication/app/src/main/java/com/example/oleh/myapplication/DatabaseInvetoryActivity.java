@@ -1,6 +1,7 @@
 package com.example.oleh.myapplication;
 
 import android.app.Application;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,34 +10,48 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import io.cloudboost.CloudException;
 import io.cloudboost.CloudObject;
 import io.cloudboost.CloudObjectArrayCallback;
+import io.cloudboost.CloudObjectCallback;
 import io.cloudboost.CloudQuery;
+import io.cloudboost.CloudTable;
+import io.cloudboost.Column;
 
 public class DatabaseInvetoryActivity extends AppCompatActivity {
 
@@ -51,6 +66,19 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     public ProgressDialog pdialog;
     Context c;
     TextView data;
+    BarcodeScan barcode = new BarcodeScan();
+    private int numOfItems;
+    private boolean isClicked = false;
+    private String val;
+
+
+    List<String> listName, listNum, listURL;
+
+    //String[] name = new String[10];
+    //[] quantity = new String[10];
+    //String[] url = new String[10];
+
+    //String quantity, url;
 
 
     @Override
@@ -59,9 +87,19 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         setTitle("Inventory");
         setContentView(R.layout.activity_database_invetory);
 
+        // Loads the image
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions).build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
+
 
         pdialog=new ProgressDialog(this);
         listFood = new ArrayList<String>();
+        listName = new ArrayList<String>();
+        listNum = new ArrayList<String>();
+        listURL = new ArrayList<String>();
         // Change back to listView if gridView does't work out
         /*listView*/ gridView = (GridView) findViewById(R.id.gridView);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listFood)
@@ -114,14 +152,12 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
             }
         };
 
-
         new Query().execute();
         gridView.setAdapter(adapter);
         scan = (Button)findViewById(R.id.scanActivityBtn);
-
+        //barcode = new BarcodeScan();
         logout = (Button)findViewById(R.id.logoutButton);
         c = this;
-
 
 
         scan.setOnClickListener(new View.OnClickListener() {
@@ -142,10 +178,40 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
                 startActivity(logoutIntent);
             }
         });
+        // onClick of gridView item
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int itempos = position;
+                String value = (String) gridView.getItemAtPosition(position);
+                val = value;
+
+                //itemDialog(value,barcode.GetScanFormat(),barcode.GetScanId());
+
+                //for (int i = 0; i < name.length; i++) {
+                //    if(value.equals(name[i]))
+                //    itemDialog(url[i],name[i],quantity[i]);
+                //}
+                for (int i = 0; i < listName.size(); i++){
+                    if(value.equals(listName.get(i))){
+                        itemDialog(listURL.get(i),listName.get(i),listNum.get(i));
+                    }
+
+                }
+
+                //CloudObject obj = new CloudObject("Test");
+                //String name = (String) obj.get("Name");
+                //String quant = (String)obj.get("Quantity");
+                //String url = (String)obj.get("imageURL");
+                //itemDialog(name,quant,url);
+
+                Toast.makeText(DatabaseInvetoryActivity.this,""+value,Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
-    // Logout via action bar icon
+    // Logout and more via action bar icon
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout,menu);
@@ -178,6 +244,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
     // Logout via action bar icon end
 
 
+
      public class Query extends AsyncTask<String, String, String> {
 
          @Override
@@ -191,23 +258,76 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             String data = getIntent().getExtras().getString("pop");
             //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
-            final CloudQuery query = new CloudQuery(data); // Change later to Organizations of main app
-            //loop through which table was picked in organization activity.
-            /*for (int k = 0; k < query., ++k){
+            final CloudQuery query = new CloudQuery(data); // Change AppKey AppID later to Organizations of main app
+            //final CloudObject obj = new CloudObject(data);
 
-            }*/
+            //final Button add = (Button)findViewById(R.id.AddID);
             try {
                 query.find(new CloudObjectArrayCallback() {
                     @Override
                     public void done(CloudObject[] x, CloudException t) throws CloudException {
                         if (x != null) {
                             for (int i = 0; i < x.length; ++i) {
-                                listFood.add((String)x[i].get("Name"));
+                                listFood.add((String) x[i].get("Name"));
                                 listFood.add(x[i].get("Quantity").toString() + " / 100");
 
-                                // Used to be with tabs
-                                //listFood.add((String) x[i].get("Name")  + (String) x[i].get("Type") + x[i].get("Quantity").toString());
+
+                                //retrive[i] = (String)x[i].get("Name") + x[i].get("Quantity").toString() + (String)x[i].get("imageURL");
+                                //name[i] = (String)x[i].get("Name");
+                                //quantity[i] = x[i].get("Quantity").toString();
+
+                                //url[i] = (String)x[i].get("imageURL");
+                                //name[i] = (String)x[i].get("Name");
+                                //quantity[i] = x[i].get("Quantity").toString();
+                                //url[i] = (String)x[i].get("imageURL");
+
+                                listName.add((String)x[i].get("Name"));
+                                listNum.add(x[i].get("Quantity").toString());
+                                listURL.add((String)x[i].get("imageURL"));
+
                             }
+
+                            // WORK FROM HERE ALSO
+                            /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    int itempos = position;
+                                    final String value = (String) gridView.getItemAtPosition(position);
+
+
+                                    for (int i = 0; i < listName.size(); i++){
+                                        if(value.equals(listName.get(i))){
+                                            itemDialog(listURL.get(i),listName.get(i),listNum.get(i));
+
+                                            *//*add.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    try {
+                                                        obj.set("Quantity",numOfItems);
+                                                    } catch (CloudException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            });*//*
+
+                                        }
+
+
+
+
+                                        *//*if(numOfItems > 0){
+                                            try {
+                                                obj.set("Quantity", listNum.get(i) + numOfItems);
+                                            } catch (CloudException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }*//*
+                                    }
+                                    Toast.makeText(DatabaseInvetoryActivity.this,""+value,Toast.LENGTH_SHORT).show();
+                                }
+                            });*/
+
 
                             Log.d("Test", "not null");
                         } else {
@@ -233,4 +353,119 @@ public class DatabaseInvetoryActivity extends AppCompatActivity {
              pdialog.dismiss();
          }
     }
+
+    public class addOnTap extends AsyncTask<String,String,String>{
+        @Override
+        protected String doInBackground(String... args) {
+            String data = getIntent().getExtras().getString("pop");
+            //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
+            final CloudQuery query = new CloudQuery(data); // Change AppKey AppID later to Organizations of main app
+            final CloudObject obj = new CloudObject(data);
+
+            //final Button add = (Button)findViewById(R.id.AddID);
+            try {
+                query.find(new CloudObjectArrayCallback() {
+                    @Override
+                    public void done(CloudObject[] x, CloudException t) throws CloudException {
+                        if (x != null) {
+                            for (int i = 0; i < x.length; ++i) {
+
+                                if(GetValue().equals(listName.get(i))){
+                                    if(x[i].get("Quantity").toString().equals(listNum.get(i))){
+                                        Integer num = (Integer)x[i].get("Quantity") + numOfItems;
+                                        x[i].set("Quantity",num);
+                                    }
+                                    //x[i].get("Quantity").toString() = obj.set("Quantity",numOfItems);
+                                    //obj.set(x[i].get("Quantity").toString(),numOfItems);
+                                    x[i].save(new CloudObjectCallback() {
+                                        @Override
+                                        public void done(CloudObject x, CloudException t) throws CloudException {
+                                            if(x != null){
+                                                //
+                                            }
+                                            if(t != null){
+                                                //"Failed to save data"
+                                            }
+                                        }
+
+                                    });
+                                }
+                            }
+
+                            Log.d("Test", "not null");
+                        } else {
+                            Log.d("Test", "is null");
+                        }
+                        if (t != null) {
+                            Log.d("Test", "not null");
+                        } else {
+                            Log.d("Test", "is null");
+                        }
+                    }
+                });
+            } catch (CloudException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
+        }
+    }
+
+
+    // same itemDialog from BarcodeScan
+    private void itemDialog(final String url, final String title /*String brand*/, final String barcodeNum /*String barcodeType*/){
+
+        final Dialog dialog = new Dialog(DatabaseInvetoryActivity.this);
+        //numOfItems = 0;
+        //Creating Dialog box behind the scenes & setting passed in values
+        dialog.setTitle("Found!");
+        dialog.setContentView(R.layout.custom_itemdialog);
+        TextView itemTitle = (TextView)dialog.findViewById(R.id.ItemTitleID);
+        TextView itemBrand = (TextView)dialog.findViewById(R.id.ItemBrandID);
+        TextView itemBarcodeNum = (TextView)dialog.findViewById(R.id.ItemBarcodeID);
+        TextView itemBarcodeType = (TextView)dialog.findViewById(R.id.ItemBarcodeTypeID);
+        ImageView imgView = (ImageView)dialog.findViewById(R.id.ImageID);
+
+        itemTitle.setText(title);
+        itemBrand.setText("");
+        itemBarcodeNum.setText(barcodeNum);
+        itemBarcodeType.setText("");
+
+        ImageLoader.getInstance().displayImage(url,imgView);
+
+
+        //Input stuff
+        final EditText input = (EditText)dialog.findViewById(R.id.AmountID);
+        final Button addButton = (Button)dialog.findViewById(R.id.AddID);
+        Button cancelButton = (Button)dialog.findViewById(R.id.CancelID);
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(input.length()>=1 && Integer.parseInt(input.getText().toString()) > 0)
+                {
+                    numOfItems = Integer.parseInt(input.getText().toString());
+                    new addOnTap().execute();
+
+                    dialog.cancel();
+                    Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.cancel();
+                Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
+    public String GetValue() {return val;}
 }
+
