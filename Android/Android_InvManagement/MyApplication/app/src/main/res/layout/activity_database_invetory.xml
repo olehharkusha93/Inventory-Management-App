@@ -27,8 +27,9 @@
             <Button
                 android:layout_width="116dp"
                 android:layout_height="wrap_content"
-                android:text="Scan-Act."
-                android:id="@+id/scanActivityBtn" />
+                android:text="Scan."
+                android:id="@+id/scanActivityBtn"
+                android:background="@color/material_deep_teal_200" />
 
             <Button
                 android:layout_width="wrap_content"

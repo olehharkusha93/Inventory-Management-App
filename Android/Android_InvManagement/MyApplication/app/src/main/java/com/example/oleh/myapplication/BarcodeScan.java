@@ -67,6 +67,10 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private String scan_Info;
     private String scan_Format;
     private String itemScannedName;
+    private Context parrentCtx;
+    private static String NULL_BARTYPE = "NULL0";
+    private static String NULL_ITEM = "NULL1";
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -81,17 +85,17 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         // Create default options which will be used for every
         //  displayImage(...) call if no options will be passed to this method
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-        .cacheInMemory(true).cacheOnDisk(true).build();
+                .cacheInMemory(true).cacheOnDisk(true).build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        .defaultDisplayImageOptions(defaultOptions).build();
+                .defaultDisplayImageOptions(defaultOptions).build();
         ImageLoader.getInstance().init(config); // Do it on Application start
 
         scanBtn = (Button) findViewById(R.id.scanButton);
         formatTxt = (TextView) findViewById(R.id.scanFormat);
         contentTxt = (TextView) findViewById(R.id.scanInfo);
         itemTxt = (TextView) findViewById(R.id.itemInfo);
-        itemImg = (ImageView)findViewById(R.id.itemImg);
-        testBtn = (Button)findViewById(R.id.jsonTest); //Delete later!!
+        itemImg = (ImageView) findViewById(R.id.itemImg);
+        testBtn = (Button) findViewById(R.id.jsonTest); //Delete later!!
 
         scanBtn.setOnClickListener(this);
         testBtn.setOnClickListener(this); //Delete later
@@ -106,7 +110,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
-        if(_v.getId() == R.id.jsonTest){
+        if (_v.getId() == R.id.jsonTest) {
             SetScanId("049000050110");
             SetScanFormat("UPC_13");
             new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc=049000050110");
@@ -122,7 +126,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             SetScanFormat(scanResult.GetFormatName());
 
             //GetJson Here!!
-            new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc="+scan_Info);
+            new JSONTask().execute("https://api.upcitemdb.com/prod/trial/lookup?upc=" + scan_Info);
         } else {
             Toast tst = Toast.makeText(getApplicationContext(),
                     "No scan data revieved!", Toast.LENGTH_SHORT);
@@ -131,15 +135,18 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
     }
 
+    public void JsonExecute(String url) {
+        new JSONTask().execute(url);
+    }
 
     public class JSONTask extends AsyncTask<String, String, String[]> {
 
         @Override
-        protected String[] doInBackground(String... _url){
+        protected String[] doInBackground(String... _url) {
             HttpURLConnection c = null;
             BufferedReader br = null;
             String[] result = new String[3];
-
+            imageURL = "";
             try {
                 URL url = new URL(_url[0]);
                 c = (HttpURLConnection) url.openConnection();
@@ -161,13 +168,13 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 String itemName = childObj.getString("title");//Key is the "quotes" inside the arr
                 final String itemBrand = childObj.getString("brand");
 
-                //JSON image stuff
-                JSONArray imageArr = new JSONArray(parentArr.getJSONObject(0).getString("images")); //Getting the ImgArr
-                imageURL = imageArr.getString(0); //Parsing 1st img
-
-
                 result[0] = itemName;
                 result[1] = itemBrand;
+
+                //JSON image stuff
+                imageURL = null;
+                JSONArray imageArr = new JSONArray(parentArr.getJSONObject(0).getString("images")); //Getting the ImgArr
+                imageURL = imageArr.getString(0); //Parsing 1st img
 
                 itemScannedName = itemName;
 
@@ -176,15 +183,22 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch(JSONException e) {
-                e.printStackTrace();
-            }finally {
+                result[0] = NULL_BARTYPE;
+                return result;
+            } catch (JSONException e) {
+                if (imageURL == null) {
+                    imageURL = "https://www.municipay.com/wp-content/themes/Artificial-Reason-WP/img/no_image.png";
+                    return result;
+                } else {
+                    result[0] = NULL_ITEM;
+                    return result;
+                }
+            } finally {
                 if (c != null) {
                     c.disconnect();
                 }
-                try{
-                    if(br!=null){
+                try {
+                    if (br != null) {
                         br.close();
                     }
                 } catch (IOException e) {
@@ -194,12 +208,21 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             return null;
         }
 
-        protected void onPostExecute(String[] result){
+        protected void onPostExecute(String[] result) {
             super.onPostExecute(result);
-        //itemTxt.setText(result); //Setting txt based on return
+            //Check for null exceptions
+            if (result[0] == NULL_BARTYPE) {
+                Toast.makeText(GetParentContext(), "This barcode type is not supported. Please manually insert item info"
+                        , Toast.LENGTH_LONG).show();
+            } else if (result[0] == NULL_ITEM) {
+                Toast.makeText(GetParentContext(), "This item does not appear to be web. Please manually insert item info"
+                        , Toast.LENGTH_LONG).show();
+            }
+
             //Dialog Result
-            itemDialog(imageURL,result[0],result[1],GetScanId(),GetScanFormat());
-            //SetImg(bitmap);
+            else {
+                itemDialog(imageURL, result[0], result[1], GetScanId(), GetScanFormat());
+            }
         }
     }
 
@@ -231,7 +254,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
     private void itemDialog(final String url, final String title, String brand, String barcodeNum, String barcodeType){
 
-        final Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(GetParentContext());
         numOfItems = 0;
         //Creating Dialog box behind the scenes & setting passed in values
         dialog.setTitle("Found!");
@@ -247,43 +270,46 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         itemBarcodeNum.setText(barcodeNum);
         itemBarcodeType.setText(barcodeType);
 
-        ImageLoader.getInstance().displayImage(url,imgView);
+        ImageLoader.getInstance().displayImage(url, imgView);
 
 
         //Input stuff
-        final EditText input = (EditText)dialog.findViewById(R.id.AmountID);
-        Button addButton = (Button)dialog.findViewById(R.id.AddID);
-        Button cancelButton = (Button)dialog.findViewById(R.id.CancelID);
+        final EditText input = (EditText) dialog.findViewById(R.id.AmountID);
+        Button addButton = (Button) dialog.findViewById(R.id.AddID);
+        Button cancelButton = (Button) dialog.findViewById(R.id.CancelID);
 
-        addButton.setOnClickListener(new View.OnClickListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if(input.length()>=1 && Integer.parseInt(input.getText().toString()) > 0)
-                {
+            public void onClick(View v) {
+                if (input.length() >= 1 && Integer.parseInt(input.getText().toString()) > 0) {
                     numOfItems = Integer.parseInt(input.getText().toString());
                     new addItem().execute(title);
                     dialog.cancel();
-                    Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GetParentContext(), "Added!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(GetParentContext(), "Please Enter an amount larger than 1", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        cancelButton.setOnClickListener(new View.OnClickListener(){
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialog.cancel();
-                Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT).show();
+                Toast.makeText(GetParentContext(), "Canceled", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
     }
 
-    public String GetScanId(){return scan_Info;}
-    public void SetScanId(String info){scan_Info = info;}
-    public String GetScanFormat(){
+    public String GetScanId() {
+        return scan_Info;
+    }
+
+    public void SetScanId(String info) {
+        scan_Info = info;
+    }
+
+    public String GetScanFormat() {
         return scan_Format;
     }
     public void SetScanFormat(String format){
@@ -291,25 +317,28 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     }
     public String GetItemName(){return itemScannedName; }
 
-     /* Notes
-                    //Error Msg
-                    dialogBuilder = new AlertDialog.Builder(getApplicationContext());
-                    dialogBuilder.setTitle("Error!");
-                    dialogBuilder.setMessage("Please Enter an amount larger than 1");
-                    dialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){
-                            Toast.makeText(getApplicationContext(),"Ok",Toast.LENGTH_SHORT);
-                        }
-                    });
-                    dialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){
-                            Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT);
-                        }
-                    });
-                    //Output
-                    AlertDialog dialogNumber = dialogBuilder.create();
-                    dialogNumber.show();
-                    */
+    public Context GetParentContext() { return parrentCtx; }
+
+    public void SetParentContext(Context c) { parrentCtx = c; }
 }
+            /* Notes
+             //Error Msg
+             dialogBuilder = new AlertDialog.Builder(getApplicationContext());
+             dialogBuilder.setTitle("Error!");
+             dialogBuilder.setMessage("Please Enter an amount larger than 1");
+             dialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                 @Override
+                 public void onClick(DialogInterface dialog, int which){
+                     Toast.makeText(getApplicationContext(),"Ok",Toast.LENGTH_SHORT);
+                 }
+             });
+             dialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
+                 @Override
+                 public void onClick(DialogInterface dialog, int which){
+                     Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT);
+                 }
+             });
+             //Output
+             AlertDialog dialogNumber = dialogBuilder.create();
+             dialogNumber.show();
+             */
