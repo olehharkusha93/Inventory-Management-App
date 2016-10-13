@@ -60,6 +60,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private ImageView itemImg;
     private Button testBtn; //Delete later!!
     private String imageURL;
+    private String defaultImgURL;
 
     private AlertDialog.Builder dialogBuilder;
     private int numOfItems;
@@ -147,6 +148,7 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
             BufferedReader br = null;
             String[] result = new String[3];
             imageURL = "";
+            defaultImgURL = null;
             try {
                 URL url = new URL(_url[0]);
                 c = (HttpURLConnection) url.openConnection();
@@ -171,12 +173,12 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 result[0] = itemName;
                 result[1] = itemBrand;
 
+                itemScannedName = itemName;
+
                 //JSON image stuff
                 imageURL = null;
                 JSONArray imageArr = new JSONArray(parentArr.getJSONObject(0).getString("images")); //Getting the ImgArr
                 imageURL = imageArr.getString(0); //Parsing 1st img
-
-                itemScannedName = itemName;
 
                 return result;
 
@@ -187,7 +189,9 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 return result;
             } catch (JSONException e) {
                 if (imageURL == null) {
-                    imageURL = "https://www.municipay.com/wp-content/themes/Artificial-Reason-WP/img/no_image.png";
+                    imageURL = "";
+                    //Insert Behind img code here!!!
+                    defaultImgURL = "http://www.hutchinsontires.com/helpers/img/no_image.jpg";
                     return result;
                 } else {
                     result[0] = NULL_ITEM;
@@ -221,11 +225,26 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
 
             //Dialog Result
             else {
-                itemDialog(imageURL, result[0], result[1], GetScanId(), GetScanFormat());
+                if(defaultImgURL!=null)
+                    itemDialog(defaultImgURL, result[0], result[1], GetScanId(), GetScanFormat());
+                else{
+                    itemDialog(imageURL, result[0], result[1], GetScanId(), GetScanFormat());
+                }
             }
         }
     }
 
+    public void addItemExecute(String title, int num, String url){
+        itemScannedName = title;
+        numOfItems = num;
+        imageURL = url;
+        new addItem().execute(title);
+        /*
+        itemScannedName = null;
+        numOfItems = 0;
+        imageURL = null;
+        */
+    }
     public class addItem extends AsyncTask<String,String,String> {
         @Override
         protected String doInBackground(String... params) {
@@ -264,13 +283,20 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         TextView itemBarcodeNum = (TextView)dialog.findViewById(R.id.ItemBarcodeID);
         TextView itemBarcodeType = (TextView)dialog.findViewById(R.id.ItemBarcodeTypeID);
         final ImageView imgView = (ImageView)dialog.findViewById(R.id.ImageID);
+        final  ImageView defaultImgView = (ImageView)dialog.findViewById(R.id.DefaultImgID);
 
         itemTitle.setText(title);
         itemBrand.setText(brand);
         itemBarcodeNum.setText(barcodeNum);
         itemBarcodeType.setText(barcodeType);
 
-        ImageLoader.getInstance().displayImage(url, imgView);
+        if(defaultImgURL!=null) {
+            defaultImgView.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(url, defaultImgView);
+        }
+        else{
+            ImageLoader.getInstance().displayImage(url, imgView);
+        }
 
 
         //Input stuff

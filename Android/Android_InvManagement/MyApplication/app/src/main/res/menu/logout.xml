@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/action_shoplist"
         android:icon="@drawable/ic_add_shopping_cart_black_24dp"
         android:title="Shoping List"

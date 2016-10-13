@@ -174,7 +174,13 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
 
                 for (int i = 0; i < listName.size(); i++){
                     if(value.equals(listName.get(i))){
-                        itemDialog(listURL.get(i),listName.get(i),listNum.get(i));
+                        if(listURL.get(i)==""||listURL.get(i)==null){
+                            itemDialog("http://res.cloudinary.com/dbmz1poqo/image/upload/v1474381344/cutmypic_sjcn3i.png",
+                                    listName.get(i),listNum.get(i));
+                        }
+                        else {
+                            itemDialog(listURL.get(i),listName.get(i),listNum.get(i));
+                        }
                     }
 
                 }
@@ -219,6 +225,9 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId())
         {
+            case R.id.action_add:
+                addDialog();
+                return true;
             case R.id.action_logout:
                 pref.edit().clear().commit();
                 Intent logoutIntent = new Intent(DatabaseInvetoryActivity.this, LoginActivity.class);
@@ -241,9 +250,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
     }
     // Logout via action bar icon end
 
-
-
-     public class Query extends AsyncTask<String, String, String> {
+    public class Query extends AsyncTask<String, String, String> {
 
          @Override
         protected void onPreExecute()
@@ -353,6 +360,49 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
         }
     }
 
+    //Manual insert
+    private void addDialog(){
+        final Dialog dialog = new Dialog(DatabaseInvetoryActivity.this);
+        dialog.setTitle("Manual Insert");
+        dialog.setContentView(R.layout.custom_add_dialog);
+
+        final EditText input_title = (EditText)dialog.findViewById(R.id.titleEdit);
+        final EditText input_brand = (EditText)dialog.findViewById(R.id.brandEdit);
+        final EditText input_barcode = (EditText)dialog.findViewById(R.id.barcodeEdit);
+        final EditText input_quantity = (EditText)dialog.findViewById(R.id.quantityEdit);
+        final Button addButton = (Button)dialog.findViewById(R.id.addButton);
+        Button cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(input_barcode.length()<1 || input_brand.length()<1 || input_title.length()<1) {
+
+                    Toast.makeText(getApplicationContext(),"Please fill all the information",Toast.LENGTH_SHORT).show();
+                }
+                else if(input_quantity.length()<1 || Integer.parseInt(input_quantity.getText().toString()) <= 0) {
+
+                    Toast.makeText(getApplicationContext(),"Please Enter an amount larger than 1",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    numOfItems = Integer.parseInt(input_quantity.getText().toString());
+                    barcodeScan = new BarcodeScan();
+                    barcodeScan.addItemExecute(input_title.getText().toString(),numOfItems,"");
+                    dialog.cancel();
+                    Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.cancel();
+                Toast.makeText(getApplicationContext(),"Canceled",Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
 
     // same itemDialog from BarcodeScan
     private void itemDialog(final String url, final String title /*String brand*/, final String barcodeNum /*String barcodeType*/){
@@ -407,6 +457,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
         });
         dialog.show();
     }
+
     public String GetValue() {return val;}
 }
 

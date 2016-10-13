@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="260dp"
+        android:layout_height="253dp"
+        android:layout_margin="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:id="@+id/titleView"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brand"
+            android:id="@+id/brandView"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/titleView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Barcode # "
+            android:id="@+id/barcodeView"
+            android:layout_below="@+id/brandView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="5dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleEdit"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/barcodeView"
+            android:layout_toRightOf="@+id/barcodeView"
+            android:layout_above="@+id/brandView"
+            android:layout_alignParentTop="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brandEdit"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/titleEdit"
+            android:layout_alignStart="@+id/titleEdit"
+            android:layout_above="@+id/barcodeView"
+            android:layout_below="@+id/titleEdit" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/addButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/barcodeView"
+            android:layout_alignStart="@+id/barcodeView"
+            android:layout_alignTop="@+id/cancelButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/cancelButton"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/addButton"
+            android:layout_toEndOf="@+id/addButton" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity: "
+            android:id="@+id/quantityView"
+            android:textColor="@color/accent_material_light"
+            android:layout_below="@+id/barcodeView"
+            android:layout_alignLeft="@+id/barcodeView"
+            android:layout_alignStart="@+id/barcodeView"
+            android:layout_marginTop="35dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/barcodeEdit"
+            android:layout_toRightOf="@+id/barcodeView"
+            android:layout_toEndOf="@+id/barcodeView"
+            android:layout_alignBottom="@+id/barcodeView"
+            android:layout_below="@+id/brandEdit" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/quantityEdit"
+            android:layout_alignBottom="@+id/quantityView"
+            android:layout_toRightOf="@+id/quantityView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>
