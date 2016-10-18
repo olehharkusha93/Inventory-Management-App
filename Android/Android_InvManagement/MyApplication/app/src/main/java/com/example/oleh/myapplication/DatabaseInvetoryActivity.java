@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,8 +57,8 @@ import io.cloudboost.Column;
 
 public class DatabaseInvetoryActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static Bundle MyList = new Bundle();
     SharedPreferences pref;
-
     ListView listView;
     List<String> listFood;
     GridView gridView;
@@ -103,7 +105,6 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String text = textView.getText().toString();
 
-
                 String[] red = new String[50];
                 for(int r = 0; r < red.length; r++) {
                     red[r] = String.valueOf(r);
@@ -122,19 +123,19 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                 for (int i = 0; i < listFood.size(); ++i) {
 
                     for (int j = 100; j < green.length; ++j) {
-                        if (text.equals(green[j] + " / 100")) {
+                        if (text.equals(green[j] + " / 1000")) {
                             textView.setTextColor(Color.parseColor("#009933")); //Green
                         }
                     }
 
                     for(int k = 50; k < yellow.length; ++k){
-                        if(text.equals(yellow[k] + " / 100")){
+                        if(text.equals(yellow[k] + " / 1000")){
                             textView.setTextColor(Color.parseColor("#e6b800")); //Yellow
                         }
                     }
 
                     for(int x = 0; x < red.length; ++x) {
-                        if (text.equals(red[x] + " / 100")) {
+                        if (text.equals(red[x] + " / 1000")) {
                             textView.setTextColor(Color.parseColor("#CC0000")); //Red
                         }
                     }
@@ -144,6 +145,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                 return view;
             }
         };
+
 
         new Query().execute();
         gridView.setAdapter(adapter);
@@ -272,12 +274,14 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                         if (x != null) {
                             for (int i = 0; i < x.length; ++i) {
                                 listFood.add((String) x[i].get("Name"));
-                                listFood.add(x[i].get("Quantity").toString() + " / 100");
+                                listFood.add(x[i].get("Quantity").toString() + " / 1000");
 
 
                                 listName.add((String)x[i].get("Name"));
                                 listNum.add(x[i].get("Quantity").toString());
                                 listURL.add((String)x[i].get("imageURL"));
+
+                                DatabaseInvetoryActivity.MyList.putStringArrayList("list", (ArrayList<String>) listFood);
 
                             }
 
@@ -459,5 +463,6 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
     }
 
     public String GetValue() {return val;}
+    public List<String> GetList() {return listFood;}
 }
 

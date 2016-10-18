@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -45,12 +47,15 @@ import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import io.cloudboost.CloudException;
 import io.cloudboost.CloudObject;
 import io.cloudboost.CloudObjectCallback;
+import io.cloudboost.CloudTable;
+import io.cloudboost.CloudTableArrayCallback;
 
 public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Button scanBtn;
@@ -71,7 +76,8 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Context parrentCtx;
     private static String NULL_BARTYPE = "NULL0";
     private static String NULL_ITEM = "NULL1";
-
+    //OrganizationActivity orgTable;
+    //OrganizationActivity t = new OrganizationActivity();
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -248,7 +254,12 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     public class addItem extends AsyncTask<String,String,String> {
         @Override
         protected String doInBackground(String... params) {
-            final CloudObject obj = new CloudObject("Test");
+            String t = OrganizationActivity.MyTable.getString("table");
+            final CloudObject obj = new CloudObject(t);
+            //ArrayList<String> list = DatabaseInvetoryActivity.MyList.getStringArrayList("list");
+            //for(int i = 0; i < list.size(); ++i){
+                //if(GetItemName().equals(list));
+            //}
             try {
                 obj.set("Name", GetItemName());
                 obj.set("Quantity", numOfItems);

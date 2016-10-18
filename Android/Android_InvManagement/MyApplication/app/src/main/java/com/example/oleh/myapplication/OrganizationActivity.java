@@ -3,9 +3,11 @@ package com.example.oleh.myapplication;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ public class OrganizationActivity extends AppCompatActivity {
     String value;
     SwipeRefreshLayout SwipeRefreshLayout;
     private Handler handler = new Handler();
+    public static Bundle MyTable = new Bundle();
     //SearchView searchView;
 
     @Override
@@ -110,8 +113,9 @@ public class OrganizationActivity extends AppCompatActivity {
                 //String item = listView.getSelectedItem().toString();
                 Intent databaseInventoryIntent = new Intent(OrganizationActivity.this, DatabaseInvetoryActivity.class);
                 databaseInventoryIntent.putExtra("pop",value);
-                OrganizationActivity.this.startActivity(databaseInventoryIntent);
+                OrganizationActivity.MyTable.putString("table", value);
 
+                OrganizationActivity.this.startActivity(databaseInventoryIntent);
 
                 Toast.makeText(OrganizationActivity.this,""+value,Toast.LENGTH_SHORT).show();
             }
@@ -150,10 +154,7 @@ public class OrganizationActivity extends AppCompatActivity {
                             for(int j = 0; j < table.length; ++j){
                                 if(!table[j].getTableName().contains("Role") && !table[j].getTableName().contains("User") && !table[j].getTableName().contains("Device"))
                                 listOrganizations.add(table[j].getTableName());
-
-
                             }
-
                         }
                         if(e != null){
                         }
