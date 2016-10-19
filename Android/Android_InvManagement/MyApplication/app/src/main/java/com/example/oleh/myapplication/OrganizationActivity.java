@@ -64,23 +64,7 @@ public class OrganizationActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.organizationlistView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOrganizations);
 
-        // To change listView text color based on string
-        /*{
-            @Override
-            public View getView(int position,View convertView,ViewGroup parent){
-                View view = super.getView(position,convertView,parent);
-                TextView textView = (TextView)view.findViewById(android.R.id.text1);
-                String text = textView.getText().toString();
-                if(text.contains("Test")) {
-                    textView.setTextColor(Color.BLUE);
-                }
-                else if(text.contains("Organization")){
-                    textView.setTextColor(Color.RED);
-                }
 
-                return view;
-            }
-        };*/
         new Query().execute();
         listView.setAdapter(adapter);
         SwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.activity_swipe_refresh_layout);
@@ -122,15 +106,6 @@ public class OrganizationActivity extends AppCompatActivity {
         });
     }
 
-    /*class orgList implements AdapterView.OnItemClickListener{
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-            ViewGroup vg = (ViewGroup)view;
-            TextView tv = (TextView)vg.findViewById(R.id.organizationTV);
-            Toast.makeText(OrganizationActivity.this,tv.getText().toString(),Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
     public class Query extends AsyncTask<String, String, String> {
 
         @Override
@@ -163,58 +138,9 @@ public class OrganizationActivity extends AppCompatActivity {
             } catch (CloudException e) {
                 e.printStackTrace();
             }
-
-            /*try {
-                query.find(new CloudObjectArrayCallback() {
-                    @Override
-                    public void done(CloudObject[] x, CloudException t) throws CloudException {
-                        if (x != null) {
-                            for (int i = 0; i < x.length; ++i) {
-                                CloudTable.getAll(new CloudTableArrayCallback() {
-                                    @Override
-                                    public void done(CloudTable[] table, CloudException e) throws CloudException {
-                                        if(table != null){
-                                            for(int j = 0; j < table.length; ++j){
-                                                listOrganizations.add(table[j].getTableName());
-                                            }
-
-                                        }
-                                        if(e != null){
-
-                                        }
-                                    }
-                                });
-
-                                listOrganizations.add((String)x[i].get("Organizations"));
-                                listOrganizations.add(x[i].get("Organizations").toString()); //Shows all
-
-
-
-                            }
-                            Log.d("Test", "not null");
-                        } else {
-                            Log.d("Test", "is null");
-                        }
-                        if (t != null) {
-                            Log.d("Test", "not null");
-                        } else {
-                            Log.d("Test", "is null");
-                        }
-                    }
-                });
-            } catch (CloudException e) {
-                e.printStackTrace();
-            }*/
             return null;
 
         }
-        //@Override
-        //protected void onPostExecute (String result)
-        //{
-        //    super.onPostExecute(result);
-        //    pdialog.dismiss();
-//
-        //}
         @Override
         protected void onPostExecute(String result){
             long delay = 500;
@@ -229,3 +155,21 @@ public class OrganizationActivity extends AppCompatActivity {
         }
     }
 }
+
+// To change listView text color based on string
+        /*{
+            @Override
+            public View getView(int position,View convertView,ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+                TextView textView = (TextView)view.findViewById(android.R.id.text1);
+                String text = textView.getText().toString();
+                if(text.contains("Test")) {
+                    textView.setTextColor(Color.BLUE);
+                }
+                else if(text.contains("Organization")){
+                    textView.setTextColor(Color.RED);
+                }
+
+                return view;
+            }
+        };*/

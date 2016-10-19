@@ -12,18 +12,21 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,6 +61,7 @@ import io.cloudboost.Column;
 public class DatabaseInvetoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static Bundle MyList = new Bundle();
+    public static Bundle MyList2 = new Bundle();
     SharedPreferences pref;
     ListView listView;
     List<String> listFood;
@@ -104,6 +108,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String text = textView.getText().toString();
+                getCount();
 
                 String[] red = new String[50];
                 for(int r = 0; r < red.length; r++) {
@@ -202,7 +207,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
     public void onActivityResult(int _requestCode, int _resultCode, Intent _intent) {
         //Retrieve the scan result
         IntentResult scanResult = IntentIntegrator.parseActivityResult(_requestCode, _resultCode, _intent);
-        if (scanResult != null) {
+        if (scanResult.GetContents() != null) {
             barcodeScan.SetScanId(scanResult.GetContents());
             barcodeScan.SetScanFormat(scanResult.GetFormatName());
 
@@ -264,9 +269,8 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
         @Override
         protected String doInBackground(String... args) {
             String data = getIntent().getExtras().getString("pop");
-            //final CloudQuery query = new CloudQuery(getIntent().getExtras().toString()); //???
             final CloudQuery query = new CloudQuery(data); // Change AppKey AppID later to Organizations of main app
-
+            query.setLimit(50); //in the future user can create a personal organization and set a limit of the inventory with a promt.
             try {
                 query.find(new CloudObjectArrayCallback() {
                     @Override
@@ -281,7 +285,8 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                                 listNum.add(x[i].get("Quantity").toString());
                                 listURL.add((String)x[i].get("imageURL"));
 
-                                DatabaseInvetoryActivity.MyList.putStringArrayList("list", (ArrayList<String>) listFood);
+                                DatabaseInvetoryActivity.MyList.putStringArrayList("list", (ArrayList<String>) listName);
+                                DatabaseInvetoryActivity.MyList2.putStringArrayList("numList", (ArrayList<String>) listNum);
 
                             }
 
@@ -414,7 +419,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
         final Dialog dialog = new Dialog(DatabaseInvetoryActivity.this);
         //numOfItems = 0;
         //Creating Dialog box behind the scenes & setting passed in values
-        dialog.setTitle("Found!");
+        dialog.setTitle("Bringing...");
         dialog.setContentView(R.layout.custom_itemdialog);
         TextView itemTitle = (TextView)dialog.findViewById(R.id.ItemTitleID);
         TextView itemBrand = (TextView)dialog.findViewById(R.id.ItemBrandID);
@@ -428,6 +433,9 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
         itemBarcodeType.setText("");
 
         ImageLoader.getInstance().displayImage(url,imgView);
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);
 
 
         //Input stuff
@@ -464,5 +472,6 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
 
     public String GetValue() {return val;}
     public List<String> GetList() {return listFood;}
+    public int getCount() {return listFood.size();}
 }
 

@@ -211,19 +211,13 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-
-
             //fb test
             callbackManager.onActivityResult(requestCode,resultCode,data);
             //Intent databaseInventoryIntent = new Intent(LoginActivity.this, /*DatabaseInvetoryActivity*/OrganizationActivity.class);
             //LoginActivity.this.startActivity(databaseInventoryIntent);
 
-
-
         if(requestCode == REQUEST_CODE)
         {
-
-
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             GoogleSignInAccount account = result.getSignInAccount();
 

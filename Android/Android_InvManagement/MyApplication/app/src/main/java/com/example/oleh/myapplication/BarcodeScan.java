@@ -25,6 +25,7 @@ import com.squareup.okhttp.internal.http.HttpConnection;
 
 import android.content.Intent;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +54,9 @@ import java.util.logging.Logger;
 
 import io.cloudboost.CloudException;
 import io.cloudboost.CloudObject;
+import io.cloudboost.CloudObjectArrayCallback;
 import io.cloudboost.CloudObjectCallback;
+import io.cloudboost.CloudQuery;
 import io.cloudboost.CloudTable;
 import io.cloudboost.CloudTableArrayCallback;
 
@@ -76,8 +79,6 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
     private Context parrentCtx;
     private static String NULL_BARTYPE = "NULL0";
     private static String NULL_ITEM = "NULL1";
-    //OrganizationActivity orgTable;
-    //OrganizationActivity t = new OrganizationActivity();
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -256,31 +257,87 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
         protected String doInBackground(String... params) {
             String t = OrganizationActivity.MyTable.getString("table");
             final CloudObject obj = new CloudObject(t);
-            //ArrayList<String> list = DatabaseInvetoryActivity.MyList.getStringArrayList("list");
-            //for(int i = 0; i < list.size(); ++i){
-                //if(GetItemName().equals(list));
-            //}
-            try {
-                obj.set("Name", GetItemName());
-                obj.set("Quantity", numOfItems);
-                obj.set("imageURL", imageURL);
-                obj.save(new CloudObjectCallback() {
-                    @Override
-                    public void done(CloudObject x, CloudException t) throws CloudException {
-                        if (t != null) {
 
-                        }
-                        if (x != null) {
 
+            final CloudQuery query = new CloudQuery(t);
+            query.setLimit(50);
+            Boolean isOnDatabase = false;
+            final ArrayList<String> list = DatabaseInvetoryActivity.MyList.getStringArrayList("list");
+            final ArrayList<String> numList = DatabaseInvetoryActivity.MyList2.getStringArrayList("numList");
+
+            for (int i = 0; i < list.size(); ++i) {
+                if (GetItemName().equals(list.get(i))) {
+                    isOnDatabase = true;
+                    break;
+                }
+            }
+
+            if(isOnDatabase)
+            {
+                try {
+                    query.find(new CloudObjectArrayCallback() {
+                        @Override
+                        public void done(CloudObject[] x, CloudException t) throws CloudException {
+                            if (x != null) {
+                                for (int i = 0; i < x.length; i++) {
+                                    if (GetItemName().equals(list.get(i))) {
+                                        if(x[i].get("Quantity").toString().equals(numList.get(i))) {
+                                            Integer num = (Integer) x[i].get("Quantity") + numOfItems;
+                                            x[i].set("Quantity", num);
+                                        }
+                                        x[i].save(new CloudObjectCallback() {
+                                            @Override
+                                            public void done(CloudObject x, CloudException t) throws CloudException {
+                                                if (x != null) {
+                                                    //
+                                                }
+                                                if (t != null) {
+                                                    //"Failed to save data"
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                                Log.d("Test", "not null");
+                            } else {
+                                Log.d("Test", "is null");
+                            }
+                            if (t != null) {
+                                Log.d("Test", "not null");
+                            } else {
+                                Log.d("Test", "is null");
+                            }
                         }
-                    }
-                });
-            } catch (CloudException e) {
-                e.printStackTrace();
+                    });
+                } catch (CloudException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                try {
+                    obj.set("Name", GetItemName());
+                    obj.set("Quantity", numOfItems);
+                    obj.set("imageURL", imageURL);
+                    obj.save(new CloudObjectCallback() {
+                        @Override
+                        public void done(CloudObject x, CloudException t) throws CloudException {
+                            if (t != null) {
+
+                            }
+                            if (x != null) {
+
+                            }
+                        }
+                    });
+                } catch (CloudException e) {
+                    e.printStackTrace();
+                }
             }
             return null;
         }
     }
+
 
     private void itemDialog(final String url, final String title, String brand, String barcodeNum, String barcodeType){
 
