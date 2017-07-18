@@ -378,6 +378,9 @@ public class BarcodeScan extends AppCompatActivity implements OnClickListener {
                 if (input.length() >= 1 && Integer.parseInt(input.getText().toString()) > 0) {
                     numOfItems = Integer.parseInt(input.getText().toString());
                     new addItem().execute(title);
+                    //Intent i = new Intent(BarcodeScan.this,DatabaseInvetoryActivity.class);
+                    //finish();
+                    //startActivity(i);
                     dialog.cancel();
                     Toast.makeText(GetParentContext(), "Added!", Toast.LENGTH_SHORT).show();
                 } else {

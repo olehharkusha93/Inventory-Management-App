@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                            CloudUser.setCurrentUser(user);
                            App.CURRENT_USER = user;
-                           Intent i = new Intent(RegisterActivity.this, DatabaseInvetoryActivity.class);
+                           Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                            startActivity(i);
 
                        }

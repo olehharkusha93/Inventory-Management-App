@@ -363,9 +363,7 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
             } catch (CloudException e) {
                 e.printStackTrace();
             }
-
             return null;
-
         }
     }
 
@@ -398,6 +396,9 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                     numOfItems = Integer.parseInt(input_quantity.getText().toString());
                     barcodeScan = new BarcodeScan();
                     barcodeScan.addItemExecute(input_title.getText().toString(),numOfItems,"");
+                    Intent i = getIntent();
+                    finish();
+                    startActivity(i);
                     dialog.cancel();
                     Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
                 }
@@ -450,7 +451,9 @@ public class DatabaseInvetoryActivity extends AppCompatActivity implements View.
                 {
                     numOfItems = Integer.parseInt(input.getText().toString());
                     new addOnTap().execute();
-
+                    Intent i = getIntent();
+                    finish();
+                    startActivity(i);
                     dialog.cancel();
                     Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
                 }
