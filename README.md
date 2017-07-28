@@ -11,4 +11,4 @@ The goal is to have them be able to use these programs from both their mobile de
 * Brandon Bigelow
 - Cristobal Hall-Ramos
 - Gabriel Leo
-- Ole Haruksha
+- Oleh Haruksha
